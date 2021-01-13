@@ -37,6 +37,13 @@
 
     </FrameLayout>
 
+    <eu.kanade.tachiyomi.ui.reader.translator.OCRRectangleView
+        android:id="@+id/ocr_rectangle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        tools:visibility="gone" />
+
     <eu.kanade.tachiyomi.ui.reader.ReaderColorFilterView
         android:id="@+id/color_overlay"
         android:layout_width="match_parent"

@@ -12,6 +12,7 @@ allprojects {
         jcenter()
         google()
         maven { setUrl("https://www.jitpack.io") }
+        maven { setUrl("https://developer.huawei.com/repo/") }
     }
 }
 
@@ -29,10 +30,12 @@ buildscript {
         classpath("com.google.gms:google-services:4.3.4")
         classpath("com.mikepenz.aboutlibraries.plugin:aboutlibraries-plugin:${BuildPluginsVersion.ABOUTLIB_PLUGIN}")
         classpath(kotlin("serialization", version = BuildPluginsVersion.KOTLIN))
+        classpath("com.huawei.agconnect:agcp:1.4.2.300")
     }
     repositories {
         google()
         jcenter()
+        maven { setUrl("https://developer.huawei.com/repo/") }
     }
 }
 

@@ -8,15 +8,11 @@ import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.content.res.Configuration
 import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
-import android.view.KeyEvent
-import android.view.Menu
-import android.view.MenuItem
-import android.view.MotionEvent
-import android.view.View
-import android.view.WindowManager
+import android.view.*
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.SeekBar
@@ -41,11 +37,14 @@ import eu.kanade.tachiyomi.ui.reader.ReaderPresenter.SetAsCoverResult.Success
 import eu.kanade.tachiyomi.ui.reader.model.ReaderChapter
 import eu.kanade.tachiyomi.ui.reader.model.ReaderPage
 import eu.kanade.tachiyomi.ui.reader.model.ViewerChapters
+import eu.kanade.tachiyomi.ui.reader.translator.OCRManager
+import eu.kanade.tachiyomi.ui.reader.translator.OCRRectangleView
+import eu.kanade.tachiyomi.ui.reader.translator.OCRTranslationSheet
 import eu.kanade.tachiyomi.ui.reader.viewer.BaseViewer
-import eu.kanade.tachiyomi.ui.reader.viewer.pager.L2RPagerViewer
-import eu.kanade.tachiyomi.ui.reader.viewer.pager.R2LPagerViewer
-import eu.kanade.tachiyomi.ui.reader.viewer.pager.VerticalPagerViewer
+import eu.kanade.tachiyomi.ui.reader.viewer.pager.*
 import eu.kanade.tachiyomi.ui.reader.viewer.webtoon.WebtoonViewer
+import eu.kanade.tachiyomi.util.lang.launchIO
+import eu.kanade.tachiyomi.util.lang.launchUI
 import eu.kanade.tachiyomi.util.storage.getUriCompat
 import eu.kanade.tachiyomi.util.system.GLUtil
 import eu.kanade.tachiyomi.util.system.hasDisplayCutout
@@ -227,6 +226,9 @@ class ReaderActivity : BaseRxActivity<ReaderActivityBinding, ReaderPresenter>() 
      */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            R.id.action_ocr -> {
+                getOCRRect()
+            }
             R.id.action_bookmark -> {
                 presenter.bookmarkCurrentChapter(true)
                 invalidateOptionsMenu()
@@ -249,6 +251,37 @@ class ReaderActivity : BaseRxActivity<ReaderActivityBinding, ReaderPresenter>() 
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun getOCRRect() {
+        toggleMenu()
+        when (val viewerLocal = viewer) {
+            is PagerViewer -> viewerLocal.pager.setGestureDetectorEnabled(false)
+            else -> {
+                toast("OCR doesn't work with webtoon viewer for now :)")
+                throw NotImplementedError("OCR doesn't work with webtoon viewer for now")
+            }
+        }
+        val ocrRectangleView = findViewById<OCRRectangleView>(R.id.ocr_rectangle)
+        ocrRectangleView.isVisible = true
+        ocrRectangleView.longTapCallback = {
+            ocrRectangleView.isVisible = false
+            (viewer as PagerViewer).pager.setGestureDetectorEnabled(true)
+            toast("Processing OCR...")
+            val view = viewer!!.getView()
+            val b = Bitmap.createBitmap(it.width().toInt(), it.height().toInt(), Bitmap.Config.ARGB_8888)
+            val canvas = Canvas(b)
+            canvas.translate(-it.left, -it.top)
+            view.draw(canvas)
+            launchIO { startOCR(b) }
+        }
+    }
+
+    private fun startOCR(b: Bitmap) {
+        val ocrManager = OCRManager(applicationContext)
+        val result = ocrManager.recognize(b)
+        val activity = this
+        launchUI { OCRTranslationSheet(activity, result).show() }
     }
 
     /**

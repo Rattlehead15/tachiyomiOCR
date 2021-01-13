@@ -7,6 +7,7 @@ import java.util.TimeZone
 plugins {
     id("com.android.application")
     id("com.mikepenz.aboutlibraries.plugin")
+    id("com.huawei.agconnect")
     kotlin("android")
     kotlin("kapt")
     kotlin("plugin.parcelize")
@@ -278,6 +279,15 @@ dependencies {
 
     // For detecting memory leaks; see https://square.github.io/leakcanary/
 //    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.4")
+
+    // OCR
+    implementation("com.huawei.hms:ml-computer-vision-ocr:2.0.5.300")
+    implementation("com.huawei.hms:ml-computer-vision-ocr-jk-model:2.0.5.300")
+    implementation("cz.adaptech.android:tesseract4android:2.1.0")
+    implementation("androidx.room:room-runtime:2.2.6")
+    kapt("androidx.room:room-compiler:2.2.6")
+    // optional - Kotlin Extensions and Coroutines support for Room
+    implementation("androidx.room:room-ktx:2.2.6")
 }
 
 tasks {

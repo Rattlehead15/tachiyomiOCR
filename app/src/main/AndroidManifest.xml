@@ -13,6 +13,10 @@
     <uses-permission android:name="android.permission.REQUEST_DELETE_PACKAGES" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
+    <meta-data
+        android:name="com.huawei.hms.ml.DEPENDENCY"
+        android:value= "ocr"/>
+
     <application
         android:name=".App"
         android:allowBackup="true"

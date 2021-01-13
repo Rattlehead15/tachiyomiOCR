@@ -3,6 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/action_ocr"
+        android:icon="@drawable/ic_select_all_24dp"
+        android:title="@string/action_ocr"
+        app:iconTint="?attr/colorOnPrimary"
+        app:showAsAction="ifRoom" />
+
+    <item
         android:id="@+id/action_bookmark"
         android:icon="@drawable/ic_bookmark_border_24dp"
         android:title="@string/action_bookmark"
