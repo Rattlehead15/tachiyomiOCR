@@ -1,5 +1,5 @@
 # Tachiyomi OCR
-This is a fork of Tachiyomi which adds OCR and Dictionary lookup features to the reader, to make the process of learning Japanese with manga easier.
+This is a fork of the popular manga reader Tachiyomi, which adds OCR and Dictionary lookup features to the reader to make the process of learning Japanese with manga easier.
 
 ## Added features
 
@@ -8,8 +8,8 @@ This is a fork of Tachiyomi which adds OCR and Dictionary lookup features to the
 
 ## Usage
 Tachiyomi OCR adds two new buttons in the reader menu, the dictionary button and the OCR button.
-The dictionary button is straightforward, it opens up the dictionary and you can look up any word you want.
-After the OCR button is pressed, you will be prompted to select the region of the screen which contains the word you want to look for. Once the region is selected, long press the OCR rectangle to scan the word and look it up in the dictionary
+ - The dictionary button is straightforward, it opens up the dictionary and you can look up any word you want.
+ - When the OCR button is pressed, you will be prompted to select the region of the screen which contains the word you want to look for. Once the region is selected, long press the OCR rectangle to scan the word and look it up in the dictionary
 
 ## Planned features
 
