@@ -6,10 +6,9 @@ import eu.kanade.tachiyomi.data.database.models.Track
 import eu.kanade.tachiyomi.data.track.model.TrackSearch
 import eu.kanade.tachiyomi.network.POST
 import eu.kanade.tachiyomi.network.await
+import eu.kanade.tachiyomi.network.jsonMime
 import eu.kanade.tachiyomi.network.parseAs
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
-import kotlinx.serialization.json.Json
+import eu.kanade.tachiyomi.util.lang.withIOContext
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.contentOrNull
@@ -21,21 +20,16 @@ import kotlinx.serialization.json.jsonPrimitive
 import kotlinx.serialization.json.long
 import kotlinx.serialization.json.put
 import kotlinx.serialization.json.putJsonObject
-import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody.Companion.toRequestBody
-import uy.kohesive.injekt.injectLazy
 import java.util.Calendar
 
 class AnilistApi(val client: OkHttpClient, interceptor: AnilistInterceptor) {
 
-    private val json: Json by injectLazy()
-
-    private val jsonMime = "application/json; charset=utf-8".toMediaType()
     private val authClient = client.newBuilder().addInterceptor(interceptor).build()
 
     suspend fun addLibManga(track: Track): Track {
-        return withContext(Dispatchers.IO) {
+        return withIOContext {
             val query =
                 """
             |mutation AddManga(${'$'}mangaId: Int, ${'$'}progress: Int, ${'$'}status: MediaListStatus) {
@@ -70,7 +64,7 @@ class AnilistApi(val client: OkHttpClient, interceptor: AnilistInterceptor) {
     }
 
     suspend fun updateLibManga(track: Track): Track {
-        return withContext(Dispatchers.IO) {
+        return withIOContext {
             val query =
                 """
             |mutation UpdateManga(${'$'}listId: Int, ${'$'}progress: Int, ${'$'}status: MediaListStatus, ${'$'}score: Int) {
@@ -97,7 +91,7 @@ class AnilistApi(val client: OkHttpClient, interceptor: AnilistInterceptor) {
     }
 
     suspend fun search(search: String): List<TrackSearch> {
-        return withContext(Dispatchers.IO) {
+        return withIOContext {
             val query =
                 """
             |query Search(${'$'}query: String) {
@@ -148,7 +142,7 @@ class AnilistApi(val client: OkHttpClient, interceptor: AnilistInterceptor) {
     }
 
     suspend fun findLibManga(track: Track, userid: Int): Track? {
-        return withContext(Dispatchers.IO) {
+        return withIOContext {
             val query =
                 """
             |query (${'$'}id: Int!, ${'$'}manga_id: Int!) {
@@ -214,7 +208,7 @@ class AnilistApi(val client: OkHttpClient, interceptor: AnilistInterceptor) {
     }
 
     suspend fun getCurrentUser(): Pair<Int, String> {
-        return withContext(Dispatchers.IO) {
+        return withIOContext {
             val query =
                 """
             |query User {

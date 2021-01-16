@@ -19,9 +19,8 @@ import eu.kanade.tachiyomi.util.lang.plusAssign
 import eu.kanade.tachiyomi.util.system.toast
 import eu.kanade.tachiyomi.util.view.inflate
 import eu.kanade.tachiyomi.widget.AutofitRecyclerView
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import reactivecircus.flowbinding.recyclerview.scrollStateChanges
@@ -37,7 +36,7 @@ class LibraryCategoryView @JvmOverloads constructor(context: Context, attrs: Att
     FlexibleAdapter.OnItemClickListener,
     FlexibleAdapter.OnItemLongClickListener {
 
-    private val scope = CoroutineScope(Job() + Dispatchers.Main)
+    private val scope = MainScope()
 
     private val preferences: PreferencesHelper by injectLazy()
 
@@ -157,7 +156,12 @@ class LibraryCategoryView @JvmOverloads constructor(context: Context, attrs: Att
         unsubscribe()
     }
 
-    fun unsubscribe() {
+    fun onDestroy() {
+        unsubscribe()
+        scope.cancel()
+    }
+
+    private fun unsubscribe() {
         subscriptions.clear()
     }
 

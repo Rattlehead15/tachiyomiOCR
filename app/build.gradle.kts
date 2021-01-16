@@ -7,7 +7,6 @@ import java.util.TimeZone
 plugins {
     id("com.android.application")
     id("com.mikepenz.aboutlibraries.plugin")
-    id("com.huawei.agconnect")
     kotlin("android")
     kotlin("kapt")
     kotlin("plugin.parcelize")
@@ -74,7 +73,7 @@ android {
                     isRemoveUnusedCode = false
                     isRemoveUnusedResources = true
                 }
-                setProguardFiles(listOf("proguard-rules.pro"))
+                setProguardFiles(listOf(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"))
             }*/
         }
     }
@@ -129,14 +128,14 @@ dependencies {
     implementation("tachiyomi.sourceapi:source-api:1.1")
 
     // AndroidX libraries
-    implementation("androidx.annotation:annotation:1.2.0-alpha01")
-    implementation("androidx.appcompat:appcompat:1.3.0-alpha02")
+    implementation("androidx.annotation:annotation:1.2.0-beta01")
+    implementation("androidx.appcompat:appcompat:1.3.0-beta01")
     implementation("androidx.biometric:biometric-ktx:1.2.0-alpha01")
     implementation("androidx.browser:browser:1.3.0")
     implementation("androidx.cardview:cardview:1.0.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.0-alpha2")
     implementation("androidx.coordinatorlayout:coordinatorlayout:1.1.0")
-    implementation("androidx.core:core-ktx:1.5.0-alpha05")
+    implementation("androidx.core:core-ktx:1.5.0-beta01")
     implementation("androidx.multidex:multidex:2.0.1")
     implementation("androidx.preference:preference-ktx:1.1.1")
     implementation("androidx.recyclerview:recyclerview:1.2.0-beta01")
@@ -148,10 +147,10 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion")
 
     // Job scheduling
-    implementation("androidx.work:work-runtime-ktx:2.5.0-beta02")
+    implementation("androidx.work:work-runtime-ktx:2.5.0-rc01")
 
     // UI library
-    implementation("com.google.android.material:material:1.3.0-beta01")
+    implementation("com.google.android.material:material:1.3.0-rc01")
 
     "standardImplementation"("com.google.firebase:firebase-core:18.0.0")
 
@@ -170,11 +169,6 @@ dependencies {
 
     // TLS 1.3 support for Android < 10
     implementation("org.conscrypt:conscrypt-android:2.5.1")
-
-    // REST
-    val retrofitVersion = "2.9.0"
-    implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
-    implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0")
 
     // JSON
     val kotlinSerializationVersion = "1.0.1"
@@ -217,7 +211,7 @@ dependencies {
     implementation("com.github.bumptech.glide:okhttp3-integration:$glideVersion")
     kapt("com.github.bumptech.glide:compiler:$glideVersion")
 
-    implementation("com.github.tachiyomiorg:subsampling-scale-image-view:6caf219")
+    implementation("com.github.tachiyomiorg:subsampling-scale-image-view:ca26317")
 
     // Logging
     implementation("com.jakewharton.timber:timber:4.7.1")
@@ -299,6 +293,7 @@ tasks {
             "-Xuse-experimental=kotlin.ExperimentalStdlibApi",
             "-Xuse-experimental=kotlinx.coroutines.FlowPreview",
             "-Xuse-experimental=kotlinx.coroutines.ExperimentalCoroutinesApi",
+            "-Xuse-experimental=kotlinx.coroutines.InternalCoroutinesApi",
             "-Xuse-experimental=kotlinx.serialization.ExperimentalSerializationApi"
         )
     }

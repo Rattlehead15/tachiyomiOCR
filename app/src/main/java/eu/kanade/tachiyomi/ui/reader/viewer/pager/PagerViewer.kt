@@ -15,7 +15,9 @@ import eu.kanade.tachiyomi.ui.reader.model.ChapterTransition
 import eu.kanade.tachiyomi.ui.reader.model.ReaderPage
 import eu.kanade.tachiyomi.ui.reader.model.ViewerChapters
 import eu.kanade.tachiyomi.ui.reader.viewer.BaseViewer
-import eu.kanade.tachiyomi.ui.reader.viewer.ViewerNavigation
+import eu.kanade.tachiyomi.ui.reader.viewer.ViewerNavigation.NavigationRegion
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.cancel
 import timber.log.Timber
 import kotlin.math.min
 
@@ -24,6 +26,8 @@ import kotlin.math.min
  */
 @Suppress("LeakingThis")
 abstract class PagerViewer(val activity: ReaderActivity) : BaseViewer {
+
+    private val scope = MainScope()
 
     /**
      * View pager used by this viewer. It's abstract to implement L2R, R2L and vertical pagers on
@@ -34,7 +38,7 @@ abstract class PagerViewer(val activity: ReaderActivity) : BaseViewer {
     /**
      * Configuration used by the pager, like allow taps, scale mode on images, page transitions...
      */
-    val config = PagerConfig(this)
+    val config = PagerConfig(this, scope)
 
     /**
      * Adapter of the pager.
@@ -93,9 +97,11 @@ abstract class PagerViewer(val activity: ReaderActivity) : BaseViewer {
             val pos = PointF(event.rawX / pager.width, event.rawY / pager.height)
             val navigator = config.navigator
             when (navigator.getAction(pos)) {
-                ViewerNavigation.NavigationRegion.MENU -> activity.toggleMenu()
-                ViewerNavigation.NavigationRegion.NEXT -> moveToNext()
-                ViewerNavigation.NavigationRegion.PREV -> moveToPrevious()
+                NavigationRegion.MENU -> activity.toggleMenu()
+                NavigationRegion.NEXT -> moveToNext()
+                NavigationRegion.PREV -> moveToPrevious()
+                NavigationRegion.RIGHT -> moveRight()
+                NavigationRegion.LEFT -> moveLeft()
             }
         }
         pager.longTapListener = f@{
@@ -112,6 +118,11 @@ abstract class PagerViewer(val activity: ReaderActivity) : BaseViewer {
         config.imagePropertyChangedListener = {
             refreshAdapter()
         }
+    }
+
+    override fun destroy() {
+        super.destroy()
+        scope.cancel()
     }
 
     /**

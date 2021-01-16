@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
+import androidx.lifecycle.lifecycleScope
 import androidx.preference.PreferenceDialogController
 import com.bluelinelabs.conductor.Conductor
 import com.bluelinelabs.conductor.Controller
@@ -67,6 +68,8 @@ class MainActivity : BaseViewBindingActivity<MainActivityBinding>() {
     private var isConfirmingExit: Boolean = false
     private var isHandlingShortcut: Boolean = false
 
+    private var fixedViewsToBottom = mutableMapOf<View, AppBarLayout.OnOffsetChangedListener>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -87,7 +90,7 @@ class MainActivity : BaseViewBindingActivity<MainActivityBinding>() {
         // Set behavior of bottom nav
         preferences.hideBottomBar()
             .asImmediateFlow { setBottomNavBehaviorOnScroll() }
-            .launchIn(scope)
+            .launchIn(lifecycleScope)
 
         binding.bottomNav.setOnNavigationItemSelectedListener { item ->
             val id = item.itemId
@@ -159,15 +162,15 @@ class MainActivity : BaseViewBindingActivity<MainActivityBinding>() {
 
         preferences.extensionUpdatesCount()
             .asImmediateFlow { setExtensionsBadge() }
-            .launchIn(scope)
+            .launchIn(lifecycleScope)
 
         preferences.downloadedOnly()
             .asImmediateFlow { binding.downloadedOnly.isVisible = it }
-            .launchIn(scope)
+            .launchIn(lifecycleScope)
 
         preferences.incognitoMode()
             .asImmediateFlow { binding.incognitoMode.isVisible = it }
-            .launchIn(scope)
+            .launchIn(lifecycleScope)
     }
 
     override fun onNewIntent(intent: Intent) {
@@ -196,7 +199,7 @@ class MainActivity : BaseViewBindingActivity<MainActivityBinding>() {
             return
         }
 
-        launchIO {
+        lifecycleScope.launchIO {
             try {
                 val pendingUpdates = ExtensionGithubApi().checkForUpdates(this@MainActivity)
                 preferences.extensionUpdatesCount().set(pendingUpdates.size)
@@ -289,7 +292,7 @@ class MainActivity : BaseViewBindingActivity<MainActivityBinding>() {
             setSelectedNavItem(startScreenId)
         } else if (shouldHandleExitConfirmation()) {
             // Exit confirmation (resets after 2 seconds)
-            launchUI { resetExitConfirmation() }
+            lifecycleScope.launchUI { resetExitConfirmation() }
         } else if (backstackSize == 1 || !router.handleBack()) {
             // Regular back
             super.onBackPressed()
@@ -401,12 +404,17 @@ class MainActivity : BaseViewBindingActivity<MainActivityBinding>() {
      * the collapsing AppBarLayout.
      */
     fun fixViewToBottom(view: View) {
-        binding.appbar.addOnOffsetChangedListener(
-            AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
-                val maxAbsOffset = appBarLayout.measuredHeight - binding.tabs.measuredHeight
-                view.translationY = -maxAbsOffset - verticalOffset.toFloat()
-            }
-        )
+        val listener = AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
+            val maxAbsOffset = appBarLayout.measuredHeight - binding.tabs.measuredHeight
+            view.translationY = -maxAbsOffset - verticalOffset.toFloat()
+        }
+        binding.appbar.addOnOffsetChangedListener(listener)
+        fixedViewsToBottom[view] = listener
+    }
+
+    fun clearFixViewToBottom(view: View) {
+        val listener = fixedViewsToBottom.remove(view)
+        binding.appbar.removeOnOffsetChangedListener(listener)
     }
 
     private fun setBottomNavBehaviorOnScroll() {
