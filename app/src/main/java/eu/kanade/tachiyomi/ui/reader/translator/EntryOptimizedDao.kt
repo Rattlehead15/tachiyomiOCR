@@ -5,6 +5,6 @@ import androidx.room.Query
 
 @Dao
 interface EntryOptimizedDao {
-    @Query("SELECT * FROM entryoptimized WHERE kanji LIKE :kanji LIMIT 10")
+    @Query("SELECT * FROM entryoptimized WHERE kanji LIKE :kanji")
     suspend fun findByName(kanji: String): List<EntryOptimized>
 }

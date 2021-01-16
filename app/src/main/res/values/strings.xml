@@ -736,6 +736,8 @@
     <string name="spen_previous_page">Previous page</string>
     <string name="spen_next_page">Next page</string>
     <string name="action_ocr">OCR</string>
-    <string name="ocr_result">OCR result</string>
+    <string name="dict_search">Look up a word</string>
+    <string name="action_dictionary">Open Dictionary</string>
+    <string name="dict_no_results">Either there were no results, or you haven\'t searched anything</string>
 
 </resources>

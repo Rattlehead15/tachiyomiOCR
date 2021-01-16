@@ -281,13 +281,13 @@ dependencies {
 //    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.4")
 
     // OCR
-    implementation("com.huawei.hms:ml-computer-vision-ocr:2.0.5.300")
-    implementation("com.huawei.hms:ml-computer-vision-ocr-jk-model:2.0.5.300")
     implementation("cz.adaptech.android:tesseract4android:2.1.0")
     implementation("androidx.room:room-runtime:2.2.6")
     kapt("androidx.room:room-compiler:2.2.6")
     // optional - Kotlin Extensions and Coroutines support for Room
     implementation("androidx.room:room-ktx:2.2.6")
+    implementation("com.github.rattlehead15:kaku:master-SNAPSHOT")
+    implementation("com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava")
 }
 
 tasks {

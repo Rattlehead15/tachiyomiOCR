@@ -226,6 +226,9 @@ class ReaderActivity : BaseRxActivity<ReaderActivityBinding, ReaderPresenter>() 
      */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            R.id.action_dictionary -> {
+                OCRTranslationSheet(this, "").show()
+            }
             R.id.action_ocr -> {
                 getOCRRect()
             }
@@ -281,7 +284,7 @@ class ReaderActivity : BaseRxActivity<ReaderActivityBinding, ReaderPresenter>() 
         val ocrManager = OCRManager(applicationContext)
         val result = ocrManager.recognize(b)
         val activity = this
-        launchUI { OCRTranslationSheet(activity, result).show() }
+        launchUI { OCRTranslationSheet(activity, result.text).show() }
     }
 
     /**

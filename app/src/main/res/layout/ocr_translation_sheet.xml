@@ -9,54 +9,40 @@
 
     <TableRow
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="top">
+        android:layout_height="60dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="center">
 
         <EditText
             android:id="@+id/ocrResultText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:enabled="false"
-            android:hint="@string/ocr_result"
+            android:hint="@string/dict_search"
             android:importantForAutofill="no"
-            android:inputType="textMultiLine"
-            android:textSize="24sp"
-            tools:text="毎日ポケモンゴーをやります" />
+            android:inputType="text"
+            android:textSize="24sp" />
 
-        <LinearLayout
+        <ImageButton
+            android:id="@+id/searchOCRResult"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <ImageButton
-                android:id="@+id/searchOCRResult"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:contentDescription="@string/action_search"
-                app:srcCompat="@drawable/ic_search_24dp" />
-
-            <ImageButton
-                android:id="@+id/editOCRResult"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:contentDescription="@string/action_edit"
-                app:srcCompat="@drawable/ic_edit_24dp" />
-        </LinearLayout>
+            android:contentDescription="@string/action_search"
+            app:srcCompat="@drawable/ic_search_24dp" />
 
     </TableRow>
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/dictResults"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="240dp"
+        android:visibility="gone">
 
         <LinearLayout
             android:id="@+id/entriesLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <include
                 layout="@layout/dictionary_entry"
@@ -64,7 +50,23 @@
                 android:layout_height="wrap_content"
                 android:visibility="gone"
                 tools:visibility="visible" />
+
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
+
+    <FrameLayout
+        android:id="@+id/dictNoResults"
+        android:layout_width="match_parent"
+        android:layout_height="240dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/dict_no_results"
+            app:drawableTopCompat="@drawable/ic_search_24dp"
+            tools:text="Dale capo busca algo o te cago a piñas" />
+    </FrameLayout>
 
 </LinearLayout>
