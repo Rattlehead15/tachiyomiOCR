@@ -1,7 +1,23 @@
-| Build | Stable | Weekly Preview | Contribute | Support Server |
-|-------|----------|---------|------------|---------|
-| ![CI](https://github.com/tachiyomiorg/tachiyomi/workflows/CI/badge.svg?branch=dev&event=push) | [![stable release](https://img.shields.io/github/release/tachiyomiorg/tachiyomi.svg?maxAge=3600&label=download)](https://github.com/tachiyomiorg/tachiyomi/releases) | [![latest weekly build](https://img.shields.io/github/v/release/tachiyomiorg/tachiyomi-preview.svg?maxAge=3600&label=download)](https://github.com/tachiyomiorg/tachiyomi-preview/releases) | [![Translation status](https://hosted.weblate.org/widgets/tachiyomi/-/svg-badge.svg)](https://hosted.weblate.org/engage/tachiyomi/?utm_source=widget) | [![Discord](https://img.shields.io/discord/349436576037732353.svg)](https://discord.gg/tachiyomi) |
+# Tachiyomi OCR
+This is a fork of Tachiyomi which adds OCR and Dictionary lookup features to the reader, to make the process of learning Japanese with manga easier.
 
+## Added features
+
+* Popup dictionary to quickly look up unknown words. Supports deinflection of verbs and adjectives.
+* OCR (Optical character recognition) to quickly search words without having to write them.
+
+## Usage
+Tachiyomi OCR adds two new buttons in the reader menu, the dictionary button and the OCR button.
+The dictionary button is straightforward, it opens up the dictionary and you can look up any word you want.
+After the OCR button is pressed, you will be prompted to select the region of the screen which contains the word you want to look for. Once the region is selected, long press the OCR rectangle to scan the word and look it up in the dictionary
+
+## Planned features
+
+* Anki export support
+* Hiragana word lookup (currently only words written in kanji work)
+* Support for horizontal text, dark backgrounds and other languages
+
+If you would like to see these features added consider supporting me!
 
 # ![app icon](./.github/readme-images/app-icon.png)Tachiyomi
 Tachiyomi is a free and open source manga reader for Android 5.0 and above.
