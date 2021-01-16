@@ -17,7 +17,7 @@ Tachiyomi OCR adds two new buttons in the reader menu, the dictionary button and
 * Hiragana word lookup (currently only words written in kanji work)
 * Support for horizontal text, dark backgrounds and other languages
 
-If you would like to see these features added consider ![supporting me](https://ko-fi.com/rattlehead15)!
+If you would like to see these features added consider [supporting me](https://ko-fi.com/rattlehead15)!
 
 # ![app icon](./.github/readme-images/app-icon.png)Tachiyomi
 Tachiyomi is a free and open source manga reader for Android 5.0 and above.
