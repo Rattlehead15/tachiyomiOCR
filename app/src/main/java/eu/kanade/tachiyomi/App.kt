@@ -14,23 +14,20 @@ import eu.kanade.tachiyomi.data.preference.PreferencesHelper
 import eu.kanade.tachiyomi.ui.security.SecureActivityDelegate
 import eu.kanade.tachiyomi.util.system.LocaleHelper
 import org.acra.ACRA
-import org.acra.annotation.AcraCore
-import org.acra.annotation.AcraHttpSender
-import org.acra.sender.HttpSender
 import org.conscrypt.Conscrypt
 import timber.log.Timber
 import uy.kohesive.injekt.Injekt
 import uy.kohesive.injekt.injectLazy
 import java.security.Security
 
-@AcraCore(
+/*@AcraCore(
     buildConfigClass = BuildConfig::class,
     excludeMatchingSharedPreferencesKeys = [".*username.*", ".*password.*", ".*token.*"]
 )
 @AcraHttpSender(
     uri = "https://tachiyomi.kanade.eu/crash_report",
     httpMethod = HttpSender.Method.PUT
-)
+)*/
 open class App : Application(), LifecycleObserver {
 
     override fun onCreate() {
@@ -53,7 +50,7 @@ open class App : Application(), LifecycleObserver {
 
         Injekt.importModule(AppModule(this))
 
-        setupAcra()
+        // setupAcra()
         setupNotificationChannels()
 
         LocaleHelper.updateConfiguration(this, resources.configuration)
