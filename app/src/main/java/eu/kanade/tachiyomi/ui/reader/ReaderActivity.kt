@@ -259,18 +259,10 @@ class ReaderActivity : BaseRxActivity<ReaderActivityBinding, ReaderPresenter>() 
 
     private fun getOCRRect() {
         toggleMenu()
-        when (val viewerLocal = viewer) {
-            is PagerViewer -> viewerLocal.pager.setGestureDetectorEnabled(false)
-            else -> {
-                toast("OCR doesn't work with webtoon viewer for now :)")
-                throw NotImplementedError("OCR doesn't work with webtoon viewer for now")
-            }
-        }
         val ocrRectangleView = findViewById<OCRRectangleView>(R.id.ocr_rectangle)
         ocrRectangleView.isVisible = true
         ocrRectangleView.longTapCallback = {
             ocrRectangleView.isVisible = false
-            (viewer as PagerViewer).pager.setGestureDetectorEnabled(true)
             toast("Processing OCR...")
             val view = viewer!!.getView()
             val b = Bitmap.createBitmap(it.width().toInt(), it.height().toInt(), Bitmap.Config.ARGB_8888)
