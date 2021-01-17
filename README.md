@@ -1,4 +1,7 @@
 # Tachiyomi OCR
+
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/rattlehead15/tachiyomiOCR?label=download&style=for-the-badge)](https://github.com/Rattlehead15/tachiyomiOCR/releases)
+
 This is a fork of the popular manga reader Tachiyomi, which adds OCR and Dictionary lookup features to the reader to make the process of learning Japanese with manga easier.
 
 ## Added features
