@@ -15,9 +15,9 @@ class GithubUpdateChecker {
 
     private val repo: String by lazy {
         if (BuildConfig.DEBUG) {
-            "tachiyomiorg/tachiyomi-preview"
+            "rattlehead15/tachiyomiocr"
         } else {
-            "tachiyomiorg/tachiyomi"
+            "rattlehead15/tachiyomiocr"
         }
     }
 

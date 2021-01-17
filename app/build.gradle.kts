@@ -37,7 +37,7 @@ android {
     ndkVersion = AndroidConfig.ndk
 
     defaultConfig {
-        applicationId = "eu.kanade.tachiyomi"
+        applicationId = "com.rattlehead15.tachiyomiocr"
         minSdkVersion(AndroidConfig.minSdk)
         targetSdkVersion(AndroidConfig.targetSdk)
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"

@@ -52,6 +52,7 @@ class OCRRectangleView(context: Context, attrs: AttributeSet? = null) : View(con
         if (!isRectangleDone) {
             return when (event.actionMasked) {
                 ACTION_DOWN -> {
+                    hasMoved = false
                     val x = event.x
                     val y = event.y
                     if (!rectOCR.contains(x, y)) {
@@ -64,13 +65,18 @@ class OCRRectangleView(context: Context, attrs: AttributeSet? = null) : View(con
                 ACTION_MOVE -> {
                     val x2 = event.x
                     val y2 = event.y
+                    if (!hasMoved && PointF(x2 - x1, y2 - y1).length() > width / 30) {
+                        hasMoved = true
+                    }
                     rectOCR.set(min(x1, x2), min(y1, y2), max(x1, x2), max(y1, y2))
                     invalidate()
                     true
                 }
                 ACTION_UP -> {
-                    isRectangleDone = true
-                    invalidate()
+                    if (hasMoved) {
+                        isRectangleDone = true
+                        invalidate()
+                    }
                     true
                 }
                 else -> false

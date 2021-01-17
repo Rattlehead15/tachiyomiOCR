@@ -8,7 +8,6 @@ import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.content.res.Configuration
 import android.graphics.Bitmap
-import android.graphics.Canvas
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
@@ -16,10 +15,7 @@ import android.view.*
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.SeekBar
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.isVisible
-import androidx.core.view.setPadding
+import androidx.core.view.*
 import androidx.lifecycle.lifecycleScope
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
 import com.google.android.material.snackbar.Snackbar
@@ -264,11 +260,13 @@ class ReaderActivity : BaseRxActivity<ReaderActivityBinding, ReaderPresenter>() 
         ocrRectangleView.longTapCallback = {
             ocrRectangleView.isVisible = false
             toast("Processing OCR...")
-            val view = viewer!!.getView()
-            val b = Bitmap.createBitmap(it.width().toInt(), it.height().toInt(), Bitmap.Config.ARGB_8888)
-            val canvas = Canvas(b)
-            canvas.translate(-it.left, -it.top)
-            view.draw(canvas)
+            val b = Bitmap.createBitmap(
+                viewer!!.getView().drawToBitmap(Bitmap.Config.ARGB_8888),
+                it.left.toInt(),
+                it.top.toInt(),
+                it.width().toInt(),
+                it.height().toInt()
+            )
             launchIO { startOCR(b) }
         }
     }
