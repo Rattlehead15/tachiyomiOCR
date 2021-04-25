@@ -34,7 +34,7 @@ import uy.kohesive.injekt.injectLazy
 
 class WebViewActivity : BaseViewBindingActivity<WebviewActivityBinding>() {
 
-    private val sourceManager by injectLazy<SourceManager>()
+    private val sourceManager: SourceManager by injectLazy()
 
     private var bundle: Bundle? = null
 
@@ -139,8 +139,10 @@ class WebViewActivity : BaseViewBindingActivity<WebviewActivityBinding>() {
     }
 
     override fun onDestroy() {
-        binding.webview?.destroy()
         super.onDestroy()
+
+        // Binding sometimes isn't actually instantiated yet somehow
+        binding?.webview?.destroy()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

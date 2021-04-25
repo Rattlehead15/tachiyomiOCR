@@ -9,7 +9,6 @@ plugins {
     id("com.mikepenz.aboutlibraries.plugin")
     kotlin("android")
     kotlin("kapt")
-    kotlin("plugin.parcelize")
     kotlin("plugin.serialization")
     id("com.github.zellius.shortcut-helper")
 }
@@ -19,17 +18,6 @@ if (gradle.startParameter.taskRequests.toString().contains("Standard")) {
 }
 
 shortcutHelper.setFilePath("./shortcuts.xml")
-
-
-fun runCommand(command: String): String {
-    val byteOut = ByteArrayOutputStream()
-    project.exec {
-        commandLine = command.split(" ")
-        standardOutput = byteOut
-    }
-    return String(byteOut.toByteArray()).trim()
-}
-
 
 android {
     compileSdkVersion(AndroidConfig.compileSdk)
@@ -41,13 +29,16 @@ android {
         minSdkVersion(AndroidConfig.minSdk)
         targetSdkVersion(AndroidConfig.targetSdk)
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        versionCode = 54
-        versionName = "0.10.7"
+        versionCode = 58
+        versionName = "0.10.11"
 
         buildConfigField("String", "COMMIT_COUNT", "\"${getCommitCount()}\"")
         buildConfigField("String", "COMMIT_SHA", "\"${getGitSha()}\"")
         buildConfigField("String", "BUILD_TIME", "\"${getBuildTime()}\"")
         buildConfigField("boolean", "INCLUDE_UPDATER", "false")
+
+        // Please disable ACRA or use your own instance in forked versions of the project
+        buildConfigField("String", "ACRA_URI", "")
 
         multiDexEnabled = true
 
@@ -100,6 +91,7 @@ android {
         exclude("META-INF/LICENSE")
         exclude("META-INF/LICENSE.txt")
         exclude("META-INF/NOTICE")
+        exclude("META-INF/*.kotlin_module")
     }
 
     dependenciesInfo {
@@ -128,31 +120,31 @@ dependencies {
     implementation("tachiyomi.sourceapi:source-api:1.1")
 
     // AndroidX libraries
-    implementation("androidx.annotation:annotation:1.2.0-beta01")
-    implementation("androidx.appcompat:appcompat:1.3.0-beta01")
-    implementation("androidx.biometric:biometric-ktx:1.2.0-alpha01")
+    implementation("androidx.annotation:annotation:1.3.0-alpha01")
+    implementation("androidx.appcompat:appcompat:1.3.0-rc01")
+    implementation("androidx.biometric:biometric-ktx:1.2.0-alpha03")
     implementation("androidx.browser:browser:1.3.0")
     implementation("androidx.cardview:cardview:1.0.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.0-alpha2")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.0-beta01")
     implementation("androidx.coordinatorlayout:coordinatorlayout:1.1.0")
-    implementation("androidx.core:core-ktx:1.5.0-beta01")
+    implementation("androidx.core:core-ktx:1.3.2")
     implementation("androidx.multidex:multidex:2.0.1")
     implementation("androidx.preference:preference-ktx:1.1.1")
-    implementation("androidx.recyclerview:recyclerview:1.2.0-beta01")
+    implementation("androidx.recyclerview:recyclerview:1.2.0")
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01")
 
-    val lifecycleVersion = "2.3.0-rc01"
+    val lifecycleVersion = "2.3.0"
     implementation("androidx.lifecycle:lifecycle-common-java8:$lifecycleVersion")
     implementation("androidx.lifecycle:lifecycle-process:$lifecycleVersion")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion")
 
     // Job scheduling
-    implementation("androidx.work:work-runtime-ktx:2.5.0-rc01")
+    implementation("androidx.work:work-runtime-ktx:2.5.0")
 
     // UI library
-    implementation("com.google.android.material:material:1.3.0-rc01")
+    implementation("com.google.android.material:material:1.3.0")
 
-    "standardImplementation"("com.google.firebase:firebase-core:18.0.0")
+    "standardImplementation"("com.google.firebase:firebase-core:18.0.3")
 
     // ReactiveX
     implementation("io.reactivex:rxandroid:1.2.1")
@@ -161,17 +153,17 @@ dependencies {
     implementation("com.github.pwittchen:reactivenetwork:0.13.0")
 
     // Network client
-    val okhttpVersion = "4.10.0-RC1"
+    val okhttpVersion = "4.9.1"
     implementation("com.squareup.okhttp3:okhttp:$okhttpVersion")
     implementation("com.squareup.okhttp3:logging-interceptor:$okhttpVersion")
     implementation("com.squareup.okhttp3:okhttp-dnsoverhttps:$okhttpVersion")
-    implementation("com.squareup.okio:okio:2.9.0")
+    implementation("com.squareup.okio:okio:2.10.0")
 
     // TLS 1.3 support for Android < 10
     implementation("org.conscrypt:conscrypt-android:2.5.1")
 
     // JSON
-    val kotlinSerializationVersion = "1.0.1"
+    val kotlinSerializationVersion = "1.1.0"
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlinSerializationVersion")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-protobuf:$kotlinSerializationVersion")
     implementation("com.google.code.gson:gson:2.8.6")
@@ -182,7 +174,7 @@ dependencies {
 
     // Disk
     implementation("com.jakewharton:disklrucache:2.0.2")
-    implementation("com.github.inorichi:unifile:e9ee588")
+    implementation("com.github.tachiyomiorg:unifile:17bec43")
     implementation("com.github.junrar:junrar:7.4.0")
 
     // HTML parser
@@ -195,7 +187,7 @@ dependencies {
     implementation("io.requery:sqlite-android:3.33.0")
 
     // Preferences
-    implementation("com.github.tfcporciuncula.flow-preferences:flow-preferences:1.3.3")
+    implementation("com.github.tfcporciuncula.flow-preferences:flow-preferences:1.3.4")
 
     // Model View Presenter
     val nucleusVersion = "3.0.0"
@@ -206,12 +198,12 @@ dependencies {
     implementation("com.github.inorichi.injekt:injekt-core:65b0440")
 
     // Image library
-    val glideVersion = "4.11.0"
+    val glideVersion = "4.12.0"
     implementation("com.github.bumptech.glide:glide:$glideVersion")
     implementation("com.github.bumptech.glide:okhttp3-integration:$glideVersion")
     kapt("com.github.bumptech.glide:compiler:$glideVersion")
 
-    implementation("com.github.tachiyomiorg:subsampling-scale-image-view:ca26317")
+    implementation("com.github.tachiyomiorg:subsampling-scale-image-view:547d9c0")
 
     // Logging
     implementation("com.jakewharton.timber:timber:4.7.1")
@@ -229,7 +221,8 @@ dependencies {
     implementation("eu.davidea:flexible-adapter-ui:1.0.0")
     implementation("com.nightlynexus.viewstatepageradapter:viewstatepageradapter:1.1.0")
     implementation("com.github.chrisbanes:PhotoView:2.3.0")
-    implementation("com.github.tachiyomiorg:DirectionalViewPager:7d0617d")
+    implementation("com.github.tachiyomiorg:DirectionalViewPager:1.0.0")
+    implementation("dev.chrisbanes.insetter:insetter:0.5.0")
 
     // 3.2.0+ introduces weird UI blinking or cut off issues on some devices
     val materialDialogsVersion = "3.1.1"
@@ -242,7 +235,7 @@ dependencies {
     implementation("com.bluelinelabs:conductor-support:2.1.5") {
         exclude(group = "com.android.support")
     }
-    implementation("com.github.tachiyomiorg:conductor-support-preference:1.1.1")
+    implementation("com.github.tachiyomiorg:conductor-support-preference:2.0.1")
 
     // FlowBinding
     val flowbindingVersion = "0.12.0"
@@ -256,7 +249,7 @@ dependencies {
     implementation("com.mikepenz:aboutlibraries:${BuildPluginsVersion.ABOUTLIB_PLUGIN}")
 
     // Tests
-    testImplementation("junit:junit:4.13")
+    testImplementation("junit:junit:4.13.2")
     testImplementation("org.assertj:assertj-core:3.16.1")
     testImplementation("org.mockito:mockito-core:1.10.19")
 
@@ -267,12 +260,12 @@ dependencies {
 
     implementation(kotlin("reflect", version = BuildPluginsVersion.KOTLIN))
 
-    val coroutinesVersion = "1.4.2"
+    val coroutinesVersion = "1.4.3"
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion")
 
     // For detecting memory leaks; see https://square.github.io/leakcanary/
-//    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.4")
+    // debugImplementation("com.squareup.leakcanary:leakcanary-android:2.7")
 
     // OCR
     implementation("cz.adaptech.android:tesseract4android:2.1.0")
@@ -320,11 +313,6 @@ buildscript {
     }
 }
 
-repositories {
-    mavenCentral()
-    jcenter()
-}
-
 
 // Git is needed in your system PATH for these commands to work.
 // If it's not installed, you can return a random value as a workaround
@@ -342,4 +330,13 @@ fun getBuildTime(): String {
     val df = SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'")
     df.timeZone = TimeZone.getTimeZone("UTC")
     return df.format(Date())
+}
+
+fun runCommand(command: String): String {
+    val byteOut = ByteArrayOutputStream()
+    project.exec {
+        commandLine = command.split(" ")
+        standardOutput = byteOut
+    }
+    return String(byteOut.toByteArray()).trim()
 }

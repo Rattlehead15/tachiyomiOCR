@@ -11,13 +11,13 @@ import eu.kanade.tachiyomi.ui.manga.MangaPresenter
 import eu.kanade.tachiyomi.util.view.popupMenu
 import eu.kanade.tachiyomi.widget.ExtendedNavigationView
 import eu.kanade.tachiyomi.widget.ExtendedNavigationView.Item.TriStateGroup.State
-import eu.kanade.tachiyomi.widget.TabbedBottomSheetDialog
+import eu.kanade.tachiyomi.widget.sheet.TabbedBottomSheetDialog
 
 class ChaptersSettingsSheet(
     private val router: Router,
     private val presenter: MangaPresenter,
     onGroupClickListener: (ExtendedNavigationView.Group) -> Unit
-) : TabbedBottomSheetDialog(router) {
+) : TabbedBottomSheetDialog(router.activity!!) {
 
     val filters: Filter
     private val sort: Sort
@@ -51,16 +51,12 @@ class ChaptersSettingsSheet(
 
     private fun showPopupMenu(view: View) {
         view.popupMenu(
-            R.menu.default_chapter_filter,
-            {
-            },
-            {
-                when (this.itemId) {
+            menuRes = R.menu.default_chapter_filter,
+            onMenuItemClick = {
+                when (itemId) {
                     R.id.set_as_default -> {
                         SetChapterSettingsDialog(presenter.manga).showDialog(router)
-                        true
                     }
-                    else -> true
                 }
             }
         )

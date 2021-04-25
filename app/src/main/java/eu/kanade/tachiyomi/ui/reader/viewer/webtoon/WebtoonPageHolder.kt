@@ -66,6 +66,7 @@ class WebtoonPageHolder(
      * Image view that supports subsampling on zoom.
      */
     private var subsamplingImageView: SubsamplingScaleImageView? = null
+    private var cropBorders: Boolean = false
 
     /**
      * Simple image view only used on GIFs.
@@ -287,6 +288,15 @@ class WebtoonPageHolder(
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnNext { isAnimated ->
+                if (viewer.config.dualPageSplit) {
+                    val (isDoublePage, stream) = ImageUtil.isDoublePage(openStream!!)
+                    openStream = if (!isDoublePage) {
+                        stream
+                    } else {
+                        val upperSide = if (viewer.config.dualPageInvert) ImageUtil.Side.LEFT else ImageUtil.Side.RIGHT
+                        ImageUtil.splitAndMerge(stream, upperSide)
+                    }
+                }
                 if (!isAnimated) {
                     val subsamplingView = initSubsamplingImageView()
                     subsamplingView.isVisible = true
@@ -351,17 +361,25 @@ class WebtoonPageHolder(
      * Initializes a subsampling scale view.
      */
     private fun initSubsamplingImageView(): SubsamplingScaleImageView {
-        if (subsamplingImageView != null) return subsamplingImageView!!
-
         val config = viewer.config
 
+        if (subsamplingImageView != null) {
+            if (config.imageCropBorders != cropBorders) {
+                cropBorders = config.imageCropBorders
+                subsamplingImageView!!.setCropBorders(config.imageCropBorders)
+            }
+
+            return subsamplingImageView!!
+        }
+
+        cropBorders = config.imageCropBorders
         subsamplingImageView = WebtoonSubsamplingImageView(context).apply {
             setMaxTileSize(viewer.activity.maxBitmapSize)
             setPanLimit(SubsamplingScaleImageView.PAN_LIMIT_INSIDE)
             setMinimumScaleType(SubsamplingScaleImageView.SCALE_TYPE_FIT_WIDTH)
             setMinimumDpi(90)
             setMinimumTileDpi(180)
-            setCropBorders(config.imageCropBorders)
+            setCropBorders(cropBorders)
             setOnImageEventListener(
                 object : SubsamplingScaleImageView.DefaultOnImageEventListener() {
                     override fun onReady() {

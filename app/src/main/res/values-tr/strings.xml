@@ -11,7 +11,6 @@
     <string name="label_library">Kitaplık</string>
     <string name="label_recent_manga">Geçmiş</string>
     <string name="label_recent_updates">Güncellemeler</string>
-    <string name="label_categories">Kategoriler</string>
     <string name="label_backup">Yedekleme</string>
     <string name="label_migration">Taşın</string>
     <string name="label_extensions">Uzantılar</string>
@@ -32,8 +31,8 @@
     <string name="action_mark_as_unread">Okunmamış olarak işaretle</string>
     <string name="action_mark_previous_as_read">Öncekileri okunmuş olarak işaretle</string>
     <string name="action_download">İndir</string>
-    <string name="action_bookmark">İşaretle</string>
-    <string name="action_remove_bookmark">İşareti kaldır</string>
+    <string name="action_bookmark">Bölümü işaretle</string>
+    <string name="action_remove_bookmark">Bölümün işaretini kaldır</string>
     <string name="action_delete">Sil</string>
     <string name="action_update">Güncelle</string>
     <string name="action_update_library">Kitaplığı güncelle</string>
@@ -88,7 +87,7 @@
     <string name="portrait">Dikey</string>
     <string name="landscape">Yatay</string>
     <string name="default_columns">Öntanımlı</string>
-    <string name="pref_library_update_interval">Kitaplık güncelleme sıklığı</string>
+    <string name="pref_library_update_interval">Güncelleme sıklığı</string>
     <string name="update_never">Elle</string>
     <string name="update_1hour">Her saat</string>
     <string name="update_2hour">2 saatte bir</string>
@@ -98,12 +97,9 @@
     <string name="update_24hour">Her gün</string>
     <string name="update_48hour">2 günde bir</string>
     <string name="update_weekly">Her hafta</string>
-    <string name="update_monthly">Her ay</string>
-    <string name="pref_library_update_categories">Genel güncellemeye eklenecek kategoriler</string>
     <string name="all">Tümü</string>
-    <string name="pref_library_update_restriction">Kitaplık güncelleme kısıtlamaları</string>
+    <string name="pref_library_update_restriction">Güncelleme kısıtlamaları</string>
     <string name="pref_library_update_restriction_summary">Yalnızca koşullar sağlandığında güncelle</string>
-    <string name="wifi">Wi-Fi</string>
     <string name="charging">Şarj oluyor</string>
     <string name="pref_update_only_non_completed">Yalnızca devam eden mangaları güncelleme</string>
     <string name="pref_auto_update_manga_sync">Okuyunca bölüm ilerlemesini güncelle</string>
@@ -124,10 +120,10 @@
     <string name="ext_uninstall">Kaldır</string>
     <string name="ext_available">Kullanılabilir</string>
     <string name="untrusted_extension">Güvenilmeyen uzantı</string>
-    <string name="untrusted_extension_message">Bu uzantı güvenilmeyen bir sertifika ile imzalanmış ve etkinleştirilmedi. 
-\n 
-\nKötü niyetli bir uzantı, Tachiyomi\'de saklanan her giriş kimlik bilgisini okuyabilir veya rastgele kod yürütebilir. 
-\n 
+    <string name="untrusted_extension_message">Bu uzantı güvenilmeyen bir sertifika ile imzalanmış ve etkinleştirilmedi.
+\n
+\nKötü niyetli bir uzantı, Tachiyomi\'de saklanan her giriş kimlik bilgisini okuyabilir veya rastgele kod yürütebilir.
+\n
 \nBu sertifikaya güvenerek bu riskleri kabul etmiş oluyorsunuz.</string>
     <string name="ext_version_info">Sürüm: %1$s</string>
     <string name="ext_language_info">Dil: %1$s</string>
@@ -191,7 +187,6 @@
     <string name="fourth_to_last">Sondan dördüncü bölüm</string>
     <string name="fifth_to_last">Sondan beşinci bölüm</string>
     <string name="pref_download_new">Yeni bölümleri indir</string>
-    <string name="pref_download_new_categories">İndirmeye eklenecek kategoriler</string>
     <string name="services">Hizmetler</string>
     <string name="backup">Yedekleme</string>
     <string name="pref_create_backup">Yedek oluştur</string>
@@ -204,8 +199,8 @@
     <string name="pref_backup_slots">Maksimum yedek</string>
     <string name="backup_created">Yedek oluşturuldu</string>
     <string name="restore_completed">Geri yükleme tamamlandı</string>
-    <string name="backup_restore_content">Geri yükleme veriyi almak için kaynakları kullanır, taşıyıcı ücreti uygulanabilir. 
-\n 
+    <string name="backup_restore_content">Geri yükleme veriyi almak için kaynakları kullanır, taşıyıcı ücreti uygulanabilir.
+\n
 \nGeri yüklemeden önce, giriş gerektiren kaynaklara ve izleme hizmetlerine giriş yaptığınızdan, ve gerekli tüm uzantıları kurduğunuzdan emin olun.</string>
     <string name="backup_choice">Neyi yedeklemek istiyorsunuz?</string>
     <string name="restoring_backup">Yedek geri yükleniyor</string>
@@ -323,7 +318,7 @@
     <string name="confirm_set_image_as_cover">Bu görsel kapak resmi olarak kullanılsın mı\?</string>
     <string name="migration_info">Taşınılacak kaynağı seçmek için dokunun</string>
     <string name="migration_dialog_what_to_include">Eklenecek veriyi seç</string>
-    <string name="migrate">Taşın</string>
+    <string name="migrate">Geçiş yap</string>
     <string name="copy">Kopyala</string>
     <string name="download_queue_error">Bölümler indirilemedi. İndirmeler bölümünden yeniden deneyebilirsiniz</string>
     <string name="notification_update_progress">Güncelleme ilerlemesi: %1$d/%2$d</string>
@@ -381,7 +376,7 @@
     <string name="filter_mode_lighten">Kaçınma / Aydınlatma</string>
     <string name="filter_mode_darken">Yakma / Karartma</string>
     <string name="label_help">Yardım</string>
-    <string name="pref_library_update_prioritization">Kitaplık güncelleme sırası</string>
+    <string name="pref_library_update_prioritization">Güncelleme sırası</string>
     <string name="no_results_found">Sonuç bulunmadı</string>
     <string name="migration_selection_prompt">Taşınılacak bir kaynak seçin</string>
     <string name="action_webview_back">Geri</string>
@@ -392,10 +387,9 @@
     <string name="ext_obsolete">Eski</string>
     <string name="obsolete_extension_message">Bu uzantı artık kullanılamaz.</string>
     <string name="pref_date_format">Tarih biçimi</string>
-    <string name="pref_category_library_update">Güncellemeler</string>
-    <string name="pref_category_library_categories">Kategoriler</string>
+    <string name="pref_category_library_update">Genel güncelleme</string>
     <string name="logout_title">%1$s \'den çıkılsın mı\?</string>
-    <string name="logout">Çıkış</string>
+    <string name="logout">Çıkış yap</string>
     <string name="logout_success">Şimdi çıktınız</string>
     <string name="currently_reading">Şu anda okunan</string>
     <string name="paused">Duraklatıldı</string>
@@ -414,7 +408,7 @@
     <string name="theme_dark_amoled">AMOLED siyah</string>
     <string name="pref_manage_notifications">Bildirimleri yönet</string>
     <string name="pref_category_security">Güvenlik</string>
-    <string name="lock_with_biometrics">Biyometriyle kilitle</string>
+    <string name="lock_with_biometrics">Kilit açma gerektir</string>
     <string name="lock_when_idle">Boştayken kilitle</string>
     <string name="lock_always">Her zaman</string>
     <string name="lock_never">Asla</string>
@@ -567,7 +561,6 @@
     </plurals>
     <string name="action_open_in_settings">Ayarlarda aç</string>
     <string name="requires_app_restart">Etkili olması için uygulamanın yeniden başlatılmasını gerektirir</string>
-    <string name="pref_dns_over_https" translatable="false">HTTPS ile DNS (Cloudflare)</string>
     <string name="label_network">Ağ</string>
     <string name="pref_jump_to_chapters">Açınca bölümlere git</string>
     <string name="tapping_inverted_none">Yok</string>
@@ -600,9 +593,9 @@
     <string name="backup_restore_missing_trackers">İzleyiciler giriş yapmadı:</string>
     <string name="pref_remove_bookmarked_chapters">İşaretli bölümleri sil</string>
     <string name="pref_category_delete_chapters">Bölümleri sil</string>
-    <string name="ext_nsfw_warning">18+ içerik içerebilir</string>
+    <string name="ext_nsfw_warning">Yetişkin (18+) içerik içerebilir</string>
     <string name="ext_nsfw_short">18+</string>
-    <string name="parental_controls_info">Bu, resmi olmayan veya yanlış işaretlenmiş uzantıların, uygulama içinde 18+ içeriği göstermesini engellemez.</string>
+    <string name="parental_controls_info">Bu, resmi olmayan veya yanlış işaretlenmiş uzantıların, uygulama içinde yetişkin (18+) içeriği göstermesini engellemez.</string>
     <plurals name="missing_chapters_warning">
         <item quantity="one">1 eksik bölüm var</item>
         <item quantity="other">%d eksik bölüm var</item>
@@ -613,7 +606,6 @@
     <string name="also_set_chapter_settings_for_library">Kitaplığımdaki tüm mangalara da uygula</string>
     <string name="confirm_set_chapter_settings">Bu ayarları öntanımlı olarak kaydetmek istediğinizden emin misiniz\?</string>
     <string name="chapter_settings">Bölüm ayarları</string>
-    <string name="action_web_view">WebView</string>
     <string name="share_page_info">%1$s: %2$s, sayfa %3$d</string>
     <string name="action_search_settings">Arama ayarları</string>
     <string name="downloaded_chapters">İndirilen bölümler</string>
@@ -621,26 +613,66 @@
     <string name="pref_hide_bottom_bar_on_scroll">Kaydırmada alt çubuğu gizle</string>
     <string name="pref_incognito_mode_summary">Okuma geçmişini duraklatır</string>
     <string name="pref_incognito_mode">Gizli kip</string>
-    <string name="pref_clear_history_summary">Tüm mangaların okuma geçmişini sil</string>
     <string name="pref_clear_history">Geçmişi temizle</string>
     <string name="clear_history_confirmation">Emin misiniz\? Tüm geçmiş kaybolacak.</string>
     <string name="clear_history_completed">Geçmiş silindi</string>
     <string name="spen_next_page">Sonraki sayfa</string>
     <string name="spen_previous_page">Önceki sayfa</string>
-    <string name="full_restore_offline">Çevrim dışı olarak geri yükle, hızlı bir şekilde tamamlanır ancak yalnızca yedeklemenizde bulunan şeyleri içerir</string>
-    <string name="full_restore_online">Çevrim içi olarak geri yükle, çok daha yavaş ancak size daha güncel bilgi ve bölümler sağlar</string>
-    <string name="full_restore_mode">Ağ Kipi</string>
     <string name="pref_backup_auto_create_legacy">Ayrıca eski yedekleme oluştur</string>
     <string name="pref_create_legacy_backup_summary">Tachiyomi\'nin eski sürümlerinde kullanılabilir</string>
     <string name="pref_create_legacy_backup">Eski yedekleme oluştur</string>
     <string name="migration_help_guide">Kaynak taşınma kılavuzu</string>
-    <string name="invalid_backup_file_type">Geçersiz yedekleme dosyası: %1$s</string>
+    <string name="invalid_backup_file_type">Geçersiz yedekleme dosyası türü: %1$s
+\n.proto.gz veya .json ile bitmelidir.</string>
     <string name="pref_category_nsfw_content">Yetişkin içerik (18+) kaynakları</string>
-    <string name="process_text_action_name">Tachiyomi\'de ara</string>
     <string name="pref_label_nsfw_extension">Uzantılar listesinde etiketle</string>
     <string name="pref_show_nsfw_extension">Uzantılar listesinde göster</string>
     <string name="pref_show_nsfw_source">Kaynaklar listesinde göster</string>
     <string name="file_picker_error">Dosya seçme uygulaması bulunamadı</string>
     <string name="myanimelist_relogin">Lütfen MAL\'ye tekrar giriş yapın</string>
     <string name="myanimelist_creds_missing">MAL giriş kimlik bilgileri bulunamadı</string>
+    <string name="pref_viewer_nav">Gezinme düzeni</string>
+    <string name="edge_nav">Kenar</string>
+    <string name="kindlish_nav">Kindle gibi</string>
+    <string name="l_nav">L şeklinde</string>
+    <string name="default_nav">Öntanımlı</string>
+    <string name="channel_crash_logs">Çökme günlükleri</string>
+    <string name="track_finished_reading_date">Okumayı bitirme tarihi</string>
+    <string name="track_started_reading_date">Okumaya başlama tarihi</string>
+    <string name="crash_log_saved">Çökme günlükleri kaydedildi</string>
+    <string name="pref_dump_crash_logs_summary">Geliştiricilerle paylaşmak için hata günlüklerini bir dosyaya kaydeder</string>
+    <string name="pref_dump_crash_logs">Çökme günlüklerini kaydet</string>
+    <string name="network_unmetered">Veri sınırı olmayan ağ</string>
+    <string name="action_desc">Azalan</string>
+    <string name="action_asc">Artan</string>
+    <string name="action_order_by_chapter_number">Bölüm numarasına göre</string>
+    <string name="action_order_by_upload_date">Yükleme tarihine göre</string>
+    <string name="action_filter_tracked">İzleniyor</string>
+    <string name="action_display_show_number_of_items">Öge sayısını göster</string>
+    <string name="right_and_left_nav">Sağ ve Sol</string>
+    <string name="pref_dual_page_split">Çift sayfalı bölme</string>
+    <string name="pref_dual_page_invert_summary">Çift sayfalı bölme yerleşimi okuma yönüyle eşleşmiyorsa</string>
+    <string name="pref_dual_page_invert">Çift sayfalı bölme yerleşimi ters çevir</string>
+    <string name="backup_restore_content_full">Yedek dosyadaki veriler geri yüklenecek.
+\n
+\nEksik uzantıları yüklemeniz ve daha sonra bunları kullanmak için izleme hizmetlerinde oturum açmanız gerekecektir.</string>
+    <string name="update_8hour">8 saatte bir</string>
+    <string name="update_4hour">4 saatte bir</string>
+    <string name="nav_zone_right">Sağ</string>
+    <string name="nav_zone_left">Sol</string>
+    <string name="nav_zone_next">Sonraki</string>
+    <string name="nav_zone_prev">Önceki</string>
+    <string name="pref_show_navigation_mode_summary">Okuyucu açıldığında dokunma bölgelerini göster</string>
+    <string name="pref_show_navigation_mode">Gezinme düzeni kaplamasını göster</string>
+    <string name="pref_dns_over_https">HTTPS üzerinden DNS</string>
+    <string name="exclude">Hariç tut: %s</string>
+    <string name="include">Dahil et: %s</string>
+    <string name="none">Yok</string>
+    <string name="action_sort_chapter_fetch_date">Alındığı tarih</string>
+    <string name="pref_download_new_categories_details">Hariç tutulan kategorilerdeki manga, dahil edilen kategorilerde olsa bile indirilmeyecektir.</string>
+    <string name="pref_category_auto_download">Otomatik indir</string>
+    <string name="pref_library_update_categories_details">Hariç tutulan kategorilerdeki manga, dahil edilen kategorilerde olsa bile güncellenmeyecektir.</string>
+    <string name="action_show_errors">Hataları göster</string>
+    <string name="update_check_eol">Bu Android sürümü artık desteklenmiyor</string>
+    <string name="clipboard_copy_error">Panoya kopyalanamadı</string>
 </resources>

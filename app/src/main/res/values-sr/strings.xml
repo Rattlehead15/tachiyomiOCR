@@ -11,7 +11,6 @@
     <string name="label_library">Biblioteka</string>
     <string name="label_recent_manga">Istorija</string>
     <string name="label_recent_updates">Apdejti</string>
-    <string name="label_categories">Kategorije</string>
     <string name="label_backup">Rezerva</string>
     <string name="label_migration">Migracija</string>
     <string name="label_extensions">Dodaci</string>
@@ -98,12 +97,9 @@
     <string name="update_24hour">Dnevno</string>
     <string name="update_48hour">Svaka 2 dana</string>
     <string name="update_weekly">Nedeljno</string>
-    <string name="update_monthly">Mjesečno</string>
-    <string name="pref_library_update_categories">Kategorije koje su ubrajane u globalnom ažuriranju</string>
     <string name="all">Sve</string>
     <string name="pref_library_update_restriction">Restrikcije ažuriranja biblioteke</string>
     <string name="pref_library_update_restriction_summary">Ažuriraj samo kada su uslovi zadovoljeni</string>
-    <string name="wifi">Wi-Fi</string>
     <string name="charging">Punjenje</string>
     <string name="pref_update_only_non_completed">Samo ažuriraj mangu koja je u toku</string>
     <string name="pref_auto_update_manga_sync">Sinhronizuj poglavlja nakon čitanja</string>
@@ -125,9 +121,9 @@
     <string name="ext_available">Dostupno</string>
     <string name="untrusted_extension">Nepouzdan dodatak</string>
     <string name="untrusted_extension_message">Ova ekstenzija je potpisana nepovjerljivim sertifikatima i nije aktivirana,.
-\n 
-\nŠtetne ekstenzije mogu čitati podatke o prijavi sačuvane u Tachiyomi-u ili pokrenuti proizvoljan kod. 
-\n 
+\n
+\nŠtetne ekstenzije mogu čitati podatke o prijavi sačuvane u Tachiyomi-u ili pokrenuti proizvoljan kod.
+\n
 \nVerujući ovom sertifikatu vi prihvatate ove rizike.</string>
     <string name="ext_version_info">Verzija: %1$s</string>
     <string name="ext_language_info">Jezik: %1$s</string>
@@ -191,7 +187,6 @@
     <string name="fourth_to_last">Četiri prije pročitanog poglavlja</string>
     <string name="fifth_to_last">Pet do pročitanog poglavlja</string>
     <string name="pref_download_new">Preuzmi nova poglavlja</string>
-    <string name="pref_download_new_categories">Kategorije ubrajane u preuzimanju</string>
     <string name="services">Servisi</string>
     <string name="backup">Rezerna kopija</string>
     <string name="pref_create_backup">Napravi rezernu kopiju</string>
@@ -288,7 +283,7 @@
     <string name="download_all">Sve</string>
     <string name="download_unread">Nepročitano</string>
     <string name="confirm_delete_chapters">Da li ste sigurni da želite da obrišete sledeća poglavlja\?</string>
-    <string name="action_open_in_web_view">Otvori u Web pregledu</string>
+    <string name="action_open_in_web_view">Otvori u WebView</string>
     <string name="pref_true_color">32-bitna boja</string>
     <string name="pref_skip_read_chapters">Preskoči poglavlja označena kao pročitana</string>
     <string name="filter_mode_default">Normalno</string>
@@ -303,7 +298,6 @@
     <string name="obsolete_extension_message">Ova ekstenzija nije više dostupna.</string>
     <string name="pref_date_format">Format datuma</string>
     <string name="pref_category_library_update">Apdejti</string>
-    <string name="pref_category_library_categories">Kategorije</string>
     <string name="logout_title">Izloguj se od %1$s\?</string>
     <string name="logout">Izloguj se</string>
     <string name="logout_success">Sada ste izlogovani</string>
@@ -501,7 +495,6 @@
     <string name="action_display_comfortable_grid">Šira mreža</string>
     <string name="action_migrate">Migriraj</string>
     <string name="action_open_in_settings">Otvori u Podešavanjima</string>
-    <string name="action_web_view">WebPregled</string>
     <string name="action_start">Počni</string>
     <string name="action_disable_all">Onemogući sve</string>
     <string name="action_enable_all">Omogući sve</string>
@@ -516,7 +509,7 @@
     <plurals name="num_categories">
         <item quantity="one">%d kategorija</item>
         <item quantity="few">%d kategorije</item>
-        <item quantity="other"></item>
+        <item quantity="other"/>
     </plurals>
     <string name="pref_library_update_error_notification">Prikaži greške pri ažuriranju u obavještenju</string>
     <string name="pref_library_update_refresh_metadata_summary">Provjeri da li postoje nove pozadine kada ažuriraš biblioteku</string>
@@ -524,4 +517,5 @@
     <string name="pref_jump_to_chapters">Idi na poglevlje sa otvaranjem</string>
     <string name="parental_controls_info">Ovo ne znači da će svi potencijalno neoficijalni ili pogrešno označeni dodaci koji sadrže 18+ sadržaj biti uklonjeni.</string>
     <string name="pref_category_locale">Jezik</string>
+    <string name="action_filter_tracked">Praćeno</string>
 </resources>

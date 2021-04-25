@@ -14,6 +14,8 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
 
+        <item name="android:forceDarkAllowed" tools:targetApi="Q">false</item>
+
         <!-- Theme colors -->
         <item name="colorPrimary">@color/md_white_1000</item>
         <item name="colorOnPrimary">@color/md_black_1000</item>
@@ -35,6 +37,7 @@
         <item name="android:textColorSecondaryInverse">@color/textColorSecondaryDark</item>
         <item name="android:textColorHintInverse">@color/textColorHintDark</item>
         <item name="rippleColor">@color/rippleColorLight</item>
+        <item name="android:colorEdgeEffect">?attr/colorAccent</item>
 
         <item name="android:divider">@color/dividerLight</item>
         <item name="android:listDivider">@drawable/line_divider</item>
@@ -44,9 +47,10 @@
         <item name="android:textDirection">locale</item>
 
         <!-- Themes -->
-        <item name="android:statusBarColor">?attr/colorPrimary</item>
-        <item name="android:navigationBarColor">?attr/colorPrimary</item>
-        <item name="android:enforceNavigationBarContrast" tools:targetApi="29">false</item>
+        <item name="android:statusBarColor">@color/md_black_1000</item>
+        <item name="android:navigationBarColor">@color/md_black_1000</item>
+        <item name="android:navigationBarDividerColor" tools:targetApi="o_mr1">@null</item>
+        <item name="android:enforceNavigationBarContrast" tools:targetApi="Q">false</item>
         <item name="windowActionModeOverlay">true</item>
         <item name="elevationOverlayEnabled">false</item>
         <item name="actionModeStyle">@style/Theme.ActionMode</item>
@@ -56,7 +60,7 @@
         <item name="toolbarNavigationButtonStyle">@style/Theme.Toolbar.Navigation</item>
         <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
         <item name="dialogTheme">@style/Theme.AlertDialog.Light</item>
-        <item name="alertDialogTheme">@style/Theme.AlertDialog.Dark</item>
+        <item name="materialAlertDialogTheme">@style/Theme.AlertDialog.Light</item>
         <item name="bottomSheetDialogTheme">@style/Theme.BottomSheet</item>
         <item name="chipStyle">@style/Theme.Widget.Chip</item>
         <item name="buttonStyle">@style/Theme.Widget.Button</item>
@@ -76,31 +80,29 @@
         <item name="md_color_content">?attr/colorOnSurface</item>
         <item name="md_color_button_text">?attr/colorAccent</item>
         <item name="md_button_casing">literal</item>
-        <item name="md_corner_radius">@dimen/card_radius</item>
+        <item name="md_corner_radius">@dimen/dialog_radius</item>
 
         <!-- Custom Attributes-->
         <item name="colorLibrarySelection">?attr/colorAccent</item>
         <item name="colorLibrarySelectionActive">@color/selectorColorLight</item>
-        <item name="colorFilterActive">@color/filterColorDark</item>
+        <item name="colorFilterActive">@color/filterColorLight</item>
     </style>
 
     <!--===========-->
     <!-- Main Theme-->
     <!--===========-->
-    <style name="Theme.Tachiyomi.Light" parent="Theme.Base">
-        <item name="android:statusBarColor">@color/md_black_1000_54</item>
-        <item name="android:navigationBarColor">@color/md_black_1000_54</item>
+    <style name="Base.Theme.Tachiyomi.Light" parent="Theme.Base" />
+    <style name="Theme.Tachiyomi.Light" parent="Base.Theme.Tachiyomi.Light" />
 
-        <item name="colorFilterActive">@color/filterColorLight</item>
-    </style>
-
-    <style name="Theme.Tachiyomi.LightBlue" parent="Theme.Base">
+    <style name="Theme.Tachiyomi.Light.Blue">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorOnPrimary">@color/textColorPrimaryDark</item>
         <item name="colorAccentOnPrimary">@color/textColorPrimaryDark</item>
         <item name="colorPrimaryVariant">@color/colorPrimaryDark</item>
-
+        <item name="colorFilterActive">@color/filterColorDark</item>
         <item name="actionBarTheme">@style/Theme.Toolbar.Light</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">false</item>
     </style>
 
     <!--=============-->
@@ -132,6 +134,7 @@
         <item name="android:textColorSecondaryInverse">@color/textColorSecondaryLight</item>
         <item name="android:textColorHintInverse">@color/textColorHintLight</item>
         <item name="rippleColor">@color/rippleColorDark</item>
+        <item name="android:colorEdgeEffect">?attr/colorAccent</item>
 
         <item name="android:divider">@color/dividerDark</item>
         <item name="android:listDivider">@drawable/line_divider</item>
@@ -139,7 +142,8 @@
         <!-- Themes -->
         <item name="android:statusBarColor">?attr/colorPrimary</item>
         <item name="android:navigationBarColor">?attr/colorPrimary</item>
-        <item name="android:enforceNavigationBarContrast" tools:targetApi="29">false</item>
+        <item name="android:navigationBarDividerColor" tools:targetApi="o_mr1">@null</item>
+        <item name="android:enforceNavigationBarContrast" tools:targetApi="Q">false</item>
         <item name="windowActionModeOverlay">true</item>
         <item name="elevationOverlayEnabled">false</item>
         <item name="actionModeStyle">@style/Theme.ActionMode</item>
@@ -150,7 +154,7 @@
         <item name="toolbarNavigationButtonStyle">@style/Theme.Toolbar.Navigation</item>
         <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
         <item name="dialogTheme">@style/Theme.AlertDialog.Dark</item>
-        <item name="alertDialogTheme">@style/Theme.AlertDialog.Dark</item>
+        <item name="materialAlertDialogTheme">@style/Theme.AlertDialog.Dark</item>
         <item name="bottomSheetDialogTheme">@style/Theme.BottomSheet</item>
         <item name="chipStyle">@style/Theme.Widget.Chip</item>
         <item name="buttonStyle">@style/Theme.Widget.Button</item>
@@ -170,7 +174,7 @@
         <item name="md_color_content">?attr/colorOnSurface</item>
         <item name="md_color_button_text">?attr/colorAccent</item>
         <item name="md_button_casing">literal</item>
-        <item name="md_corner_radius">@dimen/card_radius</item>
+        <item name="md_corner_radius">@dimen/dialog_radius</item>
 
         <!-- Custom Attributes-->
         <item name="colorLibrarySelection">?attr/colorAccent</item>
@@ -178,16 +182,15 @@
         <item name="colorFilterActive">@color/filterColorDark</item>
     </style>
 
-    <style name="Theme.Tachiyomi.Dark" parent="Theme.Base.Dark">
-    </style>
+    <style name="Theme.Tachiyomi.Dark" parent="Theme.Base.Dark" />
 
-    <style name="Theme.Tachiyomi.DarkBlue" parent="Theme.Base.Dark">
+    <style name="Theme.Tachiyomi.Dark.Blue">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorAccentOnPrimary">@color/textColorPrimaryDark</item>
         <item name="colorPrimaryVariant">@color/colorPrimary</item>
     </style>
 
-    <style name="Theme.Tachiyomi.Amoled" parent="Theme.Base.Dark">
+    <style name="Theme.Tachiyomi.Dark.Amoled">
         <item name="colorPrimary">@color/colorAmoledPrimary</item>
         <item name="colorPrimaryVariant">@color/colorAmoledPrimary</item>
         <item name="colorSurface">@color/colorAmoledPrimary</item>
@@ -195,7 +198,7 @@
         <item name="android:colorBackground">@color/colorAmoledPrimary</item>
 
         <!-- Some ROMs make black navbars white (e.g. OxygenOS) -->
-        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">#000001</item>
 
         <!-- Custom Attributes-->
         <item name="colorLibrarySelection">@color/selectorColorDark</item>
@@ -218,6 +221,7 @@
         <item name="actionBarTheme">@style/ThemeOverlay.MaterialComponents.Dark.ActionBar</item>
         <item name="actionBarPopupTheme">@style/ThemeOverlay.MaterialComponents</item>
         <item name="switchStyle">@style/Theme.Widget.BasicSwitch</item>
+        <item name="bottomSheetDialogTheme">@style/Theme.BottomSheet</item>
     </style>
 
     <style name="Theme.Base.Reader.Light" parent="Theme.Base">
@@ -233,6 +237,7 @@
         <item name="actionBarTheme">@style/ThemeOverlay.MaterialComponents.Dark.ActionBar</item>
         <item name="actionBarPopupTheme">@style/ThemeOverlay.MaterialComponents</item>
         <item name="switchStyle">@style/Theme.Widget.BasicSwitch</item>
+        <item name="bottomSheetDialogTheme">@style/Theme.BottomSheet</item>
     </style>
 
     <style name="Theme.Reader.Dark" parent="Theme.Base.Reader.Dark" />
@@ -247,7 +252,7 @@
     <!--===============-->
     <!-- Launch Screen -->
     <!--===============-->
-    <style name="Theme.Splash" parent="Theme.Tachiyomi.LightBlue">
+    <style name="Theme.Splash" parent="Theme.Tachiyomi.Light.Blue">
         <item name="colorBackgroundSplash">@color/colorPrimary</item>
 
         <item name="android:windowBackground">@drawable/splash_background</item>

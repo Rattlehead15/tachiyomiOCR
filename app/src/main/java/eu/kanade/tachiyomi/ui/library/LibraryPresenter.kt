@@ -10,6 +10,7 @@ import eu.kanade.tachiyomi.data.database.models.Manga
 import eu.kanade.tachiyomi.data.database.models.MangaCategory
 import eu.kanade.tachiyomi.data.download.DownloadManager
 import eu.kanade.tachiyomi.data.preference.PreferencesHelper
+import eu.kanade.tachiyomi.data.track.TrackManager
 import eu.kanade.tachiyomi.source.SourceManager
 import eu.kanade.tachiyomi.source.model.SManga
 import eu.kanade.tachiyomi.source.online.HttpSource
@@ -47,7 +48,8 @@ class LibraryPresenter(
     private val preferences: PreferencesHelper = Injekt.get(),
     private val coverCache: CoverCache = Injekt.get(),
     private val sourceManager: SourceManager = Injekt.get(),
-    private val downloadManager: DownloadManager = Injekt.get()
+    private val downloadManager: DownloadManager = Injekt.get(),
+    private val trackManager: TrackManager = Injekt.get()
 ) : BasePresenter<LibraryController>() {
 
     private val context = preferences.context
@@ -92,8 +94,8 @@ class LibraryPresenter(
                 .combineLatest(badgeTriggerRelay.observeOn(Schedulers.io())) { lib, _ ->
                     lib.apply { setBadges(mangaMap) }
                 }
-                .combineLatest(filterTriggerRelay.observeOn(Schedulers.io())) { lib, _ ->
-                    lib.copy(mangaMap = applyFilters(lib.mangaMap))
+                .combineLatest(getFilterObservable()) { lib, tracks ->
+                    lib.copy(mangaMap = applyFilters(lib.mangaMap, tracks))
                 }
                 .combineLatest(sortTriggerRelay.observeOn(Schedulers.io())) { lib, _ ->
                     lib.copy(mangaMap = applySort(lib.mangaMap))
@@ -110,11 +112,16 @@ class LibraryPresenter(
      *
      * @param map the map to filter.
      */
-    private fun applyFilters(map: LibraryMap): LibraryMap {
+    private fun applyFilters(map: LibraryMap, trackMap: Map<Long, Map<Int, Boolean>>): LibraryMap {
         val downloadedOnly = preferences.downloadedOnly().get()
         val filterDownloaded = preferences.filterDownloaded().get()
         val filterUnread = preferences.filterUnread().get()
         val filterCompleted = preferences.filterCompleted().get()
+        val loggedInServices = trackManager.services.filter { trackService -> trackService.isLogged }
+            .associate { trackService ->
+                Pair(trackService.id, preferences.filterTracking(trackService.id).get())
+            }
+        val isNotAnyLoggedIn = !loggedInServices.values.any()
 
         val filterFnUnread: (LibraryItem) -> Boolean = unread@{ item ->
             if (filterUnread == State.IGNORE.value) return@unread true
@@ -144,11 +151,36 @@ class LibraryPresenter(
             else !isDownloaded
         }
 
+        val filterFnTracking: (LibraryItem) -> Boolean = tracking@{ item ->
+            if (isNotAnyLoggedIn) return@tracking true
+
+            val trackedManga = trackMap[item.manga.id ?: -1]
+
+            val containsExclude = loggedInServices.filterValues { it == State.EXCLUDE.value }
+            val containsInclude = loggedInServices.filterValues { it == State.INCLUDE.value }
+
+            if (!containsExclude.any() && !containsInclude.any()) return@tracking true
+
+            val exclude = trackedManga?.filterKeys { containsExclude.containsKey(it) }?.values ?: emptyList()
+            val include = trackedManga?.filterKeys { containsInclude.containsKey(it) }?.values ?: emptyList()
+
+            if (containsInclude.any() && containsExclude.any()) {
+                return@tracking if (exclude.isNotEmpty()) !exclude.any() else include.any()
+            }
+
+            if (containsExclude.any()) return@tracking !exclude.any()
+
+            if (containsInclude.any()) return@tracking include.any()
+
+            return@tracking false
+        }
+
         val filterFn: (LibraryItem) -> Boolean = filter@{ item ->
             return@filter !(
                 !filterFnUnread(item) ||
                     !filterFnCompleted(item) ||
-                    !filterFnDownloaded(item)
+                    !filterFnDownloaded(item) ||
+                    !filterFnTracking(item)
                 )
         }
 
@@ -203,7 +235,12 @@ class LibraryPresenter(
             var counter = 0
             db.getLatestChapterManga().executeAsBlocking().associate { it.id!! to counter++ }
         }
+        val chapterFetchDateManga by lazy {
+            var counter = 0
+            db.getChapterFetchDateManga().executeAsBlocking().associate { it.id!! to counter++ }
+        }
 
+        val sortAscending = preferences.librarySortingAscending().get()
         val sortFn: (LibraryItem, LibraryItem) -> Int = { i1, i2 ->
             when (sortingMode) {
                 LibrarySort.ALPHA -> i1.manga.title.compareTo(i2.manga.title, true)
@@ -214,7 +251,13 @@ class LibraryPresenter(
                     manga1LastRead.compareTo(manga2LastRead)
                 }
                 LibrarySort.LAST_CHECKED -> i2.manga.last_update.compareTo(i1.manga.last_update)
-                LibrarySort.UNREAD -> i1.manga.unread.compareTo(i2.manga.unread)
+                LibrarySort.UNREAD -> when {
+                    // Ensure unread content comes first
+                    i1.manga.unread == i2.manga.unread -> 0
+                    i1.manga.unread == 0 -> if (sortAscending) 1 else -1
+                    i2.manga.unread == 0 -> if (sortAscending) -1 else 1
+                    else -> i1.manga.unread.compareTo(i2.manga.unread)
+                }
                 LibrarySort.TOTAL -> {
                     val manga1TotalChapter = totalChapterManga[i1.manga.id!!] ?: 0
                     val mange2TotalChapter = totalChapterManga[i2.manga.id!!] ?: 0
@@ -227,12 +270,19 @@ class LibraryPresenter(
                         ?: latestChapterManga.size
                     manga1latestChapter.compareTo(manga2latestChapter)
                 }
+                LibrarySort.CHAPTER_FETCH_DATE -> {
+                    val manga1chapterFetchDate = chapterFetchDateManga[i1.manga.id!!]
+                        ?: chapterFetchDateManga.size
+                    val manga2chapterFetchDate = chapterFetchDateManga[i2.manga.id!!]
+                        ?: chapterFetchDateManga.size
+                    manga1chapterFetchDate.compareTo(manga2chapterFetchDate)
+                }
                 LibrarySort.DATE_ADDED -> i2.manga.date_added.compareTo(i1.manga.date_added)
                 else -> throw Exception("Unknown sorting mode")
             }
         }
 
-        val comparator = if (preferences.librarySortingAscending().get()) {
+        val comparator = if (sortAscending) {
             Comparator(sortFn)
         } else {
             Collections.reverseOrder(sortFn)
@@ -280,6 +330,32 @@ class LibraryPresenter(
             .map { list ->
                 list.map { LibraryItem(it, libraryDisplayMode) }.groupBy { it.manga.category }
             }
+    }
+
+    /**
+     * Get the tracked manga from the database and checks if the filter gets changed
+     *
+     * @return an observable of tracked manga.
+     */
+    private fun getFilterObservable(): Observable<Map<Long, Map<Int, Boolean>>> {
+        return getTracksObservable().combineLatest(filterTriggerRelay.observeOn(Schedulers.io())) { tracks, _ -> tracks }
+    }
+
+    /**
+     * Get the tracked manga from the database
+     *
+     * @return an observable of tracked manga.
+     */
+    private fun getTracksObservable(): Observable<Map<Long, Map<Int, Boolean>>> {
+        return db.getTracks().asRxObservable().map { tracks ->
+            tracks.groupBy { it.manga_id }
+                .mapValues { tracksForMangaId ->
+                    // Check if any of the trackers is logged in for the current manga id
+                    tracksForMangaId.value.associate {
+                        Pair(it.sync_id, trackManager.getService(it.sync_id)?.isLogged ?: false)
+                    }
+                }
+        }.observeOn(Schedulers.io())
     }
 
     /**

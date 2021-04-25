@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.FrameLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import dev.chrisbanes.insetter.applyInsetter
 import eu.davidea.flexibleadapter.FlexibleAdapter
 import eu.davidea.flexibleadapter.SelectableAdapter
 import eu.kanade.tachiyomi.R
@@ -27,6 +28,7 @@ import reactivecircus.flowbinding.recyclerview.scrollStateChanges
 import reactivecircus.flowbinding.swiperefreshlayout.refreshes
 import rx.subscriptions.CompositeSubscription
 import uy.kohesive.injekt.injectLazy
+import java.util.ArrayDeque
 
 /**
  * Fragment containing the library manga for a certain category.
@@ -66,7 +68,7 @@ class LibraryCategoryView @JvmOverloads constructor(context: Context, attrs: Att
      */
     private var subscriptions = CompositeSubscription()
 
-    private var lastClickPosition = -1
+    private var lastClickPositionStack = ArrayDeque(listOf(-1))
 
     fun onCreate(controller: LibraryController, binding: LibraryCategoryBinding) {
         this.controller = controller
@@ -78,6 +80,12 @@ class LibraryCategoryView @JvmOverloads constructor(context: Context, attrs: Att
         } else {
             (binding.swipeRefresh.inflate(R.layout.library_grid_recycler) as AutofitRecyclerView).apply {
                 spanCount = controller.mangaPerRow
+            }
+        }
+
+        recycler.applyInsetter {
+            type(navigationBars = true) {
+                padding()
             }
         }
 
@@ -205,7 +213,11 @@ class LibraryCategoryView @JvmOverloads constructor(context: Context, attrs: Att
             }
             is LibrarySelectionEvent.Unselected -> {
                 findAndToggleSelection(event.manga)
-                if (adapter.indexOf(event.manga) != -1) lastClickPosition = -1
+
+                with(adapter.indexOf(event.manga)) {
+                    if (this != -1) lastClickPositionStack.remove(this)
+                }
+
                 if (controller.selectedMangas.isEmpty()) {
                     adapter.mode = SelectableAdapter.Mode.SINGLE
                 }
@@ -213,7 +225,9 @@ class LibraryCategoryView @JvmOverloads constructor(context: Context, attrs: Att
             is LibrarySelectionEvent.Cleared -> {
                 adapter.mode = SelectableAdapter.Mode.SINGLE
                 adapter.clearSelection()
-                lastClickPosition = -1
+
+                lastClickPositionStack.clear()
+                lastClickPositionStack.push(-1)
             }
         }
     }
@@ -241,7 +255,11 @@ class LibraryCategoryView @JvmOverloads constructor(context: Context, attrs: Att
         // If the action mode is created and the position is valid, toggle the selection.
         val item = adapter.getItem(position) ?: return false
         return if (adapter.mode == SelectableAdapter.Mode.MULTI) {
-            lastClickPosition = position
+            if (adapter.isSelected(position)) {
+                lastClickPositionStack.remove(position)
+            } else {
+                lastClickPositionStack.push(position)
+            }
             toggleSelection(position)
             true
         } else {
@@ -257,6 +275,7 @@ class LibraryCategoryView @JvmOverloads constructor(context: Context, attrs: Att
      */
     override fun onItemLongClick(position: Int) {
         controller.createActionModeIfNeeded()
+        val lastClickPosition = lastClickPositionStack.peek()!!
         when {
             lastClickPosition == -1 -> setSelection(position)
             lastClickPosition > position ->
@@ -267,7 +286,10 @@ class LibraryCategoryView @JvmOverloads constructor(context: Context, attrs: Att
                     setSelection(i)
             else -> setSelection(position)
         }
-        lastClickPosition = position
+        if (lastClickPosition != position) {
+            lastClickPositionStack.remove(position)
+            lastClickPositionStack.push(position)
+        }
     }
 
     /**

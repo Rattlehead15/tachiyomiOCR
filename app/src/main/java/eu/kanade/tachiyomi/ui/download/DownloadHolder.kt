@@ -39,6 +39,9 @@ class DownloadHolder(private val view: View, val adapter: DownloadAdapter) :
         // Update the manga title
         binding.mangaFullTitle.text = download.manga.title
 
+        // Update the manga source
+        binding.mangaSource.text = download.source.name
+
         // Update the progress bar and the number of downloaded pages
         val pages = download.pages
         if (pages == null) {
@@ -78,15 +81,14 @@ class DownloadHolder(private val view: View, val adapter: DownloadAdapter) :
 
     private fun showPopupMenu(view: View) {
         view.popupMenu(
-            R.menu.download_single,
-            {
+            menuRes = R.menu.download_single,
+            initMenu = {
                 findItem(R.id.move_to_top).isVisible = bindingAdapterPosition != 0
                 findItem(R.id.move_to_bottom).isVisible =
                     bindingAdapterPosition != adapter.itemCount - 1
             },
-            {
+            onMenuItemClick = {
                 adapter.downloadItemListener.onMenuItemClick(bindingAdapterPosition, this)
-                true
             }
         )
     }

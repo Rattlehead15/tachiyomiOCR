@@ -2,7 +2,7 @@
 <resources>
     <string name="action_add">Добавить</string>
     <string name="action_add_category">Добавить категорию</string>
-    <string name="action_bookmark">Закладка</string>
+    <string name="action_bookmark">Закладка главы</string>
     <string name="action_cancel">Отмена</string>
     <string name="action_delete">Удалить</string>
     <string name="action_display">Отобразить</string>
@@ -29,7 +29,7 @@
     <string name="action_pause">Пауза</string>
     <string name="action_previous_chapter">Предыдущая глава</string>
     <string name="action_remove">Удалить</string>
-    <string name="action_remove_bookmark">Удалить закладку</string>
+    <string name="action_remove_bookmark">Снять закладку с главы</string>
     <string name="action_rename_category">Переименовать категорию</string>
     <string name="action_reset">Сбросить</string>
     <string name="action_resume">Продолжить</string>
@@ -48,11 +48,11 @@
     <string name="action_stop">Остановить</string>
     <string name="action_update">Обновить</string>
     <string name="action_update_library">Обновить библиотеку</string>
-    <string name="all">Все</string>
+    <string name="all">Всё</string>
     <string name="backup">Резервная копия</string>
     <string name="black_background">Черный</string>
     <string name="build_time">Дата сборки</string>
-    <string name="cache_delete_error">Возникла ошибка при очистке кэша</string>
+    <string name="cache_delete_error">Возникла ошибка при удалении кэша</string>
     <string name="cache_deleted">Кэш очищен. %1$d файл(ов/а) был(о) удален(о)</string>
     <string name="chapter_downloaded">Загружено</string>
     <string name="chapter_downloading">Загружается</string>
@@ -99,13 +99,13 @@
     <string name="download_notifier_unknown_error">Не могу скачать главу из-за непревиденной ошибки</string>
     <string name="download_progress">Загружен(о) %1$d%%</string>
     <string name="download_queue_error">Невозможно скачать главы. Можете попробовать еще раз в разделе загрузок</string>
-    <string name="download_unread">Не прочитано</string>
-    <string name="downloading">Загрузка…</string>
+    <string name="download_unread">Непрочитано</string>
+    <string name="downloading">Загружается…</string>
     <string name="dropped">Заброшено</string>
     <string name="error_category_exists">Категория с таким именем уже существует!</string>
     <string name="fetch_chapters_error">Не могу получить главы</string>
     <string name="fifth_to_last">Пятая от прочитанной главы</string>
-    <string name="file_select_backup">Выбрать файл бэкапа</string>
+    <string name="file_select_backup">Выбрать файл резервной копии</string>
     <string name="file_select_cover">Выбрать обложку</string>
     <string name="fourth_to_last">Четвёртая от прочитанной главы</string>
     <string name="information_empty_library">Ваша библиотека пуста. Добавьте тайтлы в библиотеку из Поиска.</string>
@@ -114,7 +114,6 @@
     <string name="information_no_recent_manga">В последнее время ничего не прочитано</string>
     <string name="invalid_login">Ошибка входа</string>
     <string name="label_backup">Резервная копия</string>
-    <string name="label_categories">Категории</string>
     <string name="label_download_queue">Очередь загрузки</string>
     <string name="label_library">Библиотека</string>
     <string name="label_recent_manga">История</string>
@@ -180,9 +179,8 @@
     <string name="pref_keep_screen_on">Держать экран включенным</string>
     <string name="pref_language">Язык</string>
     <string name="pref_library_columns">Количество элементов в строке</string>
-    <string name="pref_library_update_categories">Категории, включенные в глобальное обновление</string>
-    <string name="pref_library_update_interval">Частота обновления библиотеки</string>
-    <string name="pref_library_update_restriction">Ограничения обновления библиотеки</string>
+    <string name="pref_library_update_interval">Частота обновления</string>
+    <string name="pref_library_update_restriction">Ограничения обновления</string>
     <string name="pref_library_update_restriction_summary">Обновлять только когда выполнены условия</string>
     <string name="pref_lock_orientation">Блокировать ориентацию</string>
     <string name="pref_read_with_tapping">Нажатие</string>
@@ -197,7 +195,7 @@
     <string name="pref_update_only_non_completed">Обновлять только незавершенную мангу</string>
     <string name="pref_viewer_type">Режим чтения по умолчанию</string>
     <string name="pref_zoom_start">Стартовая позиция увеличения</string>
-    <string name="reading">Читаю</string>
+    <string name="reading">В процессе чтения</string>
     <string name="remove_from_library">Удалить из библиотеки</string>
     <string name="right_to_left_viewer">Справа налево</string>
     <string name="rotation_force_landscape">Горизонтальная</string>
@@ -227,7 +225,7 @@
     <string name="status">Статус</string>
     <string name="system_default">По умолчанию</string>
     <string name="third_to_last">Третья от прочитанной главы</string>
-    <string name="title">Заголовок</string>
+    <string name="title">Название</string>
     <string name="unknown">Неизвестно</string>
     <string name="unknown_error">Неизвестная ошибка</string>
     <string name="update_12hour">Каждые 12 часов</string>
@@ -254,7 +252,6 @@
     <string name="vertical_viewer">Вертикально</string>
     <string name="webtoon_viewer">Вебкомикс</string>
     <string name="white_background">Белый</string>
-    <string name="wifi">Wi-Fi</string>
     <string name="zoom_start_automatic">Автоматическая</string>
     <string name="zoom_start_center">Центральная</string>
     <string name="zoom_start_left">Слева</string>
@@ -265,8 +262,8 @@
     <string name="action_restore">Восстановить</string>
     <string name="action_undo">Отменить</string>
     <string name="added_to_library">Манга была добавлена в библиотеку</string>
-    <string name="backup_choice">Что вы хотите бэкапить\?</string>
-    <string name="backup_created">Бэкап создан</string>
+    <string name="backup_choice">Что вы хотите резервировать\?</string>
+    <string name="backup_created">Резевная копия создана</string>
     <string name="backup_restore_content">При восстановлении используются данные из источников, что может вызвать большой расход трафика.
 \n
 \nУбедитесь, что установили и авторизовались во всех нужных расширениях и сервисах отслеживания перед восстановлением.</string>
@@ -279,27 +276,25 @@
     <string name="download_notifier_download_paused">Загрузка приостановлена</string>
     <string name="history">История</string>
     <string name="invalid_combination">Категория по умолчанию не может быть выбрана вместе с другими категориями</string>
-    <string name="local_source">Локальный источник</string>
+    <string name="local_source">Локальная манга</string>
     <string name="manga">Манга</string>
     <string name="no_more_results">Больше нет результатов</string>
-    <string name="pref_backup_directory">Каталог бэкапа</string>
-    <string name="pref_backup_interval">Частота бэкапов</string>
-    <string name="pref_backup_service_category">Автоматические бэкапы</string>
-    <string name="pref_backup_slots">Максимальное количество бэкапов</string>
-    <string name="pref_create_backup">Создать бэкап</string>
+    <string name="pref_backup_directory">Каталог резервной копии</string>
+    <string name="pref_backup_interval">Частота резервных копий</string>
+    <string name="pref_backup_service_category">Автоматические резервные копии</string>
+    <string name="pref_backup_slots">Максимальное количество резервных копий</string>
+    <string name="pref_create_backup">Создать резервную копию</string>
     <string name="pref_create_backup_summ">Можно использовать для восстановления текущей библиотеки</string>
     <string name="pref_crop_borders">Обрезать поля</string>
-    <string name="pref_download_new_categories">Категории для включения в загружаемые</string>
     <string name="pref_refresh_library_tracking">Обновить отслеживание</string>
     <string name="pref_refresh_library_tracking_summary">Обновляет статус, оценку и последнюю прочитанную главу из сервисов отслеживания</string>
-    <string name="pref_restore_backup">Восстановить из бэкапа</string>
-    <string name="pref_restore_backup_summ">Восстановить библиотеку из бэкапа</string>
-    <string name="restore_completed">Восстановление закончено</string>
+    <string name="pref_restore_backup">Восстановить из резервной копии</string>
+    <string name="pref_restore_backup_summ">Восстановить библиотеку из резервной копии</string>
+    <string name="restore_completed">Восстановление завершено</string>
     <string name="restoring_backup">Восстановление из резервной копии</string>
     <string name="short_recent_updates">Обновления</string>
     <string name="snack_categories_deleted">Категории удалены</string>
     <string name="track">Отслеживание</string>
-    <string name="update_monthly">Ежемесячно</string>
     <string name="update_weekly">Еженедельно</string>
     <string name="action_sort_total">По количеству глав</string>
     <string name="action_open_log">Открыть лог</string>
@@ -313,7 +308,7 @@
     <string name="other_source">Другие</string>
     <string name="action_global_search_hint">Глобальный поиск…</string>
     <string name="latest">Последняя</string>
-    <string name="browse">Поиск</string>
+    <string name="browse">Поисковик</string>
     <string name="channel_common">Общий</string>
     <string name="channel_library">Библиотека</string>
     <string name="information_empty_category">У вас нет категорий. Нажмите кнопку + чтобы создать категорию для организации вашей библиотеки.</string>
@@ -330,10 +325,10 @@
     <string name="ext_untrusted">Ненадёжное</string>
     <string name="ext_uninstall">Удалить</string>
     <string name="ext_available">Доступно</string>
-    <string name="untrusted_extension">Ненадёжное расширение</string>
-    <string name="untrusted_extension_message">Это расширение подписано ненадёжным сертификатом и не было активировано.
+    <string name="untrusted_extension">Ненадежное расширение</string>
+    <string name="untrusted_extension_message">Это расширение было подписано ненадежным сертификатом и не было активировано.
 \n
-\nВредоносное расширение может считывать любые учетные данные, хранящиеся в Tachiyomi, или выполнять произвольный код.
+\nВредоносное расширение может считывать любые учетные данные для входа, хранящиеся в Tachiyomi, или выполнять произвольный код.
 \n
 \nДоверяя этому сертификату, вы принимаете эти риски.</string>
     <string name="ext_version_info">Версия: %1$s</string>
@@ -345,7 +340,7 @@
     <string name="manga_info_full_title_label">Заголовок</string>
     <string name="manga_added_library">Добавлено в библиотеку</string>
     <string name="manga_removed_library">Удалено из библиотеки</string>
-    <string name="copied_to_clipboard">Скопированно в буфер обмена: 
+    <string name="copied_to_clipboard">Скопированно в буфер обмена:
 \n\"%1$s\"</string>
     <string name="custom_download">Загрузить определенное количество</string>
     <string name="download_custom">Другое кол-во</string>
@@ -363,8 +358,8 @@
     <string name="track_author">Автор</string>
     <string name="transition_finished">Закончено:</string>
     <string name="transition_current">Текущий:</string>
-    <string name="transition_next">Следующий:</string>
-    <string name="transition_previous">Предыдущий:</string>
+    <string name="transition_next">Следующая:</string>
+    <string name="transition_previous">Предыдущая:</string>
     <string name="transition_no_next">Следующей главы нет</string>
     <string name="transition_no_previous">Предыдущей главы нет</string>
     <string name="transition_pages_loading">Идёт загрузка страниц…</string>
@@ -381,8 +376,8 @@
     <string name="filter_mode_lighten">Осветление</string>
     <string name="filter_mode_darken">Затемнение</string>
     <string name="label_help">Помощь</string>
-    <string name="pref_library_update_prioritization">Порядок обновления библиотеки</string>
-    <string name="no_results_found">Результатов не найдено</string>
+    <string name="pref_library_update_prioritization">Порядок обновления</string>
+    <string name="no_results_found">Нет результатов</string>
     <string name="migration_selection_prompt">Выберите источник миграции</string>
     <string name="action_webview_back">Назад</string>
     <string name="action_webview_forward">Вперед</string>
@@ -390,15 +385,14 @@
     <string name="pref_category_library">Библиотека</string>
     <string name="invalid_download_dir">Недопустимая директория для скачивания</string>
     <string name="ext_obsolete">Устарело</string>
-    <string name="obsolete_extension_message">Это расширение больше недоступно.</string>
+    <string name="obsolete_extension_message">Это расширение больше не доступно.</string>
     <string name="pref_date_format">Формат даты</string>
-    <string name="pref_category_library_update">Обновления</string>
-    <string name="pref_category_library_categories">Категории</string>
+    <string name="pref_category_library_update">Глобальное обновление</string>
     <string name="logout_title">Выйти из %1$s\?</string>
     <string name="logout">Выйти</string>
     <string name="logout_success">Вы успешно вышли</string>
     <string name="currently_reading">Сейчас читаю</string>
-    <string name="paused">Приостановлено</string>
+    <string name="paused">На паузе</string>
     <string name="want_to_read">Хочу почитать</string>
     <string name="label_more">Ещё</string>
     <string name="action_sort_latest_chapter">Последняя глава</string>
@@ -414,8 +408,8 @@
     <string name="theme_dark_amoled">AMOLED черная</string>
     <string name="pref_manage_notifications">Управлять уведомлениями</string>
     <string name="pref_category_security">Безопасность</string>
-    <string name="lock_with_biometrics">Блокировать отпечатком</string>
-    <string name="lock_when_idle">Блокировать в режиме ожидания</string>
+    <string name="lock_with_biometrics">Требовать разблокировку</string>
+    <string name="lock_when_idle">Блокировать при бездействии</string>
     <string name="lock_always">Всегда</string>
     <string name="lock_never">Никогда</string>
     <plurals name="lock_after_mins">
@@ -455,7 +449,7 @@
     <string name="updating_library">Обновление библиотеки</string>
     <string name="http_error_hint">Проверить страницу в WebView</string>
     <string name="battery_optimization_disabled">Оптимизация батареи уже выключена</string>
-    <string name="pref_disable_battery_optimization_summary">Помогает с фоновым обновлением библиотеки и бэкапом</string>
+    <string name="pref_disable_battery_optimization_summary">Помогает с фоновым обновлением библиотеки и резевной копии</string>
     <string name="pref_disable_battery_optimization">Выключить оптимизацию батареи</string>
     <string name="theme_light_default">По умолчанию</string>
     <plurals name="update_check_notification_ext_updates">
@@ -464,7 +458,7 @@
         <item quantity="many">Доступны обновления для %d расширений</item>
         <item quantity="other">Доступны обновления для %d расширений</item>
     </plurals>
-    <string name="email">Адрес почты</string>
+    <string name="email">Адрес электронной почты</string>
     <string name="pref_always_show_chapter_transition">Всегда показывать переход между главами</string>
     <string name="pref_enable_automatic_extension_updates">Проверять обновления для расширений</string>
     <string name="hide_notification_content">Скрыть содержимое уведомлений</string>
@@ -490,7 +484,7 @@
     <string name="webtoon_side_padding_20">20%</string>
     <string name="webtoon_side_padding_15">15%</string>
     <string name="webtoon_side_padding_10">10%</string>
-    <string name="webtoon_side_padding_0">Без отступа</string>
+    <string name="webtoon_side_padding_0">Нет</string>
     <string name="pinned_sources">Закреплено</string>
     <string name="action_unpin">Открепить</string>
     <string name="action_pin">Закрепить</string>
@@ -503,7 +497,7 @@
     <string name="in_library">В библиотеке</string>
     <string name="add_to_library">Добавить в библиотеку</string>
     <string name="licenses">Лицензии открытого кода</string>
-    <string name="website">Вебсайт</string>
+    <string name="website">Веб-сайт</string>
     <string name="pref_confirm_exit">Подтвердить выход</string>
     <string name="recent_manga_time">Гл. %1$s - %2$s</string>
     <string name="error_invalid_date_supplied">Неправильно указана дата</string>
@@ -512,10 +506,10 @@
     <string name="downloaded_only_summary">Фильтрует всю мангу в вашей библиотеке</string>
     <string name="check_for_updates">Проверить обновления</string>
     <string name="restoring_backup_canceled">Восстановление отменено</string>
-    <string name="restoring_backup_error">Ошибка восстановления из бэкапа</string>
+    <string name="restoring_backup_error">Ошибка восстановления из резервной копии</string>
     <string name="restore_in_progress">Восстановление уже выполняется</string>
-    <string name="creating_backup_error">Ошибка бэкапа</string>
-    <string name="backup_in_progress">Бэкап уже выполняется</string>
+    <string name="creating_backup_error">Не удалось создать резервную копию</string>
+    <string name="backup_in_progress">Резервная копия уже выполняется</string>
     <string name="restore_duration">%02d мин, %02d сек</string>
     <string name="pref_search_pinned_sources_only">Включать только закрепленные источники</string>
     <plurals name="download_queue_summary">
@@ -555,9 +549,9 @@
     <string name="sort_by_upload_date">По дате загрузки</string>
     <string name="label_data">Данные</string>
     <string name="backup_restore_missing_sources">Отсутствующие источники:</string>
-    <string name="invalid_backup_file_missing_manga">Бэпап не содержит мангу.</string>
+    <string name="invalid_backup_file_missing_manga">Резервная копия не содержит мангу.</string>
     <string name="invalid_backup_file_missing_data">В файле отсутствуют данные.</string>
-    <string name="invalid_backup_file">Неверный файл бэкапа</string>
+    <string name="invalid_backup_file">Неверный файл резервной копии</string>
     <string name="tracker_not_logged_in">Не выполнен вход в: %1$s</string>
     <string name="source_not_found_name">Источник не найден: %1$s</string>
     <string name="pref_library_update_error_notification">Показывать уведомления об ошибках обновления</string>
@@ -584,8 +578,7 @@
         <item quantity="other">%1$s глав</item>
     </plurals>
     <string name="action_sort_descending">По убыванию</string>
-    <string name="requires_app_restart">Требуется перезапуск приложения для вступления в силу</string>
-    <string name="pref_dns_over_https" translatable="false">DNS по HTTPS (Cloudflare)</string>
+    <string name="requires_app_restart">Для вступления в силу требуется перезапуск приложения</string>
     <string name="label_network">Сеть</string>
     <string name="pref_jump_to_chapters">Переходить к главам при запуске</string>
     <string name="tapping_inverted_both">Оба</string>
@@ -612,7 +605,7 @@
     </plurals>
     <string name="no_pinned_sources">У вас нет закрепленных источников</string>
     <string name="download_notifier_download_finish">Загрузка завершена</string>
-    <string name="group_backup_restore">Бэкап и восстановление</string>
+    <string name="group_backup_restore">Резервирование и восстановление</string>
     <string name="group_downloader">Загрузки</string>
     <string name="channel_complete">Завершение</string>
     <string name="channel_progress">Прогресс</string>
@@ -620,9 +613,9 @@
     <string name="backup_restore_missing_trackers">Не выполнен вход в трекеры:</string>
     <string name="pref_remove_bookmarked_chapters">Удалять главы с закладками</string>
     <string name="pref_category_delete_chapters">Удаление глав</string>
-    <string name="ext_nsfw_warning">Может содержать контент 18+</string>
+    <string name="ext_nsfw_warning">Может содержать контент NSFW (18+)</string>
     <string name="ext_nsfw_short">18+</string>
-    <string name="parental_controls_info">Это не предотвращает появление внутри приложения контента 18+ из неофициальных или потенциально неправильно помеченных расширений.</string>
+    <string name="parental_controls_info">Это не предотвращает появление внутри приложения контента NSFW (18+) из неофициальных или потенциально неправильно помеченных расширений.</string>
     <plurals name="missing_chapters_warning">
         <item quantity="one">Отсутствует 1 глава</item>
         <item quantity="few">Отсутствуют %d главы</item>
@@ -635,7 +628,6 @@
     <string name="also_set_chapter_settings_for_library">Также применить для всей манги в моей библиотеке</string>
     <string name="confirm_set_chapter_settings">Вы уверены, что хотите сохранить эти настройки по умолчанию\?</string>
     <string name="chapter_settings">Настройки главы</string>
-    <string name="action_web_view">WebView</string>
     <string name="share_page_info">%1$s: %2$s, страница %3$d</string>
     <string name="action_search_settings">Настройки поиска</string>
     <string name="downloaded_chapters">Загруженные главы</string>
@@ -643,26 +635,66 @@
     <string name="pref_hide_bottom_bar_on_scroll">Скрыть нижнюю панель при прокрутке</string>
     <string name="pref_incognito_mode_summary">Приостанавливает историю чтения</string>
     <string name="pref_incognito_mode">Режим инкогнито</string>
-    <string name="pref_clear_history_summary">Удалить историю чтения для всей манги</string>
     <string name="pref_clear_history">Очистить историю</string>
     <string name="clear_history_confirmation">Вы уверены\? Вся история будет удалена.</string>
     <string name="clear_history_completed">История удалена</string>
     <string name="spen_next_page">Следующая страница</string>
     <string name="spen_previous_page">Предыдущая страница</string>
-    <string name="full_restore_offline">Оффлайн восстановление - работает быстрее, но восстанавливает только то, что было в вашей резервной копии</string>
-    <string name="full_restore_online">Онлайн восстановление - работает гораздо медленнее, но подгружает более актуальные главы и информацию</string>
-    <string name="full_restore_mode">Сетевой режим</string>
     <string name="pref_backup_auto_create_legacy">Также создавать резервную копию старого формата</string>
     <string name="pref_create_legacy_backup_summary">Может быть использован в предыдущих версиях Tachiyomi</string>
     <string name="pref_create_legacy_backup">Создать резервную копию старого формата</string>
     <string name="migration_help_guide">Руководство по миграции источников</string>
-    <string name="invalid_backup_file_type">Неверный файл резервной копии: %1$s</string>
+    <string name="invalid_backup_file_type">Неверный тип файла резервной копии: %1$s
+\nФайл должен заканчиваться на .proto.gz или .json.</string>
     <string name="pref_category_nsfw_content">NSFW (18+) источники</string>
-    <string name="process_text_action_name">Искать в Tachiyomi</string>
     <string name="pref_label_nsfw_extension">Метка в списке расширений</string>
     <string name="pref_show_nsfw_extension">Показывать в списке расширений</string>
     <string name="pref_show_nsfw_source">Показывать в списке источников</string>
     <string name="file_picker_error">Приложение для выбора файлов не найдено</string>
     <string name="myanimelist_relogin">Пожалуйста, войдите в MAL снова</string>
     <string name="myanimelist_creds_missing">Учетные данные входа в MAL не найдены</string>
+    <string name="pref_viewer_nav">Разметка навигации</string>
+    <string name="edge_nav">Край</string>
+    <string name="kindlish_nav">Kindle-подобная</string>
+    <string name="l_nav">L-образная</string>
+    <string name="default_nav">По умолчанию</string>
+    <string name="channel_crash_logs">Логи вылетов</string>
+    <string name="track_finished_reading_date">Дата окончания чтения</string>
+    <string name="track_started_reading_date">Дата начала чтения</string>
+    <string name="crash_log_saved">Логи вылета сохранены</string>
+    <string name="pref_dump_crash_logs_summary">Сохраняет логи ошибок в файл для отправки разработчикам</string>
+    <string name="pref_dump_crash_logs">Выгрузка логов о вылетах</string>
+    <string name="network_unmetered">Безлимитная сеть</string>
+    <string name="action_desc">По убыванию</string>
+    <string name="action_asc">По возрастанию</string>
+    <string name="action_order_by_chapter_number">По номеру главы</string>
+    <string name="action_order_by_upload_date">По дате загрузки</string>
+    <string name="action_filter_tracked">Отслеживается</string>
+    <string name="action_display_show_number_of_items">Показать число объектов</string>
+    <string name="right_and_left_nav">Справа и слева</string>
+    <string name="pref_dual_page_split">Двухстраничное разделение</string>
+    <string name="pref_dual_page_invert">Инвертировать двухстраничное разделение</string>
+    <string name="pref_dual_page_invert_summary">Если двухстраничное разделение не соответствует направлению чтения</string>
+    <string name="backup_restore_content_full">Данные из файла резевной копии будут восстановлены.
+\n
+\nВам будет нужно установить все недостающие расширения, и после этого войти в сервисы отслеживания для их использования.</string>
+    <string name="update_8hour">Каждые 8 часов</string>
+    <string name="update_4hour">Каждые 4 часа</string>
+    <string name="nav_zone_left">Слева</string>
+    <string name="nav_zone_right">Справа</string>
+    <string name="nav_zone_next">Следующая</string>
+    <string name="nav_zone_prev">Предыдущая</string>
+    <string name="pref_show_navigation_mode_summary">Показывать зоны касания когда читалка открыта</string>
+    <string name="pref_show_navigation_mode">Показывать наложение макета навигации</string>
+    <string name="pref_dns_over_https">DNS по HTTPS</string>
+    <string name="none">Нет</string>
+    <string name="exclude">Исключать: %s</string>
+    <string name="include">Включать: %s</string>
+    <string name="action_sort_chapter_fetch_date">Дата получения</string>
+    <string name="pref_download_new_categories_details">Манга в исключенных категориях не будет загруженна, даже если она также находится во включенных категориях.</string>
+    <string name="pref_library_update_categories_details">Манга в исключенных категориях не будет обновляться, даже если она также находится во включенных категориях.</string>
+    <string name="pref_category_auto_download">Автозагрузка</string>
+    <string name="action_show_errors">Показать ошибки</string>
+    <string name="update_check_eol">Эта версия Андроида больше не поддерживается</string>
+    <string name="clipboard_copy_error">Не удалось скопировать в буфер обмена</string>
 </resources>

@@ -22,7 +22,7 @@ import java.util.Locale
 import eu.kanade.tachiyomi.data.preference.PreferenceKeys as Keys
 import eu.kanade.tachiyomi.data.preference.PreferenceValues as Values
 
-fun <T> Preference<T>.asImmediateFlow(block: (value: T) -> Unit): Flow<T> {
+fun <T> Preference<T>.asImmediateFlow(block: (T) -> Unit): Flow<T> {
     block(get())
     return asFlow()
         .onEach { block(it) }
@@ -34,6 +34,10 @@ operator fun <T> Preference<Set<T>>.plusAssign(item: T) {
 
 operator fun <T> Preference<Set<T>>.minusAssign(item: T) {
     set(get() - item)
+}
+
+fun Preference<Boolean>.toggle() {
+    set(!get())
 }
 
 class PreferencesHelper(val context: Context) {
@@ -89,6 +93,14 @@ class PreferencesHelper(val context: Context) {
 
     fun showPageNumber() = flowPrefs.getBoolean(Keys.showPageNumber, true)
 
+    fun dualPageSplitPaged() = flowPrefs.getBoolean(Keys.dualPageSplitPaged, false)
+
+    fun dualPageSplitWebtoon() = flowPrefs.getBoolean(Keys.dualPageSplitWebtoon, false)
+
+    fun dualPageInvertPaged() = flowPrefs.getBoolean(Keys.dualPageInvertPaged, false)
+
+    fun dualPageInvertWebtoon() = flowPrefs.getBoolean(Keys.dualPageInvertWebtoon, false)
+
     fun showReadingMode() = prefs.getBoolean(Keys.showReadingMode, true)
 
     fun trueColor() = flowPrefs.getBoolean(Keys.trueColor, false)
@@ -140,6 +152,10 @@ class PreferencesHelper(val context: Context) {
     fun navigationModePager() = flowPrefs.getInt(Keys.navigationModePager, 0)
 
     fun navigationModeWebtoon() = flowPrefs.getInt(Keys.navigationModeWebtoon, 0)
+
+    fun showNavigationOverlayNewUser() = flowPrefs.getBoolean(Keys.showNavigationOverlayNewUser, true)
+
+    fun showNavigationOverlayOnStart() = flowPrefs.getBoolean(Keys.showNavigationOverlayOnStart, false)
 
     fun portraitColumns() = flowPrefs.getInt(Keys.portraitColumns, 0)
 
@@ -202,6 +218,7 @@ class PreferencesHelper(val context: Context) {
     fun libraryUpdateRestriction() = prefs.getStringSet(Keys.libraryUpdateRestriction, setOf("wifi"))
 
     fun libraryUpdateCategories() = flowPrefs.getStringSet(Keys.libraryUpdateCategories, emptySet())
+    fun libraryUpdateCategoriesExclude() = flowPrefs.getStringSet(Keys.libraryUpdateCategoriesExclude, emptySet())
 
     fun libraryUpdatePrioritization() = flowPrefs.getInt(Keys.libraryUpdatePrioritization, 0)
 
@@ -215,11 +232,15 @@ class PreferencesHelper(val context: Context) {
 
     fun categoryTabs() = flowPrefs.getBoolean(Keys.categoryTabs, true)
 
+    fun categoryNumberOfItems() = flowPrefs.getBoolean(Keys.categoryNumberOfItems, false)
+
     fun filterDownloaded() = flowPrefs.getInt(Keys.filterDownloaded, ExtendedNavigationView.Item.TriStateGroup.State.IGNORE.value)
 
     fun filterUnread() = flowPrefs.getInt(Keys.filterUnread, ExtendedNavigationView.Item.TriStateGroup.State.IGNORE.value)
 
     fun filterCompleted() = flowPrefs.getInt(Keys.filterCompleted, ExtendedNavigationView.Item.TriStateGroup.State.IGNORE.value)
+
+    fun filterTracking(name: Int) = flowPrefs.getInt("${Keys.filterTracked}_$name", ExtendedNavigationView.Item.TriStateGroup.State.IGNORE.value)
 
     fun librarySortingMode() = flowPrefs.getInt(Keys.librarySortingMode, 0)
 
@@ -244,6 +265,7 @@ class PreferencesHelper(val context: Context) {
     fun downloadNew() = flowPrefs.getBoolean(Keys.downloadNew, false)
 
     fun downloadNewCategories() = flowPrefs.getStringSet(Keys.downloadNewCategories, emptySet())
+    fun downloadNewCategoriesExclude() = flowPrefs.getStringSet(Keys.downloadNewCategoriesExclude, emptySet())
 
     fun lang() = prefs.getString(Keys.lang, "")
 
@@ -257,7 +279,7 @@ class PreferencesHelper(val context: Context) {
 
     fun trustedSignatures() = flowPrefs.getStringSet("trusted_signatures", emptySet())
 
-    fun enableDoh() = prefs.getBoolean(Keys.enableDoh, false)
+    fun dohProvider() = prefs.getInt(Keys.dohProvider, -1)
 
     fun lastSearchQuerySearchSettings() = flowPrefs.getString("last_search_query", "")
 

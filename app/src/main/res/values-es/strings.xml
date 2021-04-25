@@ -7,7 +7,6 @@
     <string name="label_library">Biblioteca</string>
     <string name="label_recent_manga">Historial</string>
     <string name="label_recent_updates">Actualizaciones</string>
-    <string name="label_categories">Categorías</string>
     <string name="label_backup">Copia de seguridad</string>
     <!-- Actions -->
     <string name="action_settings">Configuración</string>
@@ -72,7 +71,6 @@
     <string name="update_48hour">Cada 2 días</string>
     <string name="pref_library_update_restriction">Restricciones de actualización de biblioteca</string>
     <string name="pref_library_update_restriction_summary">Actualizar solo cuando se cumplan las condiciones</string>
-    <string name="wifi">Wi-Fi</string>
     <string name="charging">Cargando</string>
     <string name="pref_update_only_non_completed">Solo actualizar manga no finalizada</string>
     <string name="pref_auto_update_manga_sync">Actualizar el progreso del capítulo después de la lectura</string>
@@ -157,7 +155,7 @@
     <!-- Manga info fragment -->
     <string name="manga_detail_tab">Info</string>
     <string name="description">Descripción</string>
-    <string name="ongoing">En curso</string>
+    <string name="ongoing">En publicación</string>
     <string name="unknown">Desconocido</string>
     <string name="licensed">Licenciado</string>
     <string name="remove_from_library">Eliminar de biblioteca</string>
@@ -186,7 +184,7 @@
     <string name="confirm_delete_chapters">¿Estás seguro de que deseas eliminar los capítulos seleccionados\?</string>
     <!-- MyAnimeList fragment -->
     <string name="reading">Leyendo</string>
-    <string name="completed">Completo</string>
+    <string name="completed">Finalizado</string>
     <string name="dropped">Abandonado</string>
     <string name="on_hold">En espera</string>
     <string name="plan_to_read">Para leer luego</string>
@@ -274,8 +272,6 @@
     <string name="app_not_available">Aplicación no disponible</string>
     <string name="short_recent_updates">Actualizaciones</string>
     <string name="update_weekly">Semanalmente</string>
-    <string name="update_monthly">Mensualmente</string>
-    <string name="pref_library_update_categories">Categorías que incluir en actualización global</string>
     <string name="all">Todos</string>
     <string name="pref_start_screen">Pantalla inicial</string>
     <string name="pref_language">Idioma</string>
@@ -296,7 +292,6 @@
     <string name="fourth_to_last">Cuarto al último capítulo</string>
     <string name="fifth_to_last">Quinto al último capítulo</string>
     <string name="pref_download_new">Descargar capítulos nuevos</string>
-    <string name="pref_download_new_categories">Categorías a incluir en la descarga</string>
     <string name="pref_create_backup">Crear copia de seguridad</string>
     <string name="pref_create_backup_summ">Se puede utilizar para restaurar la biblioteca actual</string>
     <string name="pref_restore_backup">Restaurar copia de seguridad</string>
@@ -307,7 +302,7 @@
     <string name="pref_backup_slots">Máximas copias de seguridad</string>
     <string name="backup_created">Copia de seguridad creada</string>
     <string name="restore_completed">Restauración completada</string>
-    <string name="backup_restore_content">Restaurar utiliza la fuente para obtener datos, es posible que se apliquen los costos de la operadora. 
+    <string name="backup_restore_content">Restaurar utiliza la fuente para obtener datos, es posible que se apliquen los costos de la operadora.
 \n
 \nAsegúrese de haber instalado todas las extensiones necesarias y de haber iniciado sesión en las fuentes y los servicios de seguimiento antes de la restauración.</string>
     <string name="backup_choice">¿De qué quieres hacer copia de seguridad\?</string>
@@ -374,16 +369,16 @@
     <string name="transition_no_previous">No hay capítulo anterior</string>
     <string name="migrate">Migrar</string>
     <string name="copy">Copiar</string>
-    <string name="untrusted_extension_message">Esta extensión fue firmada por una fuente no certificada y no fue activada. 
-\n 
-\nUna extensión maliciosa puede leer cualquier credencial de inicio guardada en Tachiyomi o ejecutar código arbitrario. 
-\n 
+    <string name="untrusted_extension_message">Esta extensión fue firmada por una fuente no certificada y no fue activada.
+\n
+\nUna extensión maliciosa puede leer cualquier credencial de inicio guardada en Tachiyomi o ejecutar código arbitrario.
+\n
 \nConfiando en este certificado aceptas estos riesgos.</string>
     <string name="double_tap_anim_speed_0">Sin animación</string>
     <string name="manga_info_full_title_label">Título</string>
     <string name="manga_added_library">Añadido a biblioteca</string>
     <string name="manga_removed_library">Quitado de biblioteca</string>
-    <string name="copied_to_clipboard">Copiado en portapapeles: 
+    <string name="copied_to_clipboard">Copiado en portapapeles:
 \n\"%1$s\"</string>
     <string name="source_not_installed">Fuente no instalada: %1$s</string>
     <string name="custom_download">Descargar cantidad personalizada</string>
@@ -425,7 +420,6 @@
     <string name="obsolete_extension_message">Esta extensión ya no está disponible.</string>
     <string name="pref_date_format">Formato de fecha</string>
     <string name="pref_category_library_update">Actualizaciones</string>
-    <string name="pref_category_library_categories">Categorías</string>
     <string name="logout">Cerrar sesión</string>
     <string name="logout_success">Has cerrado sesión</string>
     <string name="currently_reading">Leyendo actualmente</string>
@@ -598,7 +592,6 @@
     <string name="action_disable">Desactivar</string>
     <string name="action_open_in_settings">Abrir en Configuración</string>
     <string name="requires_app_restart">Requiere el reinicio de la aplicación para que surta efecto</string>
-    <string name="pref_dns_over_https" translatable="false">DNS sobre HTTPS (Cloudflare)</string>
     <string name="label_network">Red</string>
     <string name="pref_jump_to_chapters">Saltar a los capítulos abiertos</string>
     <string name="unknown_status">Estado desconocido</string>
@@ -639,7 +632,6 @@
         <item quantity="other">Faltan %d capítulos</item>
     </plurals>
     <string name="no_chapters_error">No hay capítulos</string>
-    <string name="action_web_view">WebView</string>
     <string name="chapter_settings_updated">Actualizado los ajustes del capítulo por defecto</string>
     <string name="set_chapter_settings_as_default">Establecer como predeterminado</string>
     <string name="also_set_chapter_settings_for_library">Aplicar también a toda la manga de mi biblioteca</string>
@@ -652,26 +644,40 @@
     <string name="pref_hide_bottom_bar_on_scroll">Ocultar la barra inferior al desplazar</string>
     <string name="pref_incognito_mode_summary">Pausar historial de lectura</string>
     <string name="pref_incognito_mode">Modo incognito</string>
-    <string name="pref_clear_history_summary">Eliminar el historial de lectura para toda la manga</string>
     <string name="pref_clear_history">Borrar historial</string>
     <string name="clear_history_confirmation">¿Está seguro\? Toda la historia se perderá.</string>
     <string name="clear_history_completed">Historial eliminado</string>
     <string name="spen_next_page">Siguiente página</string>
     <string name="spen_previous_page">Página anterior</string>
-    <string name="full_restore_offline">Restaura fuera de línea, termina rápidamente pero sólo contiene lo que tiene tu copia de seguridad</string>
-    <string name="full_restore_online">Restaurar en línea, es mucho más lento pero te da más información actualizada y capítulos</string>
-    <string name="full_restore_mode">Modo de red</string>
     <string name="pref_backup_auto_create_legacy">También crear copia de seguridad heredada</string>
     <string name="pref_create_legacy_backup_summary">Se puede utilizar en versiones anteriores de Tachiyomi</string>
     <string name="pref_create_legacy_backup">Crear una copia de seguridad heredada</string>
     <string name="migration_help_guide">Guía de migración de fuentes</string>
-    <string name="invalid_backup_file_type">Archivo de copia de seguridad inválido: %1$s</string>
+    <string name="invalid_backup_file_type">Tipo de archivo de copia de seguridad no válido: %1$s
+\nDebería terminar con .proto.gz o .json.</string>
     <string name="pref_category_nsfw_content">Fuentes NSFW (18+)</string>
-    <string name="process_text_action_name">Buscar en Tachiyomi</string>
     <string name="pref_show_nsfw_source">Mostrar en la lista de fuentes</string>
     <string name="pref_show_nsfw_extension">Mostrar en la lista de extensiones</string>
     <string name="pref_label_nsfw_extension">Etiqueta en la lista de extensiones</string>
     <string name="file_picker_error">No se encontró aplicación de selección de archivos</string>
     <string name="myanimelist_relogin">Vuelva a iniciar sesión en MAL</string>
     <string name="myanimelist_creds_missing">No se encontraron las credenciales de inicio de la sesión del MAL</string>
+    <string name="kindlish_nav">Kindle-ish</string>
+    <string name="channel_crash_logs">Registros de accidentes</string>
+    <string name="track_finished_reading_date">Fecha de lectura finalizada</string>
+    <string name="track_started_reading_date">Fecha de inicio de lectura</string>
+    <string name="crash_log_saved">Registros de fallos guardados</string>
+    <string name="pref_dump_crash_logs_summary">Guarda los registros de errores en un archivo para compartirlos con los desarrolladores</string>
+    <string name="pref_dump_crash_logs">Volcar registros de accidentes</string>
+    <string name="pref_viewer_nav">Estructura de navegación</string>
+    <string name="edge_nav">Borde</string>
+    <string name="l_nav">En forma de L</string>
+    <string name="default_nav">Defecto</string>
+    <string name="network_unmetered">Red no medida</string>
+    <string name="action_desc">Descendiente</string>
+    <string name="action_asc">Ascendente</string>
+    <string name="action_order_by_chapter_number">Por número de capítulo</string>
+    <string name="action_order_by_upload_date">Por fecha de subida</string>
+    <string name="action_filter_tracked">Rastreado</string>
+    <string name="right_and_left_nav">Derecha e Izquierda</string>
 </resources>

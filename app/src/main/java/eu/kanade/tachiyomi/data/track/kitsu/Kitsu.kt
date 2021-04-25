@@ -2,6 +2,7 @@ package eu.kanade.tachiyomi.data.track.kitsu
 
 import android.content.Context
 import android.graphics.Color
+import androidx.annotation.StringRes
 import eu.kanade.tachiyomi.R
 import eu.kanade.tachiyomi.data.database.models.Track
 import eu.kanade.tachiyomi.data.track.TrackService
@@ -20,12 +21,10 @@ class Kitsu(private val context: Context, id: Int) : TrackService(id) {
         const val ON_HOLD = 3
         const val DROPPED = 4
         const val PLAN_TO_READ = 5
-
-        const val DEFAULT_STATUS = READING
-        const val DEFAULT_SCORE = 0f
     }
 
-    override val name = "Kitsu"
+    @StringRes
+    override fun nameRes() = R.string.tracker_kitsu
 
     private val json: Json by injectLazy()
 
@@ -83,8 +82,8 @@ class Kitsu(private val context: Context, id: Int) : TrackService(id) {
             track.media_id = remoteTrack.media_id
             update(track)
         } else {
-            track.score = DEFAULT_SCORE
-            track.status = DEFAULT_STATUS
+            track.status = READING
+            track.score = 0F
             add(track)
         }
     }
@@ -101,14 +100,10 @@ class Kitsu(private val context: Context, id: Int) : TrackService(id) {
     }
 
     override suspend fun login(username: String, password: String) {
-        try {
-            val token = api.login(username, password)
-            interceptor.newAuth(token)
-            val userId = api.getCurrentUser()
-            saveCredentials(username, userId)
-        } catch (e: Throwable) {
-            logout()
-        }
+        val token = api.login(username, password)
+        interceptor.newAuth(token)
+        val userId = api.getCurrentUser()
+        saveCredentials(username, userId)
     }
 
     override fun logout() {

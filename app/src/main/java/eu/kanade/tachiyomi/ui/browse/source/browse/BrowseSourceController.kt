@@ -8,7 +8,6 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.core.view.updatePadding
 import androidx.recyclerview.widget.GridLayoutManager
@@ -19,6 +18,7 @@ import com.afollestad.materialdialogs.list.listItems
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.tfcporciuncula.flow.Preference
+import dev.chrisbanes.insetter.applyInsetter
 import eu.davidea.flexibleadapter.FlexibleAdapter
 import eu.davidea.flexibleadapter.items.IFlexible
 import eu.kanade.tachiyomi.R
@@ -33,12 +33,13 @@ import eu.kanade.tachiyomi.source.LocalSource
 import eu.kanade.tachiyomi.source.model.FilterList
 import eu.kanade.tachiyomi.source.online.HttpSource
 import eu.kanade.tachiyomi.ui.base.controller.FabController
-import eu.kanade.tachiyomi.ui.base.controller.NucleusController
+import eu.kanade.tachiyomi.ui.base.controller.SearchableNucleusController
 import eu.kanade.tachiyomi.ui.base.controller.withFadeTransaction
 import eu.kanade.tachiyomi.ui.browse.source.globalsearch.GlobalSearchController
 import eu.kanade.tachiyomi.ui.library.ChangeMangaCategoriesDialog
 import eu.kanade.tachiyomi.ui.main.MainActivity
 import eu.kanade.tachiyomi.ui.manga.MangaController
+import eu.kanade.tachiyomi.ui.more.MoreController
 import eu.kanade.tachiyomi.ui.webview.WebViewActivity
 import eu.kanade.tachiyomi.util.system.connectivityManager
 import eu.kanade.tachiyomi.util.system.openInBrowser
@@ -50,12 +51,8 @@ import eu.kanade.tachiyomi.widget.AutofitRecyclerView
 import eu.kanade.tachiyomi.widget.EmptyView
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.drop
-import kotlinx.coroutines.flow.filter
-import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import reactivecircus.flowbinding.appcompat.QueryTextEvent
-import reactivecircus.flowbinding.appcompat.queryTextEvents
 import timber.log.Timber
 import uy.kohesive.injekt.injectLazy
 
@@ -63,7 +60,7 @@ import uy.kohesive.injekt.injectLazy
  * Controller to manage the catalogues available in the app.
  */
 open class BrowseSourceController(bundle: Bundle) :
-    NucleusController<SourceControllerBinding, BrowseSourcePresenter>(bundle),
+    SearchableNucleusController<SourceControllerBinding, BrowseSourcePresenter>(bundle),
     FabController,
     FlexibleAdapter.OnItemClickListener,
     FlexibleAdapter.OnItemLongClickListener,
@@ -85,7 +82,7 @@ open class BrowseSourceController(bundle: Bundle) :
     /**
      * Adapter containing the list of manga from the catalogue.
      */
-    private var adapter: FlexibleAdapter<IFlexible<*>>? = null
+    protected var adapter: FlexibleAdapter<IFlexible<*>>? = null
 
     private var actionFab: ExtendedFloatingActionButton? = null
     private var actionFabScrollListener: RecyclerView.OnScrollListener? = null
@@ -127,10 +124,7 @@ open class BrowseSourceController(bundle: Bundle) :
         return BrowseSourcePresenter(args.getLong(SOURCE_ID_KEY), args.getString(SEARCH_QUERY_KEY))
     }
 
-    override fun inflateView(inflater: LayoutInflater, container: ViewGroup): View {
-        binding = SourceControllerBinding.inflate(inflater)
-        return binding.root
-    }
+    override fun createBinding(inflater: LayoutInflater) = SourceControllerBinding.inflate(inflater)
 
     override fun onViewCreated(view: View) {
         super.onViewCreated(view)
@@ -246,6 +240,11 @@ open class BrowseSourceController(bundle: Bundle) :
             actionFab?.shrinkOnScroll(recycler)
         }
 
+        recycler.applyInsetter {
+            type(navigationBars = true) {
+                padding()
+            }
+        }
         recycler.setHasFixedSize(true)
         recycler.adapter = adapter
 
@@ -258,25 +257,8 @@ open class BrowseSourceController(bundle: Bundle) :
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.source_browse, menu)
-
-        // Initialize search menu
+        createOptionsMenu(menu, inflater, R.menu.source_browse, R.id.action_search)
         val searchItem = menu.findItem(R.id.action_search)
-        val searchView = searchItem.actionView as SearchView
-        searchView.maxWidth = Int.MAX_VALUE
-
-        val query = presenter.query
-        if (query.isNotBlank()) {
-            searchItem.expandActionView()
-            searchView.setQuery(query, true)
-            searchView.clearFocus()
-        }
-
-        searchView.queryTextEvents()
-            .filter { router.backstack.lastOrNull()?.controller() == this@BrowseSourceController }
-            .filterIsInstance<QueryTextEvent.QuerySubmitted>()
-            .onEach { searchWithQuery(it.queryText.toString()) }
-            .launchIn(viewScope)
 
         searchItem.fixExpand(
             onExpand = { invalidateMenuOnExpand() },
@@ -284,6 +266,7 @@ open class BrowseSourceController(bundle: Bundle) :
                 if (router.backstackSize >= 2 && router.backstack[router.backstackSize - 2].controller() is GlobalSearchController) {
                     router.popController(this)
                 } else {
+                    nonSubmittedQuery = ""
                     searchWithQuery("")
                 }
 
@@ -297,6 +280,10 @@ open class BrowseSourceController(bundle: Bundle) :
             DisplayMode.LIST -> R.id.action_list
         }
         menu.findItem(displayItem).isChecked = true
+    }
+
+    override fun onSearchViewQueryTextSubmit(query: String?) {
+        searchWithQuery(query ?: "")
     }
 
     override fun onPrepareOptionsMenu(menu: Menu) {
@@ -391,16 +378,16 @@ open class BrowseSourceController(bundle: Bundle) :
         }
 
         if (adapter.isEmpty) {
-            val actions = emptyList<EmptyView.Action>().toMutableList()
-
-            if (presenter.source is LocalSource) {
-                actions += EmptyView.Action(R.string.local_source_help_guide, View.OnClickListener { openLocalSourceHelpGuide() })
+            val actions = if (presenter.source is LocalSource) {
+                listOf(
+                    EmptyView.Action(R.string.local_source_help_guide, R.drawable.ic_help_24dp) { openLocalSourceHelpGuide() }
+                )
             } else {
-                actions += EmptyView.Action(R.string.action_retry, retryAction)
-            }
-
-            if (presenter.source is HttpSource) {
-                actions += EmptyView.Action(R.string.action_open_in_web_view, View.OnClickListener { openInWebView() })
+                listOf(
+                    EmptyView.Action(R.string.action_retry, R.drawable.ic_refresh_24dp, retryAction),
+                    EmptyView.Action(R.string.action_open_in_web_view, R.drawable.ic_public_24dp) { openInWebView() },
+                    EmptyView.Action(R.string.label_help, R.drawable.ic_help_24dp) { activity?.openInBrowser(MoreController.URL_HELP) }
+                )
             }
 
             binding.emptyView.show(message, actions)
