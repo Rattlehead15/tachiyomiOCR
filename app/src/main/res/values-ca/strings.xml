@@ -11,7 +11,6 @@
     <string name="label_library">Biblioteca</string>
     <string name="label_recent_manga">Historial</string>
     <string name="label_recent_updates">Novetats</string>
-    <string name="label_categories">Categories</string>
     <string name="label_backup">Còpia de seguretat</string>
     <string name="label_migration">Migració</string>
     <string name="label_extensions">Extensions</string>
@@ -32,8 +31,8 @@
     <string name="action_mark_as_unread">Marca com a no llegit</string>
     <string name="action_mark_previous_as_read">Marca els anteriors com a llegits</string>
     <string name="action_download">Baixa</string>
-    <string name="action_bookmark">Marca</string>
-    <string name="action_remove_bookmark">Desmarca</string>
+    <string name="action_bookmark">Marca el capítol</string>
+    <string name="action_remove_bookmark">Desmarca el capítol</string>
     <string name="action_delete">Suprimeix</string>
     <string name="action_update">Actualitza</string>
     <string name="action_update_library">Actualitza la biblioteca</string>
@@ -98,12 +97,9 @@
     <string name="update_24hour">Cada dia</string>
     <string name="update_48hour">Cada 2 dies</string>
     <string name="update_weekly">Cada setmana</string>
-    <string name="update_monthly">Cada mes</string>
-    <string name="pref_library_update_categories">Categories a incloure a l\'actualització global</string>
     <string name="all">Tot</string>
     <string name="pref_library_update_restriction">Restriccions d\'actualització de la biblioteca</string>
     <string name="pref_library_update_restriction_summary">Actualitza només quan es compleixin les condicions</string>
-    <string name="wifi">Wi-Fi</string>
     <string name="charging">Carregant</string>
     <string name="pref_update_only_non_completed">Actualitza només el manga en curs</string>
     <string name="pref_auto_update_manga_sync">Actualitza el progrés dels capítols en llegir-los</string>
@@ -124,10 +120,10 @@
     <string name="ext_uninstall">Desinstal·la</string>
     <string name="ext_available">Disponible</string>
     <string name="untrusted_extension">Extensió no fiable</string>
-    <string name="untrusted_extension_message">Aquesta extensió s\'ha signat amb un certificat que no és de confiança i no s\'ha activat. 
-\n 
-\nUna extensió maliciosa podria llegir qualsevol credencial desada al Tachiyomi o executar codi arbitrari. 
-\n 
+    <string name="untrusted_extension_message">Aquesta extensió s\'ha signat amb un certificat que no és de confiança i no s\'ha activat.
+\n
+\nUna extensió maliciosa podria llegir qualsevol credencial desada al Tachiyomi o executar codi arbitrari.
+\n
 \nSi confieu en aquest certificat, accepteu aquests riscos.</string>
     <string name="ext_version_info">Versió: %1$s</string>
     <string name="ext_language_info">Llengua: %1$s</string>
@@ -191,7 +187,6 @@
     <string name="fourth_to_last">Anteantepenúltim capítol</string>
     <string name="fifth_to_last">Anteanteantepenúltim capítol</string>
     <string name="pref_download_new">Baixa capítols nous</string>
-    <string name="pref_download_new_categories">Categories a incloure a la baixada</string>
     <string name="services">Serveis</string>
     <string name="backup">Còpia de seguretat</string>
     <string name="pref_create_backup">Crea una còpia de seguretat</string>
@@ -204,7 +199,7 @@
     <string name="pref_backup_slots">Màxim de còpies de seguretat</string>
     <string name="backup_created">S\'ha creat la còpia de seguretat</string>
     <string name="restore_completed">S\'ha completat la restauració</string>
-    <string name="backup_restore_content">La restauració obté dades de les fonts, poden haver-hi despeses de l\'operador. 
+    <string name="backup_restore_content">La restauració obté dades de les fonts, poden haver-hi despeses de l\'operador.
 \n
 \nAssegureu-vos que heu instal·lat totes les extensions necessàries i que heu iniciat la sessió a les fonts i serveis de seguiment abans de restaurar.</string>
     <string name="backup_choice">De què voleu fer una còpia de seguretat\?</string>
@@ -393,7 +388,6 @@
     <string name="obsolete_extension_message">Aquesta extensió ja no està disponible.</string>
     <string name="pref_date_format">Format de data</string>
     <string name="pref_category_library_update">Actualitzacions</string>
-    <string name="pref_category_library_categories">Categories</string>
     <string name="logout_title">Voleu tancar la sessió a %1$s\?</string>
     <string name="logout">Tanca la sessió</string>
     <string name="logout_success">S\'ha tancat la sessió</string>
@@ -599,9 +593,9 @@
     <string name="backup_restore_missing_trackers">Seguidors sense sessió iniciada:</string>
     <string name="pref_remove_bookmarked_chapters">Suprimeix els capítols preferits</string>
     <string name="pref_category_delete_chapters">Suprimeix capítols</string>
-    <string name="ext_nsfw_warning">Pot contenir contingut +18</string>
+    <string name="ext_nsfw_warning">Pot contenir contingut NSFW (+18)</string>
     <string name="ext_nsfw_short">+18</string>
-    <string name="parental_controls_info">Això no evita que les extensions no oficials o possiblement mal etiquetades puguin mostrar contingut +18 a l\'aplicació.</string>
+    <string name="parental_controls_info">Això no evita que les extensions no oficials o possiblement mal etiquetades puguin mostrar contingut NSFW (+18) a l\'aplicació.</string>
     <plurals name="missing_chapters_warning">
         <item quantity="one">Hi manca 1 capítol</item>
         <item quantity="other">Hi manquen %d capítols</item>
@@ -612,7 +606,6 @@
     <string name="also_set_chapter_settings_for_library">Aplica-ho també a tot el manga de la biblioteca</string>
     <string name="confirm_set_chapter_settings">Esteu segur que voleu desar aquesta configuració com a configuració per defecte\?</string>
     <string name="chapter_settings">Configuració dels capítols</string>
-    <string name="action_web_view">Visualització web</string>
     <string name="share_page_info">%1$s: %2$s, pàgina %3$d</string>
     <string name="action_search_settings">Configuració de la cerca</string>
     <string name="downloaded_chapters">Capítols baixats</string>
@@ -621,25 +614,48 @@
     <string name="clear_history_confirmation">"N\'esteu segur\? Es perdrà  tot l\'historial."</string>
     <string name="pref_incognito_mode_summary">Pausa l\'historial de lectura</string>
     <string name="pref_incognito_mode">Mode d\'incògnit</string>
-    <string name="pref_clear_history_summary">Suprimeix l\'historial de lectura de tot el manga</string>
     <string name="pref_clear_history">Suprimeix l\'historial</string>
     <string name="clear_history_completed">S\'ha buidat l\'historial</string>
     <string name="spen_next_page">Pàgina següent</string>
     <string name="spen_previous_page">Pàgina anterior</string>
-    <string name="full_restore_offline">Restaura sense connexió: acaba ràpidament però conté només el que contingui la còpia de seguretat</string>
-    <string name="full_restore_online">Restaura en línia: molt més lent, però us proporciona informació més actualitzada i capítols</string>
-    <string name="full_restore_mode">Mode de xarxa</string>
     <string name="pref_backup_auto_create_legacy">Crea també una còpia de seguretat en format antic</string>
     <string name="pref_create_legacy_backup_summary">Es pot utilitzar en versions més antigues del Tachiyomi</string>
     <string name="pref_create_legacy_backup">Crea una còpia de seguretat en format antic</string>
     <string name="migration_help_guide">Guia de migració de fonts</string>
-    <string name="invalid_backup_file_type">Fitxer de còpia de seguretat invàlid: %1$s</string>
+    <string name="invalid_backup_file_type">Tipus de fitxer de còpia de seguretat invàlid: %1$s
+\nHauria d\'acabar en .proto.gz o .json.</string>
     <string name="pref_category_nsfw_content">Fonts NSFW (+18)</string>
-    <string name="process_text_action_name">Cerca al Tachiyomi</string>
     <string name="file_picker_error">No s\'ha trobat cap aplicació de selecció de fitxers</string>
     <string name="pref_label_nsfw_extension">Etiqueta a la llista d\'extensions</string>
     <string name="pref_show_nsfw_extension">Mostra a la llista d\'extensions</string>
     <string name="pref_show_nsfw_source">Mostra a la llista de fonts</string>
     <string name="myanimelist_relogin">Torneu a iniciar la sessió a MAL</string>
     <string name="myanimelist_creds_missing">No s\'han trobat les credencials d\'inici de sessió a MAL</string>
+    <string name="channel_crash_logs">Registres de fallades</string>
+    <string name="track_finished_reading_date">Data en què el vau acabar a llegir</string>
+    <string name="track_started_reading_date">Data en què el vau començar a llegir</string>
+    <string name="crash_log_saved">S\'han desat els registres de fallades</string>
+    <string name="pref_dump_crash_logs_summary">Desa els registres d\'errors en un fitxer perquè el pugueu compartir amb els desenvolupadors</string>
+    <string name="pref_dump_crash_logs">Bolca els registres de fallades</string>
+    <string name="pref_viewer_nav">Disseny de navegació</string>
+    <string name="edge_nav">Vora</string>
+    <string name="kindlish_nav">Semblant al Kindle</string>
+    <string name="l_nav">En forma d\'L</string>
+    <string name="default_nav">Per defecte</string>
+    <string name="network_unmetered">Xarxa sense límit de dades</string>
+    <string name="action_desc">Descendent</string>
+    <string name="action_asc">Ascendent</string>
+    <string name="action_order_by_chapter_number">Per número de capítol</string>
+    <string name="action_order_by_upload_date">Per data de pujada</string>
+    <string name="action_filter_tracked">En seguiment</string>
+    <string name="action_display_show_number_of_items">Mostra el nombre d\'elements</string>
+    <string name="right_and_left_nav">A la dreta i a l\'esquerra</string>
+    <string name="pref_dual_page_split">Dividit a doble pàgina (ALFA)</string>
+    <string name="pref_dual_page_invert_summary">Si la ubicació de la divisió a doble pàgina no encaixa amb la direcció de lectura</string>
+    <string name="pref_dual_page_invert">Inverteix la ubicació de la divisió a doble pàgina</string>
+    <string name="backup_restore_content_full">Es restauraran les dades del fitxer de còpia de seguretat.
+\n
+\nCaldrà que instal·leu les extensions que manquin i que després inicieu la sessió als serveis de seguiment per a utilitzar-los.</string>
+    <string name="update_8hour">Cada 8 hores</string>
+    <string name="update_4hour">Cada 4 hores</string>
 </resources>

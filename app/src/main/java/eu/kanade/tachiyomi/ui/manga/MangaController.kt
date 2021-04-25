@@ -11,7 +11,6 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ActionMode
 import androidx.core.graphics.blue
@@ -26,6 +25,7 @@ import com.bluelinelabs.conductor.ControllerChangeHandler
 import com.bluelinelabs.conductor.ControllerChangeType
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.snackbar.Snackbar
+import dev.chrisbanes.insetter.applyInsetter
 import eu.davidea.flexibleadapter.FlexibleAdapter
 import eu.davidea.flexibleadapter.SelectableAdapter
 import eu.kanade.tachiyomi.R
@@ -37,6 +37,7 @@ import eu.kanade.tachiyomi.data.database.models.Manga
 import eu.kanade.tachiyomi.data.download.DownloadService
 import eu.kanade.tachiyomi.data.download.model.Download
 import eu.kanade.tachiyomi.data.preference.PreferencesHelper
+import eu.kanade.tachiyomi.data.track.model.TrackSearch
 import eu.kanade.tachiyomi.databinding.MangaControllerBinding
 import eu.kanade.tachiyomi.source.LocalSource
 import eu.kanade.tachiyomi.source.Source
@@ -62,13 +63,16 @@ import eu.kanade.tachiyomi.ui.manga.chapter.DownloadCustomChaptersDialog
 import eu.kanade.tachiyomi.ui.manga.chapter.MangaChaptersHeaderAdapter
 import eu.kanade.tachiyomi.ui.manga.chapter.base.BaseChaptersAdapter
 import eu.kanade.tachiyomi.ui.manga.info.MangaInfoHeaderAdapter
-import eu.kanade.tachiyomi.ui.manga.track.TrackController
+import eu.kanade.tachiyomi.ui.manga.track.TrackItem
+import eu.kanade.tachiyomi.ui.manga.track.TrackSearchDialog
+import eu.kanade.tachiyomi.ui.manga.track.TrackSheet
 import eu.kanade.tachiyomi.ui.reader.ReaderActivity
 import eu.kanade.tachiyomi.ui.recent.history.HistoryController
 import eu.kanade.tachiyomi.ui.recent.updates.UpdatesController
 import eu.kanade.tachiyomi.ui.webview.WebViewActivity
 import eu.kanade.tachiyomi.util.chapter.NoChaptersException
 import eu.kanade.tachiyomi.util.hasCustomCover
+import eu.kanade.tachiyomi.util.lang.launchUI
 import eu.kanade.tachiyomi.util.system.getResourceColor
 import eu.kanade.tachiyomi.util.system.toast
 import eu.kanade.tachiyomi.util.view.getCoordinates
@@ -82,6 +86,7 @@ import timber.log.Timber
 import uy.kohesive.injekt.Injekt
 import uy.kohesive.injekt.api.get
 import uy.kohesive.injekt.injectLazy
+import java.util.ArrayDeque
 import kotlin.math.min
 
 class MangaController :
@@ -154,10 +159,12 @@ class MangaController :
 
     private val isLocalSource by lazy { presenter.source.id == LocalSource.ID }
 
-    private var lastClickPosition = -1
+    private var lastClickPositionStack = ArrayDeque(listOf(-1))
 
     private var isRefreshingInfo = false
     private var isRefreshingChapters = false
+
+    private var trackSheet: TrackSheet? = null
 
     init {
         setHasOptionsMenu(true)
@@ -191,13 +198,21 @@ class MangaController :
         )
     }
 
-    override fun inflateView(inflater: LayoutInflater, container: ViewGroup): View {
-        binding = MangaControllerBinding.inflate(inflater)
-        return binding.root
-    }
+    override fun createBinding(inflater: LayoutInflater) = MangaControllerBinding.inflate(inflater)
 
     override fun onViewCreated(view: View) {
         super.onViewCreated(view)
+
+        binding.recycler.applyInsetter {
+            type(navigationBars = true) {
+                padding()
+            }
+        }
+        binding.actionToolbar.applyInsetter {
+            type(navigationBars = true) {
+                margin(bottom = true)
+            }
+        }
 
         if (manga == null || source == null) return
 
@@ -236,7 +251,7 @@ class MangaController :
             }
             .launchIn(viewScope)
 
-        (activity!! as MainActivity).fixViewToBottom(binding.actionToolbar)
+        (activity as? MainActivity)?.fixViewToBottom(binding.actionToolbar)
 
         settingsSheet = ChaptersSettingsSheet(router, presenter) { group ->
             if (group is ChaptersSettingsSheet.Filter.FilterGroup) {
@@ -244,6 +259,8 @@ class MangaController :
                 chaptersAdapter?.notifyDataSetChanged()
             }
         }
+
+        trackSheet = TrackSheet(this, manga!!)
 
         updateFilterIconState()
     }
@@ -313,7 +330,7 @@ class MangaController :
 
     override fun onDestroyView(view: View) {
         destroyActionModeIfNeeded()
-        (activity!! as MainActivity).clearFixViewToBottom(binding.actionToolbar)
+        (activity as? MainActivity)?.clearFixViewToBottom(binding.actionToolbar)
         binding.actionToolbar.destroy()
         mangaInfoAdapter = null
         chaptersHeaderAdapter = null
@@ -460,7 +477,7 @@ class MangaController :
     }
 
     fun onTrackingClick() {
-        router.pushController(TrackController(manga).withFadeTransaction())
+        trackSheet?.show()
     }
 
     private fun addToLibrary(manga: Manga) {
@@ -600,8 +617,9 @@ class MangaController :
 
     override fun openMangaCoverPicker(manga: Manga) {
         if (manga.favorite) {
-            val intent = Intent(Intent.ACTION_GET_CONTENT)
-            intent.type = "image/*"
+            val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
+                type = "image/*"
+            }
             startActivityForResult(
                 Intent.createChooser(
                     intent,
@@ -727,7 +745,12 @@ class MangaController :
         val adapter = chaptersAdapter ?: return false
         val item = adapter.getItem(position) ?: return false
         return if (actionMode != null && adapter.mode == SelectableAdapter.Mode.MULTI) {
-            lastClickPosition = position
+            if (adapter.isSelected(position)) {
+                lastClickPositionStack.remove(position) // possible that it's not there, but no harm
+            } else {
+                lastClickPositionStack.push(position)
+            }
+
             toggleSelection(position)
             true
         } else {
@@ -738,6 +761,7 @@ class MangaController :
 
     override fun onItemLongClick(position: Int) {
         createActionModeIfNeeded()
+        val lastClickPosition = lastClickPositionStack.peek()!!
         when {
             lastClickPosition == -1 -> setSelection(position)
             lastClickPosition > position ->
@@ -748,7 +772,10 @@ class MangaController :
                     setSelection(i)
             else -> setSelection(position)
         }
-        lastClickPosition = position
+        if (lastClickPosition != position) {
+            lastClickPositionStack.remove(position) // move to top if already exists
+            lastClickPositionStack.push(position)
+        }
         chaptersAdapter?.notifyDataSetChanged()
     }
 
@@ -797,7 +824,8 @@ class MangaController :
     }
 
     private fun destroyActionModeIfNeeded() {
-        lastClickPosition = -1
+        lastClickPositionStack.clear()
+        lastClickPositionStack.push(-1)
         actionMode?.finish()
     }
 
@@ -824,7 +852,6 @@ class MangaController :
             binding.actionToolbar.findItem(R.id.action_mark_as_unread)?.isVisible = chapters.all { it.chapter.read }
 
             // Hide FAB to avoid interfering with the bottom action toolbar
-            // actionFab?.hide()
             actionFab?.isVisible = false
         }
         return false
@@ -856,10 +883,6 @@ class MangaController :
         chaptersAdapter?.clearSelection()
         selectedChapters.clear()
         actionMode = null
-
-        // TODO: there seems to be a bug in MaterialComponents where the [ExtendedFloatingActionButton]
-        // fails to show up properly
-        // actionFab?.show()
         actionFab?.isVisible = true
     }
 
@@ -970,7 +993,9 @@ class MangaController :
         chapters.forEach {
             chaptersAdapter?.updateItem(it)
         }
-        chaptersAdapter?.notifyDataSetChanged()
+        launchUI {
+            chaptersAdapter?.notifyDataSetChanged()
+        }
     }
 
     fun onChaptersDeletedError(error: Throwable) {
@@ -979,10 +1004,17 @@ class MangaController :
 
     // OVERFLOW MENU DIALOGS
 
-    private fun getUnreadChaptersSorted() = presenter.chapters
-        .filter { !it.read && it.status == Download.State.NOT_DOWNLOADED }
-        .distinctBy { it.name }
-        .sortedByDescending { it.source_order }
+    private fun getUnreadChaptersSorted(): List<ChapterItem> {
+        val chapters = presenter.chapters
+            .sortedWith(presenter.getChapterSort())
+            .filter { !it.read && it.status == Download.State.NOT_DOWNLOADED }
+            .distinctBy { it.name }
+        return if (presenter.sortDescending()) {
+            chapters.reversed()
+        } else {
+            chapters
+        }
+    }
 
     private fun downloadChapters(choice: Int) {
         val chaptersToDownload = when (choice) {
@@ -1018,6 +1050,35 @@ class MangaController :
     }
 
     // Chapters list - end
+
+    // Tracker sheet - start
+    fun onNextTrackers(trackers: List<TrackItem>) {
+        trackSheet?.onNextTrackers(trackers)
+    }
+
+    fun onTrackingRefreshDone() {
+    }
+
+    fun onTrackingRefreshError(error: Throwable) {
+        Timber.e(error)
+        activity?.toast(error.message)
+    }
+
+    fun onTrackingSearchResults(results: List<TrackSearch>) {
+        getTrackingSearchDialog()?.onSearchResults(results)
+    }
+
+    fun onTrackingSearchResultsError(error: Throwable) {
+        Timber.e(error)
+        activity?.toast(error.message)
+        getTrackingSearchDialog()?.onSearchResultsError()
+    }
+
+    private fun getTrackingSearchDialog(): TrackSearchDialog? {
+        return trackSheet?.getSearchDialog()
+    }
+
+    // Tracker sheet - end
 
     companion object {
         const val FROM_SOURCE_EXTRA = "from_source"

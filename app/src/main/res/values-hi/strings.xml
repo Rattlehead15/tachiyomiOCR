@@ -11,7 +11,6 @@
     <string name="label_library">पुस्तकालय</string>
     <string name="label_recent_manga">इतिहास</string>
     <string name="label_recent_updates">अद्यतन</string>
-    <string name="label_categories">श्रेणियाँ</string>
     <string name="label_backup">बैकअप</string>
     <string name="action_settings">सेटिंग</string>
     <string name="action_filter">फिल्टर</string>
@@ -29,8 +28,8 @@
     <string name="action_mark_as_unread">अपठित चिह्न करे</string>
     <string name="action_mark_previous_as_read">पिछले को पढ़ा हुआ चिह्न करे</string>
     <string name="action_download">डाउनलोड</string>
-    <string name="action_bookmark">पृष्ठ स्मृति करे</string>
-    <string name="action_remove_bookmark">पृष्ठ स्मृति हटाये</string>
+    <string name="action_bookmark">बुकमार्क अध्याय</string>
+    <string name="action_remove_bookmark">अध्याय बुकमार्क हटाये</string>
     <string name="action_delete">हटाये</string>
     <string name="action_update">अद्यतन</string>
     <string name="action_update_library">अद्यतन पुस्तकालय</string>
@@ -95,12 +94,9 @@
     <string name="update_24hour">हर रोज़</string>
     <string name="update_48hour">हर २ दिन</string>
     <string name="update_weekly">साप्ताहिक</string>
-    <string name="update_monthly">मासिक</string>
-    <string name="pref_library_update_categories">वैश्विक श्रेणियाँ जो अद्यतन में शामिल करनी है</string>
     <string name="all">समस्त</string>
     <string name="pref_library_update_restriction">पुस्तकालय अद्यतन प्रतिबंध</string>
     <string name="pref_library_update_restriction_summary">अद्यतन तभी जब परिस्थिति अनुकूल हो</string>
-    <string name="wifi">वाई - फाई</string>
     <string name="charging">चार्ज होते समय</string>
     <string name="pref_update_only_non_completed">केवल चालू मंगा का अद्यतन करे</string>
     <string name="pref_auto_update_manga_sync">पढ़ने के बाद अध्याय प्रगति को अपडेट करें</string>
@@ -164,7 +160,6 @@
     <string name="fourth_to_last">चतुर्थ अंतिम अध्याय</string>
     <string name="fifth_to_last">अंतिम अध्याय के लिए पांचवां</string>
     <string name="pref_download_new">नए अध्याय डाउनलोड करें</string>
-    <string name="pref_download_new_categories">श्रेणियाँ डाउनलोड में शामिल करने के लिए</string>
     <string name="services">सेवाएं</string>
     <string name="backup">बैकअप</string>
     <string name="pref_create_backup">बैकअप बनाये</string>
@@ -332,9 +327,9 @@
     <string name="ext_uninstall">स्थापना रद्द करें</string>
     <string name="ext_available">उपलब्ध</string>
     <string name="untrusted_extension">अविश्वस्त एक्सटेंशन</string>
-    <string name="untrusted_extension_message">यह एक्सटेंशन एक अविश्वस्त प्रमाणपत्र के साथ हस्ताक्षरित हुआ था और सक्रिय नहीं हुआ था। 
+    <string name="untrusted_extension_message">यह एक्सटेंशन एक अविश्वस्त प्रमाणपत्र के साथ हस्ताक्षरित हुआ था और सक्रिय नहीं हुआ था।
 \n
-\nदुर्भावनापूर्ण विस्तार, किसी भी लॉगिन क्रेडेंशियल्स को तचीयोमी में संग्रहीत या मनमाना कोड निष्पादित कर सकता है 
+\nदुर्भावनापूर्ण विस्तार, किसी भी लॉगिन क्रेडेंशियल्स को तचीयोमी में संग्रहीत या मनमाना कोड निष्पादित कर सकता है
 \n
 \nइस प्रमाणपत्र पर विश्वास करके आप इन जोखिमों को स्वीकार करते हैं।</string>
     <string name="ext_version_info">संस्करण: %1$s</string>
@@ -393,7 +388,6 @@
     <string name="obsolete_extension_message">यह एक्सटेंशन अब उपलब्ध नहीं है।</string>
     <string name="pref_date_format">दिनांक स्वरूप</string>
     <string name="pref_category_library_update">अद्यतन</string>
-    <string name="pref_category_library_categories">श्रेणियाँ</string>
     <string name="logout_title">%1$s से लॉगआउट करें\?</string>
     <string name="logout">लॉग आउट</string>
     <string name="logout_success">अब आप लॉग आउट है</string>
@@ -566,7 +560,6 @@
     </plurals>
     <string name="action_sort_descending">अवरोही</string>
     <string name="action_open_in_settings">सेटिंग्स में खोलें</string>
-    <string name="pref_dns_over_https" translatable="false">HTTPS (Cloudflare) पर DNS</string>
     <string name="label_network">नेटवर्क</string>
     <string name="pref_jump_to_chapters">खुलने पर अध्यायों पर जाएं</string>
     <string name="tapping_inverted_both">दोनों</string>
@@ -600,9 +593,9 @@
     <string name="backup_restore_missing_trackers">ट्रैकर्स में लॉग इन नहीं किया गया:</string>
     <string name="pref_remove_bookmarked_chapters">बुकमार्क अध्यायों को हटाएं</string>
     <string name="pref_category_delete_chapters">अध्यायों को हटाएं</string>
-    <string name="ext_nsfw_warning">18+ सामग्री हो सकती है</string>
+    <string name="ext_nsfw_warning">इसमें NSFW (18+) सामग्री हो सकती है</string>
     <string name="ext_nsfw_short">18+</string>
-    <string name="parental_controls_info">यह अनौपचारिक या संभावित रूप से फ़्लैग किए गए एक्सटेंशन को ऐप के भीतर 18+ सामग्री के सामने आने से नहीं रोकता है।</string>
+    <string name="parental_controls_info">यह अनौपचारिक या संभावित रूप से फ़्लैग किए गए एक्सटेंशन को ऐप के भीतर NSFW (18+) सामग्री के सामने आने से नहीं रोकता है।</string>
     <plurals name="missing_chapters_warning">
         <item quantity="one">1 लापता अध्याय है</item>
         <item quantity="other">%d लापता अध्याय हैं</item>
@@ -613,7 +606,6 @@
     <string name="also_set_chapter_settings_for_library">मेरी लाइब्रेरी में सभी मंगा पर भी लागू करें</string>
     <string name="confirm_set_chapter_settings">क्या आप वाकई इन सेटिंग्स को डिफ़ॉल्ट के रूप में सहेजना चाहते हैं\?</string>
     <string name="chapter_settings">अध्याय सेटिंग्स</string>
-    <string name="action_web_view">वेबव्यू</string>
     <string name="share_page_info">%1$s: %2$s, पृष्ठ %3$d</string>
     <string name="downloaded_chapters">डाउनलोड किए गए अध्याय</string>
     <string name="manga_from_library">पुस्तकालय से मंगा</string>
@@ -621,23 +613,49 @@
     <string name="action_search_settings">खोज सेंटिंग</string>
     <string name="pref_incognito_mode_summary">इतिहास पढ़ने से रोक देता है</string>
     <string name="pref_incognito_mode">इंकॉग्निटो मोड</string>
-    <string name="pref_clear_history_summary">सभी मंगा के लिए पढ़ने का इतिहास हटाएं</string>
     <string name="pref_clear_history">इतिहास मिटा दें</string>
     <string name="clear_history_confirmation">क्या आपको यकीन है\? सारा इतिहास खो जाएगा।</string>
     <string name="clear_history_completed">इतिहास हटाया गया</string>
-    <string name="invalid_backup_file_type">अमान्य बैकअप फ़ाइल: %1$s</string>
-    <string name="process_text_action_name">Tachiyomi में खोजें</string>
+    <string name="invalid_backup_file_type">अमान्य बैकअप फ़ाइल प्रकार: %1$s
+\nयह .proto.gz या .json के साथ समाप्त होना चाहिए।</string>
     <string name="spen_next_page">अगला पृष्ठ</string>
     <string name="spen_previous_page">पिछला पृष्ठ</string>
     <string name="migration_help_guide">स्रोत माइग्रेशन गाइड</string>
-    <string name="full_restore_offline">ऑफ़लाइन पुनर्स्थापित करें, जल्दी समाप्त हो जाता है, लेकिन केवल वही होता है जिसमें आपका बैकअप होता है</string>
-    <string name="full_restore_online">ऑनलाइन पुनर्स्थापित करें, बहुत धीमा लेकिन आपको अधिक अद्यतन जानकारी और अध्याय देता है</string>
-    <string name="full_restore_mode">नेटवर्क मोड</string>
     <string name="pref_backup_auto_create_legacy">विरासत बैकअप भी बनाएं</string>
     <string name="pref_create_legacy_backup_summary">Tachiyomi के पुराने संस्करणों में उपयोग किया जा सकता है</string>
     <string name="pref_create_legacy_backup">विरासत बैकअप बनाएँ</string>
     <string name="pref_label_nsfw_extension">एक्सटेंशन सूची में लेबल</string>
     <string name="pref_show_nsfw_extension">एक्सटेंशन सूची में दिखाएं</string>
     <string name="pref_show_nsfw_source">स्रोत सूची में दिखाएं</string>
-    <string name="pref_category_nsfw_content">18+ सामग्री</string>
+    <string name="pref_category_nsfw_content">NSFW (18+) स्रोत</string>
+    <string name="channel_crash_logs">क्रैश लॉग</string>
+    <string name="file_picker_error">कोई फ़ाइल पिकर ऐप नहीं मिला</string>
+    <string name="myanimelist_relogin">कृपया फिर से MAL पर लॉगिन करें</string>
+    <string name="myanimelist_creds_missing">MAL लॉगिन क्रेडेंशियल नहीं मिला</string>
+    <string name="track_finished_reading_date">पढ़ना समाप्त की तिथि</string>
+    <string name="track_started_reading_date">पढ़ना शुरू करने की तारीख</string>
+    <string name="crash_log_saved">क्रैश लॉग सहेजे गए</string>
+    <string name="pref_dump_crash_logs_summary">डेवलपर्स के साथ साझा करने के लिए फ़ाइल में त्रुटि लॉग सहेजता है</string>
+    <string name="pref_dump_crash_logs">डंप क्रैश लॉग</string>
+    <string name="pref_viewer_nav">नेविगेशन लेआउट</string>
+    <string name="right_and_left_nav">दाएं और बाएं</string>
+    <string name="edge_nav">धार</string>
+    <string name="kindlish_nav">किंडल-ईश</string>
+    <string name="l_nav">एल आकार</string>
+    <string name="default_nav">डिफॉल्ट</string>
+    <string name="network_unmetered">अनमीटर्ड नेटवर्क</string>
+    <string name="action_desc">अवरोही</string>
+    <string name="action_asc">आरोही</string>
+    <string name="action_order_by_chapter_number">अध्याय संख्या से</string>
+    <string name="action_order_by_upload_date">अपलोड तिथि से</string>
+    <string name="action_display_show_number_of_items">वस्तुओं की संख्या दिखाएं</string>
+    <string name="action_filter_tracked">ट्रैक किए गए</string>
+    <string name="backup_restore_content_full">बैकअप फ़ाइल से डेटा बहाल किया जाएगा।
+\n
+\nआपको किसी भी लापता एक्सटेंशन को इंस्टॉल करना होगा और बाद में सेवाओं को ट्रैक करने के लिए लॉग इन करना होगा ताकि उनका उपयोग किया जा सके।</string>
+    <string name="pref_dual_page_invert_summary">यदि दोहरे पृष्ठ विभाजन की नियुक्ति पढ़ने की दिशा से मेल नहीं खाती है</string>
+    <string name="pref_dual_page_invert">दोहरे पृष्ठ विभाजन प्लेसमेंट को पलटना</string>
+    <string name="pref_dual_page_split">दोहरी पृष्ठ विभाजन (अल्फा)</string>
+    <string name="update_8hour">हर 8 घंटे में</string>
+    <string name="update_4hour">हर 4 घंटे में</string>
 </resources>

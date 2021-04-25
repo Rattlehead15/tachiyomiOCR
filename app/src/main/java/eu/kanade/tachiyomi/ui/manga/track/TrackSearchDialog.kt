@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import androidx.core.os.bundleOf
-import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
@@ -16,6 +15,7 @@ import eu.kanade.tachiyomi.data.track.TrackService
 import eu.kanade.tachiyomi.data.track.model.TrackSearch
 import eu.kanade.tachiyomi.databinding.TrackSearchDialogBinding
 import eu.kanade.tachiyomi.ui.base.controller.DialogController
+import eu.kanade.tachiyomi.ui.manga.MangaController
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.launchIn
@@ -37,9 +37,9 @@ class TrackSearchDialog : DialogController {
     private val service: TrackService
 
     private val trackController
-        get() = targetController as TrackController
+        get() = targetController as MangaController
 
-    constructor(target: TrackController, service: TrackService) : super(
+    constructor(target: MangaController, service: TrackService) : super(
         bundleOf(KEY_SERVICE to service.id)
     ) {
         targetController = target
@@ -105,22 +105,22 @@ class TrackSearchDialog : DialogController {
     private fun search(query: String) {
         val binding = binding ?: return
         binding.progress.isVisible = true
-        binding.trackSearchList.isInvisible = true
-        trackController.presenter.search(query, service)
+        binding.trackSearchList.isVisible = false
+        trackController.presenter.trackingSearch(query, service)
     }
 
     fun onSearchResults(results: List<TrackSearch>) {
         selectedItem = null
         val binding = binding ?: return
-        binding.progress.isInvisible = true
+        binding.progress.isVisible = false
         binding.trackSearchList.isVisible = true
         adapter?.setItems(results)
     }
 
     fun onSearchResultsError() {
         val binding = binding ?: return
-        binding.progress.isVisible = true
-        binding.trackSearchList.isInvisible = true
+        binding.progress.isVisible = false
+        binding.trackSearchList.isVisible = false
         adapter?.setItems(emptyList())
     }
 

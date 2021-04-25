@@ -5,11 +5,11 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bluelinelabs.conductor.ControllerChangeHandler
 import com.bluelinelabs.conductor.ControllerChangeType
+import dev.chrisbanes.insetter.applyInsetter
 import eu.davidea.flexibleadapter.FlexibleAdapter
 import eu.davidea.flexibleadapter.items.IFlexible
 import eu.kanade.tachiyomi.R
@@ -56,13 +56,16 @@ open class ExtensionController :
         return ExtensionPresenter()
     }
 
-    override fun inflateView(inflater: LayoutInflater, container: ViewGroup): View {
-        binding = ExtensionControllerBinding.inflate(inflater)
-        return binding.root
-    }
+    override fun createBinding(inflater: LayoutInflater) = ExtensionControllerBinding.inflate(inflater)
 
     override fun onViewCreated(view: View) {
         super.onViewCreated(view)
+
+        binding.recycler.applyInsetter {
+            type(navigationBars = true) {
+                padding()
+            }
+        }
 
         binding.swipeRefresh.isRefreshing = true
         binding.swipeRefresh.refreshes()
@@ -104,18 +107,14 @@ open class ExtensionController :
     override fun onButtonClick(position: Int) {
         val extension = (adapter?.getItem(position) as? ExtensionItem)?.extension ?: return
         when (extension) {
+            is Extension.Available -> presenter.installExtension(extension)
+            is Extension.Untrusted -> openTrustDialog(extension)
             is Extension.Installed -> {
                 if (!extension.hasUpdate) {
                     openDetails(extension)
                 } else {
                     presenter.updateExtension(extension)
                 }
-            }
-            is Extension.Available -> {
-                presenter.installExtension(extension)
-            }
-            is Extension.Untrusted -> {
-                openTrustDialog(extension)
             }
         }
     }
@@ -147,12 +146,11 @@ open class ExtensionController :
 
     override fun onItemClick(view: View, position: Int): Boolean {
         val extension = (adapter?.getItem(position) as? ExtensionItem)?.extension ?: return false
-        if (extension is Extension.Installed) {
-            openDetails(extension)
-        } else if (extension is Extension.Untrusted) {
-            openTrustDialog(extension)
+        when (extension) {
+            is Extension.Available -> presenter.installExtension(extension)
+            is Extension.Untrusted -> openTrustDialog(extension)
+            is Extension.Installed -> openDetails(extension)
         }
-
         return false
     }
 

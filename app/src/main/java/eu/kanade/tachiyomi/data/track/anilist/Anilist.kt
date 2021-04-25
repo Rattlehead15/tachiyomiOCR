@@ -2,6 +2,7 @@ package eu.kanade.tachiyomi.data.track.anilist
 
 import android.content.Context
 import android.graphics.Color
+import androidx.annotation.StringRes
 import eu.kanade.tachiyomi.R
 import eu.kanade.tachiyomi.data.database.models.Track
 import eu.kanade.tachiyomi.data.track.TrackService
@@ -21,9 +22,6 @@ class Anilist(private val context: Context, id: Int) : TrackService(id) {
         const val PLANNING = 5
         const val REPEATING = 6
 
-        const val DEFAULT_STATUS = READING
-        const val DEFAULT_SCORE = 0
-
         const val POINT_100 = "POINT_100"
         const val POINT_10 = "POINT_10"
         const val POINT_10_DECIMAL = "POINT_10_DECIMAL"
@@ -31,13 +29,13 @@ class Anilist(private val context: Context, id: Int) : TrackService(id) {
         const val POINT_3 = "POINT_3"
     }
 
-    override val name = "AniList"
-
     private val json: Json by injectLazy()
 
     private val interceptor by lazy { AnilistInterceptor(this, getPassword()) }
 
     private val api by lazy { AnilistApi(client, interceptor) }
+
+    override val supportsReadingDates: Boolean = true
 
     private val scorePreference = preferences.anilistScoreType()
 
@@ -50,6 +48,9 @@ class Anilist(private val context: Context, id: Int) : TrackService(id) {
             scorePreference.delete()
         }
     }
+
+    @StringRes
+    override fun nameRes() = R.string.tracker_anilist
 
     override fun getLogo() = R.drawable.ic_tracker_anilist
 
@@ -152,8 +153,8 @@ class Anilist(private val context: Context, id: Int) : TrackService(id) {
             update(track)
         } else {
             // Set default fields if it's not found in the list
-            track.score = DEFAULT_SCORE.toFloat()
-            track.status = DEFAULT_STATUS
+            track.status = READING
+            track.score = 0F
             add(track)
         }
     }

@@ -17,6 +17,8 @@ import eu.kanade.tachiyomi.ui.browse.source.globalsearch.GlobalSearchPresenter
 import eu.kanade.tachiyomi.util.chapter.syncChaptersWithSource
 import eu.kanade.tachiyomi.util.lang.launchIO
 import eu.kanade.tachiyomi.util.lang.launchUI
+import eu.kanade.tachiyomi.util.lang.withUIContext
+import eu.kanade.tachiyomi.util.system.toast
 import java.util.Date
 
 class SearchPresenter(
@@ -56,11 +58,15 @@ class SearchPresenter(
         replacingMangaRelay.call(true)
 
         presenterScope.launchIO {
-            val chapters = source.getChapterList(manga.toMangaInfo())
-                .map { it.toSChapter() }
+            try {
+                val chapters = source.getChapterList(manga.toMangaInfo())
+                    .map { it.toSChapter() }
 
-            migrateMangaInternal(source, chapters, prevManga, manga, replace)
-        }.invokeOnCompletion {
+                migrateMangaInternal(source, chapters, prevManga, manga, replace)
+            } catch (e: Throwable) {
+                withUIContext { view?.applicationContext?.toast(e.message) }
+            }
+
             presenterScope.launchUI { replacingMangaRelay.call(false) }
         }
     }
@@ -98,24 +104,22 @@ class SearchPresenter(
                 val prevMangaChapters = db.getChapters(prevManga).executeAsBlocking()
                 val maxChapterRead = prevMangaChapters
                     .filter { it.read }
-                    .maxByOrNull { it.chapter_number }?.chapter_number
-                val bookmarkedChapters = prevMangaChapters
-                    .filter { it.bookmark && it.isRecognizedNumber }
-                    .map { it.chapter_number }
-                if (maxChapterRead != null) {
-                    val dbChapters = db.getChapters(manga).executeAsBlocking()
-                    for (chapter in dbChapters) {
-                        if (chapter.isRecognizedNumber) {
-                            if (chapter.chapter_number <= maxChapterRead) {
-                                chapter.read = true
-                            }
-                            if (chapter.chapter_number in bookmarkedChapters) {
-                                chapter.bookmark = true
-                            }
+                    .maxOfOrNull { it.chapter_number } ?: 0f
+                val dbChapters = db.getChapters(manga).executeAsBlocking()
+                for (chapter in dbChapters) {
+                    if (chapter.isRecognizedNumber) {
+                        val prevChapter = prevMangaChapters
+                            .find { it.isRecognizedNumber && it.chapter_number == chapter.chapter_number }
+                        if (prevChapter != null) {
+                            chapter.date_fetch = prevChapter.date_fetch
+                            chapter.bookmark = prevChapter.bookmark
+                        }
+                        if (chapter.chapter_number <= maxChapterRead) {
+                            chapter.read = true
                         }
                     }
-                    db.insertChapters(dbChapters).executeAsBlocking()
                 }
+                db.insertChapters(dbChapters).executeAsBlocking()
             }
 
             // Update categories

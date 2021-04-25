@@ -1,20 +1,19 @@
 package eu.kanade.tachiyomi.ui.security
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.biometric.BiometricPrompt
 import eu.kanade.tachiyomi.R
-import eu.kanade.tachiyomi.data.preference.PreferencesHelper
-import uy.kohesive.injekt.injectLazy
+import eu.kanade.tachiyomi.ui.base.activity.BaseThemedActivity
+import eu.kanade.tachiyomi.util.system.BiometricUtil
+import timber.log.Timber
 import java.util.Date
 import java.util.concurrent.Executors
 
 /**
  * Blank activity with a BiometricPrompt.
  */
-class BiometricUnlockActivity : AppCompatActivity() {
+class BiometricUnlockActivity : BaseThemedActivity() {
 
-    private val preferences: PreferencesHelper by injectLazy()
     private val executor = Executors.newSingleThreadExecutor()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,6 +25,7 @@ class BiometricUnlockActivity : AppCompatActivity() {
             object : BiometricPrompt.AuthenticationCallback() {
                 override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
                     super.onAuthenticationError(errorCode, errString)
+                    Timber.e(errString.toString())
                     finishAffinity()
                 }
 
@@ -38,12 +38,15 @@ class BiometricUnlockActivity : AppCompatActivity() {
             }
         )
 
-        val promptInfo = BiometricPrompt.PromptInfo.Builder()
+        var promptInfo = BiometricPrompt.PromptInfo.Builder()
             .setTitle(getString(R.string.unlock_app))
-            .setDeviceCredentialAllowed(true)
+            .setAllowedAuthenticators(BiometricUtil.getSupportedAuthenticators(this))
             .setConfirmationRequired(false)
-            .build()
 
-        biometricPrompt.authenticate(promptInfo)
+        if (!BiometricUtil.isDeviceCredentialAllowed(this)) {
+            promptInfo = promptInfo.setNegativeButtonText(getString(R.string.action_cancel))
+        }
+
+        biometricPrompt.authenticate(promptInfo.build())
     }
 }

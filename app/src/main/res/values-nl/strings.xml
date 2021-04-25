@@ -9,7 +9,6 @@
     <string name="label_settings">Instellingen</string>
     <string name="label_library">Bibliotheek</string>
     <string name="label_recent_manga">Geschiedenis</string>
-    <string name="label_categories">Categorieën</string>
     <string name="label_backup">Back-up</string>
     <string name="action_settings">Instellingen</string>
     <string name="action_filter">Filter</string>
@@ -24,8 +23,8 @@
     <string name="action_mark_as_unread">Als ongelezen markeren</string>
     <string name="action_mark_previous_as_read">Markeer vorige als gelezen</string>
     <string name="action_download">Downloaden</string>
-    <string name="action_bookmark">Bladwijzer toevoegen</string>
-    <string name="action_remove_bookmark">Bladwijzer verwijderen</string>
+    <string name="action_bookmark">Hoofdstuk toevoegen aan bladwijzers</string>
+    <string name="action_remove_bookmark">Hoofdstuk verwijderen uit bladwijzers</string>
     <string name="action_delete">Verwijderen</string>
     <string name="action_update">Bijwerken</string>
     <string name="action_edit">Bewerken</string>
@@ -71,7 +70,7 @@
     <string name="pref_category_advanced">Geavanceerd</string>
     <string name="pref_library_columns">Elementen per rij</string>
     <string name="default_columns">Standaard</string>
-    <string name="pref_library_update_interval">Verversfrequentie bibliotheek</string>
+    <string name="pref_library_update_interval">Updatefrequentie</string>
     <string name="update_never">Handmatig</string>
     <string name="update_1hour">Ieder uur</string>
     <string name="update_2hour">Iedere 2 uur</string>
@@ -81,7 +80,6 @@
     <string name="update_24hour">Dagelijks</string>
     <string name="update_48hour">Tweedagelijks</string>
     <string name="update_weekly">Wekelijks</string>
-    <string name="update_monthly">Maandelijks</string>
     <string name="all">Alles</string>
     <string name="pref_start_screen">Beginscherm</string>
     <string name="pref_language">Taal</string>
@@ -240,7 +238,6 @@
     <string name="portrait">Staand</string>
     <string name="landscape">Liggend</string>
     <string name="pref_library_update_restriction_summary">Update alleen wanneer de voorwaarden zijn voldaan</string>
-    <string name="wifi">Wi-Fi</string>
     <string name="charging">Aan het opladen</string>
     <string name="pref_reader_navigation">Navigatie</string>
     <string name="pref_read_with_volume_keys_inverted">Draai volumeknoppen om</string>
@@ -267,13 +264,11 @@
     <string name="information_no_recent_manga">Niks recent gelezen</string>
     <string name="download_notifier_unknown_error">Kon dit hoofdstuk niet downloaden door een onverwachte fout</string>
     <string name="download_notifier_page_error">Er ontbreekt een pagina in de map</string>
-    <string name="pref_library_update_restriction">Bibliotheek updatebeperkingen</string>
-    <string name="pref_library_update_categories">Categorieën om op te nemen in globale update</string>
+    <string name="pref_library_update_restriction">Updatebeperkingen</string>
     <string name="pref_update_only_non_completed">Update alleen lopende manga</string>
     <string name="pref_auto_update_manga_sync">Hoofdstukvoortgang bijwerken na lezen</string>
-    <string name="pref_lock_orientation">Vergrendel oriëntatie</string>
+    <string name="pref_lock_orientation">Scherm niet draaien</string>
     <string name="pref_keep_screen_on">Scherm aanhouden</string>
-    <string name="pref_download_new_categories">Categorieën om op te nemen in de download</string>
     <string name="clear_database_confirmation">Weet je het zeker\? Gelezen hoofdstukken en voortgang voor manga die niet in de bibliotheek zitten zullen verloren gaan</string>
     <string name="clear_database_completed">Database geleegd</string>
     <string name="source_requires_login">Deze bron vereist dat je inlogt</string>
@@ -298,8 +293,8 @@
     <string name="update_check_notification_download_in_progress">Downloaden…</string>
     <string name="update_check_notification_download_error">Fout bij het downloaden</string>
     <string name="action_filter_bookmarked">Met bladwijzer</string>
-    <string name="backup_restore_content">Herstellen gebruikt bronnen om data op te halen, mogelijk zijn extra mobiele-abonnementskosten van toepassing. 
-\n 
+    <string name="backup_restore_content">Herstellen gebruikt bronnen om data op te halen, mogelijk zijn extra mobiele-abonnementskosten van toepassing.
+\n
 \nZorg ervoor dat je de nodige extensies hebt geinstalleerd en bent ingelogd voor bronnen en trackingdiensten voordat je het herstellen start.</string>
     <string name="choices_reset">Dialoogkeuzes opnieuw ingesteld</string>
     <string name="login_success">Ingelogd</string>
@@ -332,10 +327,10 @@
     <string name="ext_uninstall">Verwijderen</string>
     <string name="ext_available">Beschikbaar</string>
     <string name="untrusted_extension">Niet vertrouwde extensie</string>
-    <string name="untrusted_extension_message">Deze extensie is door een niet vertrouwd certificaat ondertekend en is niet geactiveerd. 
-\n 
-\nEen kwaadaardige extensie zou alle log-in gegevens kunnen uitlezen in Tachiyomi of arbitraire code uit kunnen voeren. 
-\n 
+    <string name="untrusted_extension_message">Deze extensie is door een niet vertrouwd certificaat ondertekend en is niet geactiveerd.
+\n
+\nEen kwaadaardige extensie zou alle log-in gegevens kunnen uitlezen in Tachiyomi of arbitraire code uit kunnen voeren.
+\n
 \nDoor dit certificaat te vertrouwen accepteer je deze risico\'s.</string>
     <string name="ext_version_info">Versie: %1$s</string>
     <string name="ext_language_info">Taal: %1$s</string>
@@ -378,7 +373,7 @@
     <string name="filter_mode_multiply">Vermenigvuldigen</string>
     <string name="filter_mode_screen">Bleken</string>
     <string name="label_help">Help</string>
-    <string name="pref_library_update_prioritization">Updatevolgorde bibliotheken</string>
+    <string name="pref_library_update_prioritization">Updatevolgorde</string>
     <string name="pref_color_filter_mode">Mengmodus kleurfilter</string>
     <string name="filter_mode_lighten">Tegenhouden / Lichter</string>
     <string name="filter_mode_darken">Doordrukken / Donkerder</string>
@@ -392,8 +387,7 @@
     <string name="ext_obsolete">Verouderd</string>
     <string name="obsolete_extension_message">Deze extensie is niet meer beschikbaar.</string>
     <string name="pref_date_format">Datumformaat</string>
-    <string name="pref_category_library_update">Updates</string>
-    <string name="pref_category_library_categories">Categorieën</string>
+    <string name="pref_category_library_update">Globale update</string>
     <string name="logout_title">Uitloggen bij %1$s\?</string>
     <string name="logout">Uitloggen</string>
     <string name="logout_success">U bent nu uitgelogd</string>
@@ -414,7 +408,7 @@
     <string name="theme_dark_amoled">AMOLED-zwart</string>
     <string name="pref_manage_notifications">Meldingen beheren</string>
     <string name="pref_category_security">Beveiliging</string>
-    <string name="lock_with_biometrics">Biometrisch vergrendelen</string>
+    <string name="lock_with_biometrics">Ontgrendelen vereisen</string>
     <string name="lock_when_idle">Vergrendelen indien niet in gebruik</string>
     <string name="lock_always">Altijd</string>
     <string name="lock_never">Nooit</string>
@@ -503,7 +497,7 @@
     <string name="pref_always_show_chapter_transition">Hoofdstukovergangen altijd weergeven</string>
     <string name="vertical_plus_viewer">Doorlopend verticaal</string>
     <string name="pref_skip_filtered_chapters">Gefilterde hoofdstukken overslaan</string>
-    <string name="pref_cutout_short">Toon inhoud in uitgesneden gebied</string>
+    <string name="pref_cutout_short">Inhoud in uitgesneden gebied laten zien</string>
     <string name="pref_enable_automatic_extension_updates">Zoeken naar updates voor extensies</string>
     <string name="hide_notification_content">Meldingsinhoud verbergen</string>
     <string name="pref_confirm_exit">Bevestig sluiten</string>
@@ -567,7 +561,6 @@
     <string name="action_sort_descending">Aflopend</string>
     <string name="action_open_in_settings">In Instellingen openen</string>
     <string name="requires_app_restart">Herstart van de app nodig om van kracht te worden</string>
-    <string name="pref_dns_over_https" translatable="false">DNS over HTTPS (Cloudflare)</string>
     <string name="label_network">Netwerk</string>
     <string name="pref_jump_to_chapters">Ga naar de hoofdstukken bij openen</string>
     <string name="tapping_inverted_both">Beiden</string>
@@ -600,9 +593,9 @@
     <string name="backup_restore_missing_trackers">Niet-ingelogde trackers:</string>
     <string name="pref_remove_bookmarked_chapters">Verwijder hoofdstukken met bladwijzers</string>
     <string name="pref_category_delete_chapters">Hoofdstukken verwijderen</string>
-    <string name="ext_nsfw_warning">Kan 18+-inhoud bevatten</string>
+    <string name="ext_nsfw_warning">Kan NSFW-inhoud (18+) bevatten</string>
     <string name="ext_nsfw_short">18+</string>
-    <string name="parental_controls_info">Dit voorkomt niet dat onofficiële of mogelijk incorrect gemarkeerde extensies 18+-inhoud kunnen laten zien in de app.</string>
+    <string name="parental_controls_info">Dit voorkomt niet dat onofficiële of mogelijk incorrect gemarkeerde extensies NSFW-inhoud (18+) kunnen laten zien in de app.</string>
     <plurals name="missing_chapters_warning">
         <item quantity="one">Er is 1 missend hoofdstuk</item>
         <item quantity="other">Er zijn %d missende hoofstukken</item>
@@ -613,29 +606,24 @@
     <string name="also_set_chapter_settings_for_library">Ook toepassen op alle manga in mijn bibliotheek</string>
     <string name="confirm_set_chapter_settings">Weet je zeker dat je deze instellingen als standaardinstellingen wilt opslaan\?</string>
     <string name="chapter_settings">Hoofdstukinstellingen</string>
-    <string name="action_web_view">WebView</string>
     <string name="share_page_info">%1$s: %2$s, pagina %3$d</string>
     <string name="action_search_settings">Zoekinstellingen</string>
     <string name="downloaded_chapters">Gedownloade hoofdstukken</string>
     <string name="manga_from_library">Manga uit de bibliotheek</string>
     <string name="pref_incognito_mode_summary">Pauzeert leesgeschiedenis</string>
     <string name="pref_incognito_mode">Incognitomodus</string>
-    <string name="pref_clear_history_summary">Verwijder leesgeschiedenis voor alle manga</string>
     <string name="pref_clear_history">Geschiedenis wissen</string>
     <string name="clear_history_confirmation">Weet je dit zeker\? Alle geschiedenis zal verloren gaan.</string>
     <string name="clear_history_completed">Geschiedenis verwijderd</string>
     <string name="pref_hide_bottom_bar_on_scroll">Navigatiebalk verbergen bij het scrollen</string>
     <string name="spen_next_page">Volgende pagina</string>
     <string name="spen_previous_page">Vorige pagina</string>
-    <string name="full_restore_offline">Herstel offline, sneller klaar maar bevat alleen wat de backup heeft</string>
-    <string name="full_restore_online">Herstel online, veel langzamer maar geeft bijgewerkte informatie en hoofdstukken</string>
-    <string name="full_restore_mode">Netwerkmodus</string>
     <string name="pref_backup_auto_create_legacy">Maak ook een verouderde backup</string>
     <string name="pref_create_legacy_backup_summary">Kan gebruikt worden in oudere versies van Tachiyomi</string>
     <string name="pref_create_legacy_backup">Verourderde back-up maken</string>
     <string name="migration_help_guide">Bronmigratiegids</string>
-    <string name="process_text_action_name">Zoeken in Tachiyomi</string>
-    <string name="invalid_backup_file_type">Ongeldig back-upbestand: %1$s</string>
+    <string name="invalid_backup_file_type">Ongeldig type back-upbestand: %1$s
+\nDe bestandsnaam moet eindigen op .proto.gz of .json.</string>
     <string name="pref_category_nsfw_content">NSFW-bronnen (18+)</string>
     <string name="file_picker_error">Geen bestandskiezer-app gevonden</string>
     <string name="myanimelist_relogin">Log alstublieft opnieuw in op MAL</string>
@@ -643,4 +631,46 @@
     <string name="pref_label_nsfw_extension">Markeren in extensielijst</string>
     <string name="pref_show_nsfw_extension">Weergeven in extensielijst</string>
     <string name="pref_show_nsfw_source">Weergeven in bronnenlijst</string>
+    <string name="pref_viewer_nav">Navigatie-indeling</string>
+    <string name="edge_nav">Rand</string>
+    <string name="kindlish_nav">Kindle-achtig</string>
+    <string name="l_nav">L-vormig</string>
+    <string name="default_nav">Standaard</string>
+    <string name="channel_crash_logs">Crashlogboeken</string>
+    <string name="track_finished_reading_date">Datum klaar met lezen</string>
+    <string name="track_started_reading_date">Datum begonnen met lezen</string>
+    <string name="crash_log_saved">Crashlogboeken opgeslagen</string>
+    <string name="pref_dump_crash_logs_summary">Slaat foutmeldingslogboeken op in een bestand om te delen met de ontwikkelaars</string>
+    <string name="pref_dump_crash_logs">Crashlogboeken opslaan</string>
+    <string name="network_unmetered">Onbeperkt netwerk</string>
+    <string name="action_desc">Aflopend</string>
+    <string name="action_asc">Oplopend</string>
+    <string name="action_order_by_chapter_number">Op hoofdstuknummer</string>
+    <string name="action_order_by_upload_date">Op uploaddatum</string>
+    <string name="action_display_show_number_of_items">Aantal items tonen</string>
+    <string name="action_filter_tracked">Getracked</string>
+    <string name="right_and_left_nav">Rechts en links</string>
+    <string name="pref_dual_page_split">Dubbele pagina\'s opsplitsen</string>
+    <string name="backup_restore_content_full">Data uit het back-upbestand zal worden teruggezet.
+\n
+\nJe zult missende extensies opnieuw moeten installeren, en opnieuw moeten inloggen bij de trackingdiensten om deze weer te gebruiken.</string>
+    <string name="nav_zone_right">Rechts</string>
+    <string name="nav_zone_left">Links</string>
+    <string name="nav_zone_next">Volgende</string>
+    <string name="nav_zone_prev">Vorige</string>
+    <string name="pref_dual_page_invert_summary">Als de plaats van de dubble-paginasplitsing niet overeenkomt met de leesrichting</string>
+    <string name="pref_dual_page_invert">Plaatsing van dubbele-paginasplitsing omkeren</string>
+    <string name="pref_show_navigation_mode_summary">Laat de tikzones zien als de lezer wordt geopend</string>
+    <string name="pref_show_navigation_mode">Navigatielayout als overlay laten zien</string>
+    <string name="update_8hour">Elke 8 uur</string>
+    <string name="update_4hour">Elke 4 uur</string>
+    <string name="pref_dns_over_https">DNS over HTTPS</string>
+    <string name="pref_download_new_categories_details">Manga in uitgezonderde categorieën worden niet gedownload, zelfs niet als ze onder opgenomen categorieën vallen.</string>
+    <string name="pref_category_auto_download">Automatisch downloaden</string>
+    <string name="exclude">Uitgezonderd: %s</string>
+    <string name="include">Inbegrepen: %s</string>
+    <string name="pref_library_update_categories_details">Manga in uitgesloten categorieën worden niet bijgewerkt, zelfs niet als ze onder opgenomen categorieën vallen.</string>
+    <string name="action_sort_chapter_fetch_date">Datum opgehaald</string>
+    <string name="none">Geen</string>
+    <string name="action_show_errors">Fouten weergeven</string>
 </resources>

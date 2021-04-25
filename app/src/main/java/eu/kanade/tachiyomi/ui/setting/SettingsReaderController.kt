@@ -50,6 +50,12 @@ class SettingsReaderController : SettingsController() {
             summaryRes = R.string.pref_show_reading_mode_summary
             defaultValue = true
         }
+        switchPreference {
+            key = Keys.showNavigationOverlayOnStart
+            titleRes = R.string.pref_show_navigation_mode
+            summaryRes = R.string.pref_show_navigation_mode_summary
+            defaultValue = false
+        }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             switchPreference {
                 key = Keys.trueColor
@@ -72,11 +78,12 @@ class SettingsReaderController : SettingsController() {
                 titleRes = R.string.pref_rotation_type
                 entriesRes = arrayOf(
                     R.string.rotation_free,
-                    R.string.rotation_lock,
+                    R.string.rotation_portrait,
+                    R.string.rotation_landscape,
                     R.string.rotation_force_portrait,
-                    R.string.rotation_force_landscape
+                    R.string.rotation_force_landscape,
                 )
-                entryValues = arrayOf("1", "2", "3", "4")
+                entryValues = arrayOf("1", "2", "3", "4", "5")
                 defaultValue = "1"
                 summary = "%s"
             }
@@ -140,13 +147,9 @@ class SettingsReaderController : SettingsController() {
             intListPreference {
                 key = Keys.navigationModePager
                 titleRes = R.string.pref_viewer_nav
-                entriesRes = arrayOf(
-                    R.string.default_nav,
-                    R.string.l_nav,
-                    R.string.kindlish_nav,
-                    R.string.edge_nav
-                )
-                entryValues = arrayOf("0", "1", "2", "3")
+                entries = context.resources.getStringArray(R.array.pager_nav).also { values ->
+                    entryValues = values.indices.map { index -> "$index" }.toTypedArray()
+                }
                 defaultValue = "0"
                 summary = "%s"
 
@@ -205,6 +208,18 @@ class SettingsReaderController : SettingsController() {
                 titleRes = R.string.pref_crop_borders
                 defaultValue = false
             }
+            switchPreference {
+                key = Keys.dualPageSplitPaged
+                titleRes = R.string.pref_dual_page_split
+                defaultValue = false
+            }
+            switchPreference {
+                key = Keys.dualPageInvertPaged
+                titleRes = R.string.pref_dual_page_invert
+                summaryRes = R.string.pref_dual_page_invert_summary
+                defaultValue = false
+                preferences.dualPageSplitPaged().asImmediateFlow { isVisible = it }.launchIn(viewScope)
+            }
         }
 
         preferenceCategory {
@@ -213,13 +228,9 @@ class SettingsReaderController : SettingsController() {
             intListPreference {
                 key = Keys.navigationModeWebtoon
                 titleRes = R.string.pref_viewer_nav
-                entriesRes = arrayOf(
-                    R.string.default_nav,
-                    R.string.l_nav,
-                    R.string.kindlish_nav,
-                    R.string.edge_nav
-                )
-                entryValues = arrayOf("0", "1", "2", "3")
+                entries = context.resources.getStringArray(R.array.webtoon_nav).also { values ->
+                    entryValues = values.indices.map { index -> "$index" }.toTypedArray()
+                }
                 defaultValue = "0"
                 summary = "%s"
 
@@ -263,6 +274,18 @@ class SettingsReaderController : SettingsController() {
                 key = Keys.cropBordersWebtoon
                 titleRes = R.string.pref_crop_borders
                 defaultValue = false
+            }
+            switchPreference {
+                key = Keys.dualPageSplitWebtoon
+                titleRes = R.string.pref_dual_page_split
+                defaultValue = false
+            }
+            switchPreference {
+                key = Keys.dualPageInvertWebtoon
+                titleRes = R.string.pref_dual_page_invert
+                summaryRes = R.string.pref_dual_page_invert_summary
+                defaultValue = false
+                preferences.dualPageSplitWebtoon().asImmediateFlow { isVisible = it }.launchIn(viewScope)
             }
         }
 

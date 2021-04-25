@@ -28,6 +28,7 @@ import com.github.chrisbanes.photoview.PhotoView
 import eu.kanade.tachiyomi.R
 import eu.kanade.tachiyomi.data.glide.GlideApp
 import eu.kanade.tachiyomi.source.model.Page
+import eu.kanade.tachiyomi.ui.reader.model.InsertPage
 import eu.kanade.tachiyomi.ui.reader.model.ReaderPage
 import eu.kanade.tachiyomi.ui.reader.viewer.ReaderProgressBar
 import eu.kanade.tachiyomi.ui.reader.viewer.pager.PagerConfig.ZoomType
@@ -241,6 +242,9 @@ class PagerPageHolder(
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnNext { isAnimated ->
+                if (viewer.config.dualPageSplit) {
+                    openStream = processDualPageSplit(openStream!!)
+                }
                 if (!isAnimated) {
                     initSubsamplingImageView().setImage(ImageSource.inputStream(openStream!!))
                 } else {
@@ -251,6 +255,43 @@ class PagerPageHolder(
             .flatMap { Observable.never<Unit>() }
             .doOnUnsubscribe { openStream?.close() }
             .subscribe({}, {})
+    }
+
+    private fun processDualPageSplit(openStream: InputStream): InputStream {
+        var inputStream = openStream
+        val (isDoublePage, stream) = when (page) {
+            is InsertPage -> Pair(true, inputStream)
+            else -> ImageUtil.isDoublePage(inputStream)
+        }
+        inputStream = stream
+
+        if (!isDoublePage) return inputStream
+
+        var side = when {
+            viewer is L2RPagerViewer && page is InsertPage -> ImageUtil.Side.RIGHT
+            (viewer is R2LPagerViewer || viewer is VerticalPagerViewer) && page is InsertPage -> ImageUtil.Side.LEFT
+            viewer is L2RPagerViewer && page !is InsertPage -> ImageUtil.Side.LEFT
+            (viewer is R2LPagerViewer || viewer is VerticalPagerViewer) && page !is InsertPage -> ImageUtil.Side.RIGHT
+            else -> error("We should choose a side!")
+        }
+
+        if (viewer.config.dualPageInvert) {
+            side = when (side) {
+                ImageUtil.Side.RIGHT -> ImageUtil.Side.LEFT
+                ImageUtil.Side.LEFT -> ImageUtil.Side.RIGHT
+            }
+        }
+
+        if (page !is InsertPage) {
+            onPageSplit()
+        }
+
+        return ImageUtil.splitInHalf(inputStream, side)
+    }
+
+    private fun onPageSplit() {
+        val newPage = InsertPage(page)
+        viewer.onPageSplit(page, newPage)
     }
 
     /**

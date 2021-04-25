@@ -1,6 +1,7 @@
 package eu.kanade.tachiyomi.util.system
 
 import android.app.ActivityManager
+import android.app.KeyguardManager
 import android.app.Notification
 import android.app.NotificationManager
 import android.content.BroadcastReceiver
@@ -33,6 +34,8 @@ import androidx.core.net.toUri
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import eu.kanade.tachiyomi.R
 import eu.kanade.tachiyomi.util.lang.truncateCenter
+import timber.log.Timber
+import java.io.File
 import kotlin.math.roundToInt
 
 /**
@@ -41,8 +44,8 @@ import kotlin.math.roundToInt
  * @param resource the text resource.
  * @param duration the duration of the toast. Defaults to short.
  */
-fun Context.toast(@StringRes resource: Int, duration: Int = Toast.LENGTH_SHORT) {
-    Toast.makeText(this, resource, duration).show()
+fun Context.toast(@StringRes resource: Int, duration: Int = Toast.LENGTH_SHORT, block: (Toast) -> Unit = {}): Toast {
+    return toast(getString(resource), duration, block)
 }
 
 /**
@@ -51,8 +54,11 @@ fun Context.toast(@StringRes resource: Int, duration: Int = Toast.LENGTH_SHORT) 
  * @param text the text to display.
  * @param duration the duration of the toast. Defaults to short.
  */
-fun Context.toast(text: String?, duration: Int = Toast.LENGTH_SHORT) {
-    Toast.makeText(this, text.orEmpty(), duration).show()
+fun Context.toast(text: String?, duration: Int = Toast.LENGTH_SHORT, block: (Toast) -> Unit = {}): Toast {
+    return Toast.makeText(this, text.orEmpty(), duration).also {
+        block(it)
+        it.show()
+    }
 }
 
 /**
@@ -64,10 +70,15 @@ fun Context.toast(text: String?, duration: Int = Toast.LENGTH_SHORT) {
 fun Context.copyToClipboard(label: String, content: String) {
     if (content.isBlank()) return
 
-    val clipboard = getSystemService<ClipboardManager>()!!
-    clipboard.setPrimaryClip(ClipData.newPlainText(label, content))
+    try {
+        val clipboard = getSystemService<ClipboardManager>()!!
+        clipboard.setPrimaryClip(ClipData.newPlainText(label, content))
 
-    toast(getString(R.string.copied_to_clipboard, content.truncateCenter(50)))
+        toast(getString(R.string.copied_to_clipboard, content.truncateCenter(50)))
+    } catch (e: Throwable) {
+        Timber.e(e)
+        toast(R.string.clipboard_copy_error)
+    }
 }
 
 /**
@@ -149,23 +160,17 @@ val Float.dpToPxEnd: Float
 val Resources.isLTR
     get() = configuration.layoutDirection == View.LAYOUT_DIRECTION_LTR
 
-/**
- * Property to get the notification manager from the context.
- */
 val Context.notificationManager: NotificationManager
-    get() = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+    get() = getSystemService()!!
 
-/**
- * Property to get the connectivity manager from the context.
- */
 val Context.connectivityManager: ConnectivityManager
-    get() = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    get() = getSystemService()!!
 
-/**
- * Property to get the power manager from the context.
- */
 val Context.powerManager: PowerManager
-    get() = getSystemService(Context.POWER_SERVICE) as PowerManager
+    get() = getSystemService()!!
+
+val Context.keyguardManager: KeyguardManager
+    get() = getSystemService()!!
 
 /**
  * Convenience method to acquire a partial wake lock.
@@ -243,4 +248,13 @@ fun Context.openInBrowser(uri: Uri, @ColorInt toolbarColor: Int? = null) {
     } catch (e: Exception) {
         toast(e.message)
     }
+}
+
+fun Context.createFileInCacheDir(name: String): File {
+    val file = File(externalCacheDir, name)
+    if (file.exists()) {
+        file.delete()
+    }
+    file.createNewFile()
+    return file
 }

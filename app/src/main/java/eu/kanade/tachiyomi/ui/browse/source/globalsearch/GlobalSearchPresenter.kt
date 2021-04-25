@@ -48,12 +48,6 @@ open class GlobalSearchPresenter(
     val sources by lazy { getSourcesToQuery() }
 
     /**
-     * Query from the view.
-     */
-    var query = ""
-        private set
-
-    /**
      * Fetches the different sources by user settings.
      */
     private var fetchSourcesSubscription: Subscription? = null
@@ -68,7 +62,7 @@ open class GlobalSearchPresenter(
      */
     private var fetchImageSubscription: Subscription? = null
 
-    private val extensionManager by injectLazy<ExtensionManager>()
+    private val extensionManager: ExtensionManager by injectLazy()
 
     private var extensionFilter: String? = null
 
